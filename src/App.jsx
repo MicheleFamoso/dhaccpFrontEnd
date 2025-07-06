@@ -4,6 +4,8 @@ import "./App.css"
 import Login from "./components/Login"
 import Home from "./components/Home"
 import Registrazione from "./components/Registrazione"
+import HomePage from "./components/HomePage"
+import Profilo from "./components/Profilo"
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/registrazione" element={<Registrazione />}></Route>
+        <Route path="/homePage" element={<HomePage />}></Route>{" "}
+        <Route path="/profilo" element={<Profilo />}></Route>{" "}
       </Routes>
     </BrowserRouter>
   )

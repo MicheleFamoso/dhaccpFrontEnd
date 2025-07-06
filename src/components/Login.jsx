@@ -42,6 +42,7 @@ const Login = () => {
         console.log("Token ricevuto:", token)
         localStorage.setItem("token", token)
         setError("")
+        navigate("/homePage")
       })
       .catch((error) => {
         console.error("Errore:", error.message)
@@ -203,7 +204,7 @@ const Login = () => {
               className="w-25 bg-stone-100/70 shadow-md backdrop-blur-sm text-neutral-900 py-2 rounded-4xl hover:bg-lime-400/60 border-1 border-stone-200 hover:border-lime-300"
             >
               Accedi
-            </button>{" "}
+            </button>
           </div>
         </form>
       </div>
