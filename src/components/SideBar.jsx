@@ -32,7 +32,6 @@ const SideBar = () => {
       >
         {isExpanded ? (
           <>
-            {" "}
             <ChevronLeftIcon className="h-5 w-5 m-1 text-stone-500" />
           </>
         ) : (
@@ -52,7 +51,15 @@ const SideBar = () => {
               : "text-stone-500"
           }`}
         />
-        {isExpanded && <span className={`text-sm `}>Profilo</span>}
+        {isExpanded && (
+          <span
+            className={`text-sm ${
+              location.pathname === "/Profilo" ? "text-blue-600" : ""
+            }`}
+          >
+            Profilo
+          </span>
+        )}
       </div>
       <hr className="my-3 border-t border-stone-300" />
       <div
@@ -68,7 +75,15 @@ const SideBar = () => {
               : "text-stone-500"
           }`}
         />
-        {isExpanded && <span className="text-sm">Dashboard</span>}
+        {isExpanded && (
+          <span
+            className={`text-sm ${
+              location.pathname === "/HomePage" ? "text-blue-600" : ""
+            }`}
+          >
+            Dashboard
+          </span>
+        )}
       </div>
       <hr className="my-3 border-t border-stone-300" />
       <div
@@ -84,7 +99,15 @@ const SideBar = () => {
               : "text-stone-500"
           }`}
         />
-        {isExpanded && <span className="text-sm">Controllo Temperatura</span>}
+        {isExpanded && (
+          <span
+            className={`text-sm ${
+              location.pathname === "/temperatura" ? "text-blue-600" : ""
+            }`}
+          >
+            Controllo Temperatura
+          </span>
+        )}
       </div>
       <div
         onClick={() => navigate("/pulizie")}
@@ -99,7 +122,15 @@ const SideBar = () => {
               : "text-stone-500"
           }`}
         />
-        {isExpanded && <span className="text-sm">Pianificazione Pulizie</span>}
+        {isExpanded && (
+          <span
+            className={`text-sm ${
+              location.pathname === "/pulizie" ? "text-blue-600" : ""
+            }`}
+          >
+            Pianificazione Pulizie
+          </span>
+        )}
       </div>
       <div
         onClick={() => navigate("/infestanti")}
@@ -114,7 +145,15 @@ const SideBar = () => {
               : "text-stone-500"
           }`}
         />
-        {isExpanded && <span className="text-sm">Controllo Infestanti</span>}
+        {isExpanded && (
+          <span
+            className={`text-sm ${
+              location.pathname === "/infestanti" ? "text-blue-600" : ""
+            }`}
+          >
+            Controllo Infestanti
+          </span>
+        )}
       </div>
       <hr className="my-3 border-t border-stone-300" />
 
@@ -131,7 +170,15 @@ const SideBar = () => {
               : "text-stone-500"
           }`}
         />
-        {isExpanded && <span className="text-sm">Fornitori</span>}
+        {isExpanded && (
+          <span
+            className={`text-sm ${
+              location.pathname === "/fornitori" ? "text-blue-600" : ""
+            }`}
+          >
+            Fornitori
+          </span>
+        )}
       </div>
       <div
         onClick={() => navigate("/forniture")}
@@ -146,7 +193,15 @@ const SideBar = () => {
               : "text-stone-500"
           }`}
         />
-        {isExpanded && <span className="text-sm">Forniture</span>}
+        {isExpanded && (
+          <span
+            className={`text-sm ${
+              location.pathname === "/forniture" ? "text-blue-600" : ""
+            }`}
+          >
+            Forniture
+          </span>
+        )}
       </div>
       <hr className="my-3 border-t border-stone-300" />
       <div
@@ -160,7 +215,15 @@ const SideBar = () => {
             location.pathname === "/utenti" ? "text-blue-600" : "text-stone-500"
           }`}
         />
-        {isExpanded && <span className="text-sm">Utenti</span>}
+        {isExpanded && (
+          <span
+            className={`text-sm ${
+              location.pathname === "/utenti" ? "text-blue-600" : ""
+            }`}
+          >
+            Utenti
+          </span>
+        )}
       </div>
       <div
         onClick={() => navigate("/azienda")}
@@ -171,11 +234,19 @@ const SideBar = () => {
         <BuildingStorefrontIcon
           className={`h-6 w-6    backdrop-blur-sm  ${
             location.pathname === "/azienda"
-              ? "text-blue-600"
+              ? "text-blue-600 h-7 w-7"
               : "text-stone-500"
           }`}
         />
-        {isExpanded && <span className="text-sm">Azienda</span>}
+        {isExpanded && (
+          <span
+            className={`text-sm ${
+              location.pathname === "/azienda" ? "text-blue-600 font-bold" : ""
+            }`}
+          >
+            Azienda
+          </span>
+        )}
       </div>
       <hr className="my-3 border-t border-stone-300" />
       <div
@@ -192,7 +263,15 @@ const SideBar = () => {
             location.pathname === "/" ? "text-blue-600" : "text-stone-500"
           }`}
         />
-        {isExpanded && <span className="text-sm">Log Out</span>}
+        {isExpanded && (
+          <span
+            className={`text-sm ${
+              location.pathname === "/" ? "text-blue-600" : ""
+            }`}
+          >
+            Log Out
+          </span>
+        )}
       </div>
     </div>
   )
