@@ -1,0 +1,329 @@
+import SideBar from "./SideBar"
+import { useState, useEffect } from "react"
+
+import { PencilSquareIcon, CheckIcon } from "@heroicons/react/24/outline"
+const PianificazionePulizia = () => {
+  const [pulizie, setPulizie] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [nuovaPulizia, setNuovaPulizia] = useState({
+    oggetto: "",
+    detergente: "",
+    attrezzatureUtilizzate: "",
+    frequenza: "",
+  })
+  const [editingId, setEditingId] = useState(null)
+  const [puliziaModificata, setPuliziaModificata] = useState({})
+
+  const getPulizie = () => {
+    const token = localStorage.getItem("token")
+    console.log("Token:", token)
+    if (!token) {
+      console.warn("Nessun token trovato, fetch annullata.")
+      setError("Nessun token trovato, impossibile caricare le pulizie.")
+      return
+    }
+    setLoading(true)
+    setError(null)
+
+    fetch("http://localhost:8080/pulizie", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          if (res.status === 401) {
+            throw new Error("Token scaduto o non autorizzato.")
+          } else {
+            throw new Error(`Errore nella risposta: ${res.statusText}`)
+          }
+        }
+        return res.json()
+      })
+      .then((data) => {
+        console.log("Pulizie ricevute:", data)
+        setPulizie(data)
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.log("Errore nella fetch pulizie:", error)
+        setError(error.message || "Errore nel caricamento delle pulizie.")
+        setLoading(false)
+      })
+  }
+  useEffect(() => {
+    getPulizie()
+  }, [])
+
+  const handleAddPulizia = () => {
+    const token = localStorage.getItem("token")
+    fetch("http://localhost:8080/pulizie", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(nuovaPulizia),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          if (res.status === 401) {
+            throw new Error("Token scaduto o non autorizzato.")
+          } else {
+            throw new Error("Errore durante l'aggiunta")
+          }
+        }
+        return res.json()
+      })
+      .then(() => {
+        getPulizie()
+        setNuovaPulizia({
+          oggetto: "",
+          detergente: "",
+          attrezzatureUtilizzate: "",
+          frequenza: "",
+        })
+      })
+      .catch((err) => {
+        console.error(err)
+        setError(err.message)
+      })
+  }
+
+  return (
+    <div className="flex h-screen bg-gray-100">
+      <div>
+        <SideBar />
+      </div>
+      <div className="flex-1 p-6 justify-items-center justify-center">
+        {error && (
+          <div className="mb-4 text-center text-red-600 font-medium">
+            {error}
+          </div>
+        )}
+        <table className="w-250 border-collapse bg-neutral-50 shadow-xl">
+          <thead>
+            <tr>
+              <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200">
+                Oggetto
+              </th>
+              <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200">
+                Detergente
+              </th>
+              <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200">
+                Attrezzature utilizzate
+              </th>
+              <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200">
+                Frequenza
+              </th>
+              <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {pulizie.map((pulizia) => (
+              <tr key={pulizia.id}>
+                <td className="border-b border-gray-300 py-3 text-center">
+                  {editingId === pulizia.id ? (
+                    <input
+                      type="text"
+                      value={puliziaModificata.oggetto}
+                      onChange={(e) =>
+                        setPuliziaModificata({
+                          ...puliziaModificata,
+                          oggetto: e.target.value,
+                        })
+                      }
+                      className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                    />
+                  ) : (
+                    pulizia.oggetto
+                  )}
+                </td>
+                <td className="border-b border-gray-300 py-3 text-center bg-neutral-100">
+                  {editingId === pulizia.id ? (
+                    <input
+                      type="text"
+                      value={puliziaModificata.detergente}
+                      onChange={(e) =>
+                        setPuliziaModificata({
+                          ...puliziaModificata,
+                          detergente: e.target.value,
+                        })
+                      }
+                      className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                    />
+                  ) : (
+                    pulizia.detergente
+                  )}
+                </td>
+                <td className="border-b border-gray-300 py-3 text-center">
+                  {editingId === pulizia.id ? (
+                    <input
+                      type="text"
+                      value={puliziaModificata.attrezzatureUtilizzate}
+                      onChange={(e) =>
+                        setPuliziaModificata({
+                          ...puliziaModificata,
+                          attrezzatureUtilizzate: e.target.value,
+                        })
+                      }
+                      className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                    />
+                  ) : (
+                    pulizia.attrezzatureUtilizzate
+                  )}
+                </td>
+                <td className="border-b border-gray-300 py-3 text-center bg-neutral-100">
+                  {editingId === pulizia.id ? (
+                    <input
+                      type="text"
+                      value={puliziaModificata.frequenza}
+                      onChange={(e) =>
+                        setPuliziaModificata({
+                          ...puliziaModificata,
+                          frequenza: e.target.value,
+                        })
+                      }
+                      className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden "
+                    />
+                  ) : (
+                    pulizia.frequenza
+                  )}
+                </td>
+                <td className="border-b border-gray-300 py-3 text-center px-3">
+                  {editingId === pulizia.id ? (
+                    <button
+                      onClick={() => {
+                        const token = localStorage.getItem("token")
+                        fetch(`http://localhost:8080/pulizie/${pulizia.id}`, {
+                          method: "PUT",
+                          headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                          },
+                          body: JSON.stringify(puliziaModificata),
+                        })
+                          .then((res) => {
+                            if (!res.ok) {
+                              if (res.status === 401) {
+                                throw new Error(
+                                  "Token scaduto o non autorizzato."
+                                )
+                              } else {
+                                throw new Error("Errore durante la modifica")
+                              }
+                            }
+                            return res.json()
+                          })
+                          .then(() => {
+                            getPulizie()
+                            setEditingId(null)
+                            setPuliziaModificata({})
+                          })
+                          .catch((err) => {
+                            console.error(err)
+                            setError(err.message)
+                          })
+                      }}
+                      className="ml-2 flex items-center justify-center w-7 h-7 rounded-full  bg-green-400/80 transform transition-transform duration-200 ease-in-out hover:scale-110 "
+                    >
+                      <CheckIcon className="w-4 h-4 " />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        setEditingId(pulizia.id)
+                        setPuliziaModificata({
+                          oggetto: pulizia.oggetto,
+                          detergente: pulizia.detergente,
+                          attrezzatureUtilizzate:
+                            pulizia.attrezzatureUtilizzate,
+                          frequenza: pulizia.frequenza,
+                        })
+                      }}
+                      className=" ml-2 flex items-center justify-center w-7 h-7 rounded-full  bg-amber-400/80 transform transition-transform duration-200 ease-in-out hover:scale-110  "
+                    >
+                      <PencilSquareIcon className="w-4 h-4 " />
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td className="border-t border-gray-300 px-2 py-2">
+                <input
+                  type="text"
+                  value={nuovaPulizia.oggetto}
+                  onChange={(e) =>
+                    setNuovaPulizia({
+                      ...nuovaPulizia,
+                      oggetto: e.target.value,
+                    })
+                  }
+                  className="w-full px-2 py-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                  placeholder="Oggetto"
+                />
+              </td>
+              <td className="border-t border-gray-300 px-2 py-2 bg-neutral-100">
+                <input
+                  type="text"
+                  value={nuovaPulizia.detergente}
+                  onChange={(e) =>
+                    setNuovaPulizia({
+                      ...nuovaPulizia,
+                      detergente: e.target.value,
+                    })
+                  }
+                  className="w-full px-2 py-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden "
+                  placeholder="Detergente"
+                />
+              </td>
+              <td className="border-t border-gray-300 px-2 py-2">
+                <input
+                  type="text"
+                  value={nuovaPulizia.attrezzatureUtilizzate}
+                  onChange={(e) =>
+                    setNuovaPulizia({
+                      ...nuovaPulizia,
+                      attrezzatureUtilizzate: e.target.value,
+                    })
+                  }
+                  className="w-full px-2 py-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                  placeholder="Attrezzature"
+                />
+              </td>
+              <td className="border-t border-gray-300 px-2 py-2 bg-neutral-100 flex justify-center">
+                <input
+                  type="text"
+                  value={nuovaPulizia.frequenza}
+                  onChange={(e) =>
+                    setNuovaPulizia({
+                      ...nuovaPulizia,
+                      frequenza: e.target.value,
+                    })
+                  }
+                  className="w-3/4 px-2 py-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                  placeholder="Frequenza"
+                />
+              </td>
+              <td className="text-center ">
+                <button
+                  onClick={handleAddPulizia}
+                  className="w-7 h-7 bg-neutral-400 text-white rounded-full hover:bg-blue-600 text-sm hover:shadow-md hover:shadow-blue-600/50 focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                  title="Aggiungi"
+                >
+                  +
+                </button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+export default PianificazionePulizia
