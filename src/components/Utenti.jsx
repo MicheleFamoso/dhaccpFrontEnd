@@ -1,0 +1,355 @@
+import SideBar from "./SideBar"
+import { useState, useEffect } from "react"
+const Utenti = () => {
+  const [utenti, setUtenti] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [showForm, setShowForm] = useState(false)
+
+  const [nome, setNome] = useState("")
+  const [cognome, setCognome] = useState("")
+  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setpassword] = useState("")
+
+  const [idUtente, setIdUtente] = useState(null)
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [utenteToDelete, setUtenteToDelete] = useState(null)
+
+  const getUtenti = () => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+      console.warn("Nessun token trovato, fetch annullata.")
+      setError("Nessun token trovato, impossibile caricare gli utenti.")
+      return
+    }
+    setLoading(true)
+    setError(null)
+    fetch("http://localhost:8080/admin", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Errore nella risposta: ${res.statusText}`)
+        }
+        return res.json()
+      })
+      .then((data) => {
+        console.log("Aziende ricevute:", data)
+        setUtenti(data)
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.log("Errore nella fetch utenti:", error)
+        setError("Errore nel caricamento degli utenti.")
+        setLoading(false)
+      })
+  }
+  useEffect(() => {
+    getUtenti()
+  }, [])
+
+  const creaUtente = () => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+      setError("Token mancante, impossibile creare l'utente.")
+      return
+    }
+
+    fetch("http://localhost:8080/admin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        nome,
+        cognome,
+        username,
+        email,
+        password,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Errore nella creazione dell'utente.")
+        return res.json()
+      })
+      .then(() => {
+        setShowForm(false)
+        getUtenti()
+      })
+      .catch((err) => {
+        console.error(err)
+        setError("Errore durante la creazione dell'utente.")
+      })
+  }
+
+  const modificaUtente = () => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+      setError("Token mancante, impossibile modificare l'azienda.")
+      return
+    }
+
+    fetch(`http://localhost:8080/admin/${idUtente}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        nome,
+        cognome,
+        username,
+        email,
+        password,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Errore nella modifica dell'utente.")
+        return res.json()
+      })
+      .then(() => {
+        setShowForm(false)
+        getUtenti()
+      })
+      .catch((err) => {
+        console.error(err)
+        setError("Errore durante la modifica dell utente.")
+      })
+  }
+
+  return (
+    <div className="flex h-screen bg-gray-100">
+      <div>
+        <SideBar />
+      </div>
+      <div className="flex-1 mt-10 justify-items-center justify-center p-6">
+        <div className=" w-250">
+          {loading && (
+            <p className="text-xl text-center w-full py-10">
+              Caricamento in corso...
+            </p>
+          )}
+          {error && (
+            <p className="text-xl  text-center w-full py-10 text-red-600">
+              {error}
+            </p>
+          )}
+          {!loading && !error && utenti.length === 0 && !showForm && (
+            <div className="flex flex-col items-center text-center w-full py-10 gap-4">
+              <p className="text-xl">Nessun utente disponibile.</p>
+              <button
+                className="w-60 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded"
+                onClick={() => setShowForm(true)}
+              >
+                Aggiungi utente
+              </button>
+            </div>
+          )}
+          {!loading && !error && showForm && (
+            <div className="w-full p-6">
+              <h2 className="text-2xl font-bold text-center mb-6">
+                {idUtente ? "Modifica utente" : "Crea utente"}
+              </h2>
+              <form
+                className="flex flex-col gap-4"
+                onSubmit={(e) => {
+                  e.preventDefault()
+
+                  if (idUtente) {
+                    modificaUtente()
+                  } else {
+                    creaUtente()
+                  }
+                }}
+              >
+                <input
+                  type="text"
+                  placeholder="Nome"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                  className="w-full p-2 border-b focus:outline-none focus:border-blue-500"
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Cognome"
+                  value={cognome}
+                  onChange={(e) => setCognome(e.target.value)}
+                  className="w-full p-2 border-b focus:outline-none focus:border-blue-500"
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="w-full p-2 border-b focus:outline-none focus:border-blue-500"
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-2 border-b focus:outline-none focus:border-blue-500"
+                  required
+                />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setpassword(e.target.value)}
+                  className="w-full p-2 border-b focus:outline-none focus:border-blue-500"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="w-60 self-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600 hover:shadow-md hover:shadow-blue-500/50"
+                >
+                  {idUtente ? "Salva modifiche" : "Crea utente"}
+                </button>
+                <button
+                  type="button"
+                  className="w-60 self-center bg-gray-300 text-gray-800 py-2 rounded hover:bg-gray-400 mt-2"
+                  onClick={() => setShowForm(false)}
+                >
+                  Annulla
+                </button>
+              </form>
+            </div>
+          )}
+          {!loading && !error && !showForm && utenti.length > 0 && (
+            <div className="flex flex-col gap-4">
+              <div className="flex justify-end">
+                <button
+                  className="mb-4 bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-4 rounded-sm"
+                  onClick={() => {
+                    setNome("")
+                    setCognome("")
+                    setUsername("")
+                    setEmail("")
+                    setpassword("")
+                    setIdUtente(null)
+                    setShowForm(true)
+                  }}
+                >
+                  Aggiungi utente
+                </button>
+              </div>
+              <div className="grid grid-cols-2 gap-6">
+                {utenti.map((utente) => (
+                  <div
+                    key={utente.id}
+                    className="relative bg-gray-50 p-4 rounded-xs shadow-lg border-1 border-gray-200 flex flex-col"
+                  >
+                    <button
+                      onClick={() => {
+                        setUtenteToDelete(utente)
+                        setShowDeleteModal(true)
+                      }}
+                      className="absolute -top-4 right-1  w-8 h-8 bg-gray-200 border-1 border-gray-200 text-neutral-800  rounded-full hover:bg-red-400 hover:text-white shadow-md text-center "
+                      title="Elimina utente"
+                    >
+                      x
+                    </button>
+                    <div className="flex items-center gap-4">
+                      <img
+                        className="w-30 h-30 object-cover rounded-full"
+                        src="/public/IMG_6352.PNG"
+                        alt="user-placeholder"
+                      />
+                      <div className="flex flex-col ml-5">
+                        <p className="text-xl font-semibold">
+                          {utente.nome} {utente.cognome}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          Username: {utente.username}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          Email: {utente.email}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          Ruolo: {utente.role}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          Azienda: {utente.azienda.denominazioneAziendale}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      className="mt-4 self-end bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-4 rounded-sm"
+                      onClick={() => {
+                        setNome(utente.nome)
+                        setCognome(utente.cognome)
+                        setUsername(utente.username)
+                        setEmail(utente.email)
+                        setpassword("")
+                        setIdUtente(utente.id)
+                        setShowForm(true)
+                      }}
+                    >
+                      Modifica
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      {showDeleteModal && (
+        <div className="fixed inset-0 bg-neutral-400/50 bg-opacity-30 flex items-center justify-center  ">
+          <div className="bg-white rounded-sm p-6 w-100 shadow-lg ">
+            <h2 className="text-xl  mb-4">Conferma eliminazione</h2>
+            <p>
+              Sei sicuro di voler eliminare&nbsp;
+              <span className="font-bold">
+                {utenteToDelete?.cognome} &nbsp;{utenteToDelete?.nome}
+              </span>
+              ?
+            </p>
+            <div className="mt-6 flex justify-end gap-4">
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                className="px-4 py-2 rounded-sm bg-gray-300 hover:bg-gray-400"
+              >
+                Annulla
+              </button>
+              <button
+                onClick={() => {
+                  const token = localStorage.getItem("token")
+                  fetch(`http://localhost:8080/admin/${utenteToDelete.id}`, {
+                    method: "DELETE",
+                    headers: {
+                      Authorization: `Bearer ${token}`,
+                    },
+                  })
+                    .then((res) => {
+                      if (!res.ok)
+                        throw new Error("Errore durante l'eliminazione")
+                      getUtenti()
+                      setShowDeleteModal(false)
+                    })
+                    .catch((err) => {
+                      console.error(err)
+                      setShowDeleteModal(false)
+                    })
+                }}
+                className="px-2 py-1 rounded-sm bg-red-400 text-white hover:bg-red-500 hover:shadow-md hover:shadow-red-500/50"
+              >
+                Conferma
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default Utenti

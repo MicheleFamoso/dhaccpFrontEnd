@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { jwtDecode } from "jwt-decode"
 import { useNavigate } from "react-router-dom"
 import {
   BuildingStorefrontIcon,
@@ -41,6 +42,13 @@ const Login = () => {
       .then((token) => {
         console.log("Token ricevuto:", token)
         localStorage.setItem("token", token)
+        try {
+          const decoded = jwtDecode(token)
+          localStorage.setItem("ruolo", decoded.role)
+          console.log("Ruolo salvato:", decoded.role)
+        } catch (err) {
+          console.error("Errore nella decodifica del token:", err)
+        }
         setError("")
         navigate("/homePage")
       })

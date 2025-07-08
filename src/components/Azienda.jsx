@@ -8,6 +8,7 @@ import {
 import { useState, useEffect } from "react"
 const Azienda = () => {
   const [azienda, setAzienda] = useState([])
+  const [flipped, setFlipped] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [showForm, setShowForm] = useState(false)
@@ -133,12 +134,12 @@ const Azienda = () => {
 
   return (
     <div>
-      <div className="flex h-screen   bg-stone-200   ">
+      <div className="flex h-screen   bg-gray-100   ">
         <div>
           <SideBar />
         </div>
         <div className="flex-1 mt-10 justify-items-center justify-center   p-6">
-          <div className=" bg-stone-100/70 w-128 backdrop-blur-[3px]  flex   rounded-4xl shadow-xl  border-1 border-stone-200 mr-20 mt-5 ">
+          <div className="     flex     ">
             {loading && (
               <p className="text-xl text-center w-full py-10">
                 Caricamento in corso...
@@ -150,12 +151,12 @@ const Azienda = () => {
               </p>
             )}
             {!loading && !error && azienda.length === 0 && !showForm && (
-              <div className="flex flex-col items-center text-center w-full py-10 gap-4">
+              <div className="flex flex-col items-center text-center w-200 py-10 gap-4 bg-neutral-50 border-1 border-neutral-300 shadow-xl">
                 <p className="text-xl text-center  py-10">
                   Nessuna azienda disponibile.
                 </p>
                 <button
-                  className=" w-60 bg-stone-100/70 shadow-md backdrop-blur-sm text-neutral-900 py-2 rounded-4xl hover:bg-stone-400/60 border-1 border-stone-200 hover:border-stone-300"
+                  className=" w-50 bg-stone-100/70 shadow-md backdrop-blur-sm text-neutral-900 py-2 rounded-sm hover:bg-green-400/60 border-1 border-stone-200 hover:border-green-300 hover:shadow-2xl hover:shadow-green-400/50"
                   onClick={() => setShowForm(true)}
                 >
                   Aggiunti azienda
@@ -163,7 +164,7 @@ const Azienda = () => {
               </div>
             )}
             {!loading && !error && showForm && (
-              <div className="w-full p-6">
+              <div className="w-200 p-6 bg-neutral-50 border-1 border-neutral-300 shadow-xl">
                 <h2 className="text-2xl font-bold text-center mb-6">
                   Crea azienda
                 </h2>
@@ -183,7 +184,7 @@ const Azienda = () => {
                     placeholder="Denominazione Aziendale"
                     value={denominazioneAziendale}
                     onChange={(e) => setDenominazioneAziendale(e.target.value)}
-                    className="w-full mb-3   p-2   border-b focus:border-amber-800 focus:outline-hidden"
+                    className="w-full mb-3   p-2   border-b focus:border-blue-800  focus:border-b-2 focus:outline-hidden"
                     required
                   />
                   <input
@@ -191,7 +192,7 @@ const Azienda = () => {
                     placeholder="Ragione Sociale"
                     value={ragioneSociale}
                     onChange={(e) => setRagioneSociale(e.target.value)}
-                    className="w-full mb-3   p-2   border-b focus:border-amber-800 focus:outline-hidden"
+                    className="w-full mb-3   p-2   border-b focus:border-blue-800 focus:border-b-2 focus:outline-hidden"
                     required
                   />
                   <input
@@ -199,7 +200,7 @@ const Azienda = () => {
                     placeholder="Tipologia Attività"
                     value={tipologiaAttivita}
                     onChange={(e) => setTipologiaAttivita(e.target.value)}
-                    className="w-full mb-3   p-2   border-b focus:border-amber-800 focus:outline-hidden"
+                    className="w-full mb-3   p-2   border-b focus:border-blue-800 focus:border-b-2 focus:outline-hidden"
                     required
                   />
                   <input
@@ -207,7 +208,7 @@ const Azienda = () => {
                     placeholder="Sede Operativa"
                     value={sedeOperativa}
                     onChange={(e) => setSedeOperativa(e.target.value)}
-                    className="w-full mb-3   p-2   border-b focus:border-amber-800 focus:outline-hidden"
+                    className="w-full mb-3   p-2   border-b focus:border-blue-800 focus:border-b-2 focus:outline-hidden"
                     required
                   />
                   <input
@@ -215,7 +216,7 @@ const Azienda = () => {
                     placeholder="Partita IVA"
                     value={partitaIva}
                     onChange={(e) => setPartitaIva(e.target.value)}
-                    className="w-full mb-3   p-2   border-b focus:border-amber-800 focus:outline-hidden"
+                    className="w-full mb-3   p-2   border-b focus:border-blue-800 focus:border-b-2 focus:outline-hidden"
                     required
                   />
                   <input
@@ -223,7 +224,7 @@ const Azienda = () => {
                     placeholder="Telefono"
                     value={telefono}
                     onChange={(e) => setTelefono(e.target.value)}
-                    className="w-full mb-3   p-2   border-b focus:border-amber-800 focus:outline-hidden"
+                    className="w-full mb-3   p-2   border-b focus:border-blue-800 focus:border-b-2 focus:outline-hidden"
                     required
                   />
                   <input
@@ -231,12 +232,12 @@ const Azienda = () => {
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full mb-3   p-2   border-b focus:border-amber-800 focus:outline-hidden"
+                    className="w-full mb-3   p-2   border-b focus:border-blue-800 focus:border-b-2 focus:outline-hidden"
                     required
                   />
                   <button
                     type="submit"
-                    className="w-60 self-center bg-stone-100/70 shadow-md backdrop-blur-sm text-neutral-900 py-2 rounded-4xl hover:bg-lime-400/60 border-1 border-stone-200 hover:border-lime-300"
+                    className="w-50 self-center  bg-stone-100/70 shadow-md backdrop-blur-sm text-neutral-900 py-2 rounded-sm hover:bg-green-400/60 border-1 border-stone-200 hover:border-green-300 hover:shadow-2xl hover:shadow-green-400/50"
                   >
                     Salva azienda
                   </button>
@@ -251,59 +252,75 @@ const Azienda = () => {
                 return (
                   <div
                     key={aziende.id}
-                    className="relative flex flex-col items-center py-10  w-9/12"
+                    className="flex justify-center items-center h-[calc(100vh-100px)] w-full"
                   >
-                    <img
-                      src="/public/perspective_matte-247-128x128.png"
-                      className="absolute -top-18 left-25 -translate-x-1/2 w-30 h-30"
-                      alt="img-store"
-                    />
-                    <div className="      flex flex-col ">
-                      <p className="text-5xl font-[Unna] whitespace-nowrap font-bold text-amber-900">
-                        {aziende.denominazioneAziendale}
-                      </p>
-                      <p className=" text-amber-600 -mt-2 mb-5 font-light">
-                        {aziende.tipologiaAttivita}
-                      </p>
-                      <div className="flex items-start gap-2 mb-3">
-                        <MapPinIcon className="h-6 w-6 min-w-6 text-red-500 mt-1" />
-                        <span className="text-xl">{aziende.sedeOperativa}</span>
-                      </div>
-                      <div className="flex items-start gap-2 mb-3">
-                        <PhoneIcon className="h-6 w-6 min-w-6 text-blue-500 mt-1" />
-                        <span className="text-xl">{aziende.telefono}</span>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <EnvelopeOpenIcon className="h-6 w-6 min-w-6 text-teal-500 mt-1" />
-                        <span className="text-xl">{aziende.email}</span>
-                      </div>
-
-                      <hr className="my-3 w-full h-[1px] bg-stone-300 border-none" />
-
-                      <span className="text-xl mt-5 mb-3 text-gray-600">
-                        Partita IVA: {aziende.partitaIva}
-                      </span>
-                      <span className="text-xl  text-gray-600">
-                        Ragione sociale: {aziende.ragioneSociale}
-                      </span>
-                    </div>
-                    <button
-                      className="absolute -top-6 -right-30 bg-stone-100/70 shadow-md backdrop-blur-sm text-neutral-900 py-2 px-6 rounded-4xl hover:bg-stone-400/60 border border-stone-200 hover:border-stone-300"
-                      onClick={() => {
-                        setDenominazioneAziendale(
-                          azienda[0].denominazioneAziendale
-                        )
-                        setRagioneSociale(azienda[0].ragioneSociale)
-                        setTipologiaAttivita(azienda[0].tipologiaAttivita)
-                        setSedeOperativa(azienda[0].sedeOperativa)
-                        setPartitaIva(azienda[0].partitaIva)
-                        setTelefono(azienda[0].telefono)
-                        setEmail(azienda[0].email)
-                        setShowForm(true)
-                      }}
+                    <div
+                      className="relative w-[350px] h-[200px] perspective cursor-pointer  "
+                      onClick={() => setFlipped(!flipped)}
                     >
-                      Modifica
-                    </button>
+                      <div
+                        className={`relative w-full h-full duration-700 transform-style preserve-3d transition-transform ${
+                          flipped ? "rotate-y-180" : ""
+                        }`}
+                      >
+                        {/* Fronte */}
+                        <div className="absolute w-full h-full scale-150 backface-hidden transform rotate-y-0 bg-gradient-to-br from-neutral-200 to-neutral-300 rounded-sm shadow-xl flex flex-col items-center justify-center   ">
+                          <p className="text-5xl font-bold text-neutral-700 font-[Unna] text-shadow-1 ">
+                            {aziende.denominazioneAziendale}
+                          </p>
+                          <p className="text-md font-light font-[Unna] text-neutral-600 text-shadow-1">
+                            {aziende.tipologiaAttivita}
+                          </p>
+                        </div>
+
+                        {/* Retro */}
+                        <div className="absolute w-full h-full scale-150 backface-hidden transform rotate-y-180 bg-gradient-to-br from-neutral-300 to-neutral-400 rounded-sm shadow-lg flex flex-col justify-center    ">
+                          <div className="flex items-center ml-5 mb-3 gap-2">
+                            <MapPinIcon className="h-4 w-4 text-red-400" />
+                            <p className="text-neutral-700 text-shadow-1 text-xs">
+                              {aziende.sedeOperativa}
+                            </p>
+                          </div>
+                          <div className="flex items-center ml-5 mb-3 gap-2">
+                            <PhoneIcon className="h-4 w-4 text-blue-400" />
+                            <p className="text-neutral-700 text-shadow-1 text-xs">
+                              {aziende.telefono}
+                            </p>
+                          </div>
+                          <div className="flex items-center ml-5 mb-3 gap-2">
+                            <EnvelopeOpenIcon className="h-4 w-4 text-teal-400" />
+                            <p className="text-neutral-700 text-shadow-1 text-xs">
+                              {aziende.email}
+                            </p>
+                          </div>
+
+                          <p className="text-neutral-700 text-shadow-1 ml-5 text-xs mb-3  ">
+                            Partita iva: {aziende.partitaIva}
+                          </p>
+                          <p className="text-neutral-700 text-shadow-1 ml-5 text-xs mb-3  ">
+                            Ragione sociale: {aziende.ragioneSociale}
+                          </p>
+                          <button
+                            className="mt-2 self-end me-4 w-32 bg-stone-100/70 shadow-md backdrop-blur-sm text-neutral-900 py-1 rounded-sm hover:bg-blue-400/60 border border-stone-200 hover:border-blue-300 hover:shadow-lg hover:shadow-blue-400/50 text-xs"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              setDenominazioneAziendale(
+                                aziende.denominazioneAziendale
+                              )
+                              setRagioneSociale(aziende.ragioneSociale)
+                              setTipologiaAttivita(aziende.tipologiaAttivita)
+                              setSedeOperativa(aziende.sedeOperativa)
+                              setPartitaIva(aziende.partitaIva)
+                              setTelefono(aziende.telefono)
+                              setEmail(aziende.email)
+                              setShowForm(true)
+                            }}
+                          >
+                            Modifica azienda
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )
               })}
