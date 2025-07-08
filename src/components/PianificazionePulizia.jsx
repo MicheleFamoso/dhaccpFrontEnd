@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { PencilSquareIcon, CheckIcon } from "@heroicons/react/24/outline"
 const PianificazionePulizia = () => {
   const [pulizie, setPulizie] = useState([])
-  const [loading, setLoading] = useState(false)
+
   const [error, setError] = useState(null)
   const [nuovaPulizia, setNuovaPulizia] = useState({
     oggetto: "",
@@ -23,7 +23,7 @@ const PianificazionePulizia = () => {
       setError("Nessun token trovato, impossibile caricare le pulizie.")
       return
     }
-    setLoading(true)
+
     setError(null)
 
     fetch("http://localhost:8080/pulizie", {
@@ -44,12 +44,10 @@ const PianificazionePulizia = () => {
       .then((data) => {
         console.log("Pulizie ricevute:", data)
         setPulizie(data)
-        setLoading(false)
       })
       .catch((error) => {
         console.log("Errore nella fetch pulizie:", error)
         setError(error.message || "Errore nel caricamento delle pulizie.")
-        setLoading(false)
       })
   }
   useEffect(() => {
