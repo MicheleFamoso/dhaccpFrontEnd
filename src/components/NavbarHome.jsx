@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+
 import {
   BuildingStorefrontIcon,
   SparklesIcon,
@@ -11,11 +11,10 @@ import {
   MapPinIcon,
 } from "@heroicons/react/24/outline"
 
-const Home = () => {
-  const navigate = useNavigate()
+const NavbarHome = () => {
   const [activePanel, setActivePanel] = useState(null)
   return (
-    <div className="bg-[url('/data.svg')] w-screen h-screen bg-no-repeat bg-[position:right_bottom] bg-[length:700px_700px]">
+    <>
       <div className=" flex justify-end ">
         <div className=" mr-20 mt-5 ">
           <button
@@ -129,29 +128,8 @@ const Home = () => {
           </div>
         </div>
       )}
-
-      <div className="ml-10 flex flex-col  ">
-        <h1 className="font-[Unna] text-[250px]  ">d/haccp</h1>
-        <p className="text-5xl font-[Unna] ml-15 -mt-20">
-          Digital HACCP Management
-        </p>
-      </div>
-      <div className="flex ml-10 justify-center w-180 mt-10">
-        <button
-          onClick={() => navigate("/registrazione")}
-          className="w-30 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded mr-3"
-        >
-          Registrati
-        </button>
-        <button
-          onClick={() => navigate("/login")}
-          className="w-30 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded "
-        >
-          Login
-        </button>
-      </div>
-    </div>
+    </>
   )
 }
 
-export default Home
+export default NavbarHome

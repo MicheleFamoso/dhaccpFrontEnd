@@ -7,7 +7,7 @@ import {
 
 import { useState, useEffect } from "react"
 const Azienda = () => {
-  const [azienda, setAzienda] = useState([])
+  const [azienda, setAzienda] = useState(null)
   const [flipped, setFlipped] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -32,19 +32,23 @@ const Azienda = () => {
     setLoading(true)
     setError(null)
 
-    fetch("http://localhost:8080/aziende", {
+    fetch("http://localhost:8080/aziende/mia", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Errore nella risposta: ${res.statusText}`)
-        }
-        return res.json()
+        if (!res.ok) throw new Error(`Errore nella risposta: ${res.statusText}`)
+        return res.text()
       })
-      .then((data) => {
-        console.log("Aziende ricevute:", data)
+      .then((text) => {
+        if (!text) {
+          setAzienda(null)
+          setLoading(false)
+          return
+        }
+        const data = JSON.parse(text)
+        console.log("Azienda ricevuta:", data)
         setAzienda(data)
         setLoading(false)
       })
@@ -102,7 +106,7 @@ const Azienda = () => {
       return
     }
 
-    fetch(`http://localhost:8080/aziende/${azienda[0].id}`, {
+    fetch(`http://localhost:8080/aziende/${azienda.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -150,7 +154,7 @@ const Azienda = () => {
                 {error}
               </p>
             )}
-            {!loading && !error && azienda.length === 0 && !showForm && (
+            {!loading && !error && !azienda && !showForm && (
               <div className="flex flex-col items-center text-center w-200 py-10 gap-4 bg-neutral-50 border-1 border-neutral-300 shadow-xl">
                 <p className="text-xl text-center  py-10">
                   Nessuna azienda disponibile.
@@ -172,7 +176,7 @@ const Azienda = () => {
                   className="flex flex-col gap-4"
                   onSubmit={(e) => {
                     e.preventDefault()
-                    if (azienda.length > 0) {
+                    if (azienda) {
                       modificaAzienda()
                     } else {
                       creaAzienda()
@@ -244,86 +248,80 @@ const Azienda = () => {
                 </form>
               </div>
             )}
-            {!loading &&
-              !error &&
-              !showForm &&
-              azienda.length > 0 &&
-              azienda.map((aziende) => {
-                return (
+            {!loading && !error && !showForm && azienda && (
+              <div
+                key={azienda.id}
+                className="flex justify-center items-center h-[calc(100vh-100px)] w-full"
+              >
+                <div
+                  className="relative w-[350px] h-[200px] perspective cursor-pointer  "
+                  onClick={() => setFlipped(!flipped)}
+                >
                   <div
-                    key={aziende.id}
-                    className="flex justify-center items-center h-[calc(100vh-100px)] w-full"
+                    className={`relative w-full h-full duration-700 transform-style preserve-3d transition-transform ${
+                      flipped ? "rotate-y-180" : ""
+                    }`}
                   >
-                    <div
-                      className="relative w-[350px] h-[200px] perspective cursor-pointer  "
-                      onClick={() => setFlipped(!flipped)}
-                    >
-                      <div
-                        className={`relative w-full h-full duration-700 transform-style preserve-3d transition-transform ${
-                          flipped ? "rotate-y-180" : ""
-                        }`}
-                      >
-                        {/* Fronte */}
-                        <div className="absolute w-full h-full scale-150 backface-hidden transform rotate-y-0 bg-gradient-to-br from-neutral-200 to-neutral-300 rounded-sm shadow-xl flex flex-col items-center justify-center   ">
-                          <p className="text-5xl font-bold text-neutral-700 font-[Unna] text-shadow-1 ">
-                            {aziende.denominazioneAziendale}
-                          </p>
-                          <p className="text-md font-light font-[Unna] text-neutral-600 text-shadow-1">
-                            {aziende.tipologiaAttivita}
-                          </p>
-                        </div>
+                    {/* Fronte */}
+                    <div className="absolute w-full h-full scale-150 backface-hidden transform rotate-y-0 bg-gradient-to-br from-neutral-200 to-neutral-300 rounded-sm shadow-xl flex flex-col items-center justify-center   ">
+                      <p className="text-5xl font-bold text-neutral-700 font-[Unna] text-shadow-1 ">
+                        {azienda.denominazioneAziendale}
+                      </p>
+                      <p className="text-md font-light font-[Unna] text-neutral-600 text-shadow-1">
+                        {azienda.tipologiaAttivita}
+                      </p>
+                    </div>
 
-                        {/* Retro */}
-                        <div className="absolute w-full h-full scale-150 backface-hidden transform rotate-y-180 bg-gradient-to-br from-neutral-300 to-neutral-400 rounded-sm shadow-lg flex flex-col justify-center    ">
-                          <div className="flex items-center ml-5 mb-3 gap-2">
-                            <MapPinIcon className="h-4 w-4 text-red-400" />
-                            <p className="text-neutral-700 text-shadow-1 text-xs">
-                              {aziende.sedeOperativa}
-                            </p>
-                          </div>
-                          <div className="flex items-center ml-5 mb-3 gap-2">
-                            <PhoneIcon className="h-4 w-4 text-blue-400" />
-                            <p className="text-neutral-700 text-shadow-1 text-xs">
-                              {aziende.telefono}
-                            </p>
-                          </div>
-                          <div className="flex items-center ml-5 mb-3 gap-2">
-                            <EnvelopeOpenIcon className="h-4 w-4 text-teal-400" />
-                            <p className="text-neutral-700 text-shadow-1 text-xs">
-                              {aziende.email}
-                            </p>
-                          </div>
-
-                          <p className="text-neutral-700 text-shadow-1 ml-5 text-xs mb-3  ">
-                            Partita iva: {aziende.partitaIva}
-                          </p>
-                          <p className="text-neutral-700 text-shadow-1 ml-5 text-xs mb-3  ">
-                            Ragione sociale: {aziende.ragioneSociale}
-                          </p>
-                          <button
-                            className="mt-2 self-end me-4 w-32 bg-stone-100/70 shadow-md backdrop-blur-sm text-neutral-900 py-1 rounded-sm hover:bg-blue-400/60 border border-stone-200 hover:border-blue-300 hover:shadow-lg hover:shadow-blue-400/50 text-xs"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              setDenominazioneAziendale(
-                                aziende.denominazioneAziendale
-                              )
-                              setRagioneSociale(aziende.ragioneSociale)
-                              setTipologiaAttivita(aziende.tipologiaAttivita)
-                              setSedeOperativa(aziende.sedeOperativa)
-                              setPartitaIva(aziende.partitaIva)
-                              setTelefono(aziende.telefono)
-                              setEmail(aziende.email)
-                              setShowForm(true)
-                            }}
-                          >
-                            Modifica azienda
-                          </button>
-                        </div>
+                    {/* Retro */}
+                    <div className="absolute w-full h-full scale-150 backface-hidden transform rotate-y-180 bg-gradient-to-br from-neutral-300 to-neutral-400 rounded-sm shadow-lg flex flex-col justify-center    ">
+                      <div className="flex items-center ml-5 mb-3 gap-2">
+                        <MapPinIcon className="h-4 w-4 text-red-400" />
+                        <p className="text-neutral-700 text-shadow-1 text-xs">
+                          {azienda.sedeOperativa}
+                        </p>
                       </div>
+                      <div className="flex items-center ml-5 mb-3 gap-2">
+                        <PhoneIcon className="h-4 w-4 text-blue-400" />
+                        <p className="text-neutral-700 text-shadow-1 text-xs">
+                          {azienda.telefono}
+                        </p>
+                      </div>
+                      <div className="flex items-center ml-5 mb-3 gap-2">
+                        <EnvelopeOpenIcon className="h-4 w-4 text-teal-400" />
+                        <p className="text-neutral-700 text-shadow-1 text-xs">
+                          {azienda.email}
+                        </p>
+                      </div>
+
+                      <p className="text-neutral-700 text-shadow-1 ml-5 text-xs mb-3  ">
+                        Partita iva: {azienda.partitaIva}
+                      </p>
+                      <p className="text-neutral-700 text-shadow-1 ml-5 text-xs mb-3  ">
+                        Ragione sociale: {azienda.ragioneSociale}
+                      </p>
+                      <button
+                        className="mt-2 self-end me-4 w-32 bg-stone-100/70 shadow-md backdrop-blur-sm text-neutral-900 py-1 rounded-sm hover:bg-blue-400/60 border border-stone-200 hover:border-blue-300 hover:shadow-lg hover:shadow-blue-400/50 text-xs"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setDenominazioneAziendale(
+                            azienda.denominazioneAziendale
+                          )
+                          setRagioneSociale(azienda.ragioneSociale)
+                          setTipologiaAttivita(azienda.tipologiaAttivita)
+                          setSedeOperativa(azienda.sedeOperativa)
+                          setPartitaIva(azienda.partitaIva)
+                          setTelefono(azienda.telefono)
+                          setEmail(azienda.email)
+                          setShowForm(true)
+                        }}
+                      >
+                        Modifica azienda
+                      </button>
                     </div>
                   </div>
-                )
-              })}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
