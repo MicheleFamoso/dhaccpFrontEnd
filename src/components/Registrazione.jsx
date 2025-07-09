@@ -59,7 +59,7 @@ const Registrazione = () => {
   }
 
   return (
-    <div className=" bg-[url('/4802922.webp')]   min-h-screen bg-cover  ">
+    <div className=" bg-[url('/data.svg')] w-screen h-screen bg-no-repeat bg-[position:right_bottom] bg-[length:700px_700px] ">
       <div className=" flex justify-end ">
         <div className=" bg-stone-100/70 w-128 backdrop-blur-[3px]  flex   rounded-4xl shadow-md  border-1 border-stone-200 mr-20 mt-5 ">
           <button

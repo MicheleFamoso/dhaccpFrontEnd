@@ -15,14 +15,14 @@ const Home = () => {
   const navigate = useNavigate()
   const [activePanel, setActivePanel] = useState(null)
   return (
-    <div className=" bg-[url('/4802922.webp')]   min-h-screen bg-cover  ">
+    <div className="bg-[url('/data.svg')] w-screen h-screen bg-no-repeat bg-[position:right_bottom] bg-[length:700px_700px]">
       <div className=" flex justify-end ">
-        <div className=" bg-stone-100/70 w-128 backdrop-blur-[3px]  flex   rounded-4xl shadow-md  border-1 border-stone-200 mr-20 mt-5 ">
+        <div className=" mr-20 mt-5 ">
           <button
             onClick={() =>
               setActivePanel(activePanel === "features" ? null : "features")
             }
-            className={`px-8 py-3 rounded-4xl ${
+            className={`px-8 py-3 rounded-4xl  text-blue-500 ${
               activePanel === "features"
                 ? "bg-stone-300/70"
                 : "hover:bg-stone-300/50"
@@ -32,10 +32,10 @@ const Home = () => {
           </button>
           <button
             onClick={() => setActivePanel(activePanel === "noi" ? null : "noi")}
-            className={`px-8 py-3 rounded-4xl ${
+            className={`px-8 py-3 rounded-4xl  text-blue-500 ${
               activePanel === "noi"
-                ? "bg-stone-300/70"
-                : "hover:bg-stone-300/50"
+                ? "bg-stone-300/70 "
+                : "hover:bg-stone-300/50  "
             }`}
           >
             Chi siamo
@@ -44,7 +44,7 @@ const Home = () => {
             onClick={() =>
               setActivePanel(activePanel === "contact" ? null : "contact")
             }
-            className={`px-8 py-3 rounded-4xl ${
+            className={`px-8 py-3 rounded-4xl  text-blue-500 ${
               activePanel === "contact"
                 ? "bg-stone-300/70"
                 : "hover:bg-stone-300/50"
@@ -56,7 +56,7 @@ const Home = () => {
             onClick={() =>
               setActivePanel(activePanel === "sede" ? null : "sede")
             }
-            className={`px-8 py-3 rounded-4xl ${
+            className={`px-8 py-3 rounded-4xl  text-blue-500 ${
               activePanel === "sede"
                 ? "bg-stone-300/70"
                 : "hover:bg-stone-300/50"
@@ -68,8 +68,8 @@ const Home = () => {
       </div>
       {activePanel === "features" && (
         <div className="absolute right-45 top-20 z-10">
-          <div className="bg-stone-100/70 backdrop-blur-[3px] rounded-4xl shadow-md border-1 border-stone-200 w-100 p-6">
-            <p className="mt-3 flex items-center gap-2">
+          <div className="bg-neutral-100  rounded-md shadow-md border-1 border-stone-200 w-100 p-6">
+            <p className="m2-3 flex items-center gap-2">
               <BuildingStorefrontIcon className="h-5 w-5 text-amber-600" />
               Registrare e gestire più ristoranti
             </p>
@@ -94,7 +94,7 @@ const Home = () => {
       )}
       {activePanel === "noi" && (
         <div className="absolute right-45 top-20 z-10">
-          <div className="bg-stone-100/70 backdrop-blur-[3px] rounded-4xl shadow-md border-1 border-stone-200 w-80 p-6">
+          <div className="bg-neutral-100  rounded-md shadow-md border-1 border-stone-200 w-80 p-6">
             <p className=" text-wrap">
               <span className="font-[Unna] font-bold text-xl ">d/HACCP</span> è
               una piattaforma digitale pensata per semplificare la gestione
@@ -107,8 +107,8 @@ const Home = () => {
       )}
       {activePanel === "contact" && (
         <div className="absolute right-32 top-20 z-10">
-          <div className="bg-stone-100/70 backdrop-blur-[3px] rounded-4xl shadow-md border-1 border-stone-200 w-70 p-6">
-            <p className="mt-3 flex items-center gap-2">
+          <div className="bg-neutral-100  rounded-md shadow-md border-1 border-stone-200 w-70 px-6 py-3">
+            <p className="mt-1 flex items-center gap-2">
               <UserCircleIcon className="h-5 w-5 text-blue-600" />
               Michele Famoso
             </p>
@@ -121,7 +121,7 @@ const Home = () => {
       )}
       {activePanel === "sede" && (
         <div className="absolute right-22 top-20 z-10">
-          <div className="bg-stone-100/70 backdrop-blur-[3px] rounded-4xl shadow-md border-1 border-stone-200 w-55 p-6">
+          <div className="bg-neutral-100  rounded-md shadow-md border-1 border-stone-200 w-55 px-6 py-2">
             <p className="mt-3 flex items-center gap-2 mb-2">
               <MapPinIcon className="h-5 w-5 text-green-600" />
               Sviluppato a Milano
@@ -139,13 +139,13 @@ const Home = () => {
       <div className="flex ml-10 justify-center w-180 mt-10">
         <button
           onClick={() => navigate("/registrazione")}
-          className="w-25 bg-stone-100/70 shadow-md backdrop-blur-sm text-neutral-900 py-2 rounded-4xl hover:bg-stone-200/50 border-1 border-stone-200 hover:border-stone-300 mr-5"
+          className="w-30 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded mr-3"
         >
           Registrati
         </button>
         <button
           onClick={() => navigate("/login")}
-          className="w-25 bg-stone-100/70 shadow-md backdrop-blur-sm text-neutral-900 py-2 rounded-4xl hover:bg-stone-200/50 border-1 border-stone-200 hover:border-stone-300 ml-5"
+          className="w-30 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded "
         >
           Login
         </button>

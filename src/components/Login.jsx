@@ -59,7 +59,7 @@ const Login = () => {
   }
 
   return (
-    <div className=" bg-[url('/4802922.webp')]   min-h-screen bg-cover ">
+    <div className="bg-[url('/data.svg')] w-screen h-screen bg-no-repeat bg-[position:right_bottom] bg-[length:700px_700px]">
       <div className=" flex justify-end ">
         <div className=" bg-stone-100/70 w-128 backdrop-blur-[3px]  flex   rounded-4xl shadow-md  border-1 border-stone-200 mr-20 mt-5 ">
           <button
@@ -179,7 +179,7 @@ const Login = () => {
           Digital HACCP Management
         </p>
       </div>
-      <div className="bg-stone-100/70 backdrop-blur-sm p-6 rounded-4xl shadow-md w-90 border-1 border-stone-200 flex ml-45   mt-10  ">
+      <div className="bg-stone-100/70  p-6 rounded-sm shadow-md w-90 border-1 border-stone-200 flex ml-45   mt-10  ">
         <form onSubmit={handleSubmit}>
           <h2 className="text-2xl   mb-4 text-center">Login</h2>
           {error && (
@@ -203,13 +203,13 @@ const Login = () => {
           <div className="flex justify-around mt-3 mb-3">
             <button
               onClick={() => navigate("/")}
-              className="w-25 bg-stone-100/70 shadow-md backdrop-blur-sm text-neutral-900 py-2 rounded-4xl hover:bg-red-500/80 border-1 border-stone-200 hover:border-red-300"
+              className="w-25 bg-gray-200  text-gray-800 py-2 rounded hover:bg-red-500/80 "
             >
               Annulla
             </button>
             <button
               type="submit"
-              className="w-25 bg-stone-100/70 shadow-md backdrop-blur-sm text-neutral-900 py-2 rounded-4xl hover:bg-lime-400/60 border-1 border-stone-200 hover:border-lime-300"
+              className="w-25 bg-gray-200  text-gray-800 py-2 rounded hover:bg-lime-400/60 "
             >
               Accedi
             </button>
