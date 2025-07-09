@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { jwtDecode } from "jwt-decode"
 import { useNavigate, useLocation } from "react-router-dom"
 import {
   HomeIcon,
@@ -19,7 +20,8 @@ const SideBar = () => {
   const [isExpanded, setIsExpanded] = useState(true)
   const navigate = useNavigate()
   const location = useLocation()
-  const ruolo = localStorage.getItem("ruolo")
+  const token = localStorage.getItem("token")
+  const ruolo = token ? jwtDecode(token).role : null
 
   return (
     <div
@@ -266,6 +268,7 @@ const SideBar = () => {
         onClick={() => {
           navigate("/")
           localStorage.removeItem("token")
+          localStorage.removeItem("ruolo")
         }}
         className={`flex items-center gap-3 p-2 rounded-sm cursor-pointer hover:bg-stone-200 ${
           location.pathname === "/" ? "bg-stone-200/60" : ""

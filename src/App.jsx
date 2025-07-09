@@ -9,6 +9,7 @@ import Profilo from "./components/Profilo"
 import Azienda from "./components/Azienda"
 import Utenti from "./components/Utenti"
 import PianificazionePulizia from "./components/PianificazionePulizia"
+import Fornitori from "./components/Fornitori"
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/azienda" element={<Azienda />}></Route>{" "}
         <Route path="/utenti" element={<Utenti />}></Route>
         <Route path="/pulizie" element={<PianificazionePulizia />}></Route>
+        <Route path="/fornitori" element={<Fornitori />}></Route>
       </Routes>
     </BrowserRouter>
   )

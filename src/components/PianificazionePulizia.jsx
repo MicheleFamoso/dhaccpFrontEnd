@@ -15,6 +15,9 @@ const PianificazionePulizia = () => {
   const [editingId, setEditingId] = useState(null)
   const [puliziaModificata, setPuliziaModificata] = useState({})
 
+  const [query, setQuery] = useState("")
+  const [risultatiRicerca, setRisultatiRicerca] = useState(null)
+
   const getPulizie = () => {
     const token = localStorage.getItem("token")
     console.log("Token:", token)
@@ -53,6 +56,37 @@ const PianificazionePulizia = () => {
   useEffect(() => {
     getPulizie()
   }, [])
+
+  const handleSearch = () => {
+    const token = localStorage.getItem("token")
+    const url = `http://localhost:8080/pulizie/cerca?query=${encodeURIComponent(
+      query.trim()
+    )}`
+
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          if (res.status === 401) {
+            throw new Error("Token scaduto o non autorizzato.")
+          } else {
+            throw new Error("Errore nella ricerca")
+          }
+        }
+        return res.json()
+      })
+      .then((data) => {
+        setRisultatiRicerca(data)
+        console.log("Risultati ricerca:", data)
+      })
+      .catch((err) => {
+        console.error(err)
+        setError(err.message)
+      })
+  }
 
   const handleAddPulizia = () => {
     const token = localStorage.getItem("token")
@@ -95,6 +129,21 @@ const PianificazionePulizia = () => {
         <SideBar />
       </div>
       <div className="flex-1 p-6 justify-items-center justify-center">
+        <div className="mb-4 flex gap-2 items-center">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Cerca per oggetto, frequenza o altro"
+            className="px-3 py-1 bg-white border border-gray-300 rounded-2xl w-150 shadow-sm mb-6 focus:outline-hidden focus:shadow-blue-300 focus:shadow-md"
+          />
+          <button
+            onClick={handleSearch}
+            className="px-2 py-1 bg-blue-400 text-white  hover:bg-blue-600 mb-6 rounded-2xl m"
+          >
+            Cerca
+          </button>
+        </div>
         {error && (
           <div className="mb-4 text-center text-red-600 font-medium">
             {error}
@@ -119,7 +168,7 @@ const PianificazionePulizia = () => {
             </tr>
           </thead>
           <tbody>
-            {pulizie.map((pulizia) => (
+            {(risultatiRicerca || pulizie).map((pulizia) => (
               <tr key={pulizia.id}>
                 <td className="border-b border-gray-300 py-3 text-center">
                   {editingId === pulizia.id ? (
@@ -224,7 +273,7 @@ const PianificazionePulizia = () => {
                             setError(err.message)
                           })
                       }}
-                      className="ml-2 flex items-center justify-center w-7 h-7 rounded-full  bg-green-400/80 transform transition-transform duration-200 ease-in-out hover:scale-110 "
+                      className="ml-2 flex items-center justify-center w-7 h-7 rounded-full bg-green-400  hover:bg-green-500 transform transition-transform duration-200 ease-in-out hover:scale-110 "
                     >
                       <CheckIcon className="w-4 h-4 " />
                     </button>
@@ -240,9 +289,9 @@ const PianificazionePulizia = () => {
                           frequenza: pulizia.frequenza,
                         })
                       }}
-                      className=" ml-2 flex items-center justify-center w-7 h-7 rounded-full  bg-amber-400/80 transform transition-transform duration-200 ease-in-out hover:scale-110  "
+                      className=" ml-2 flex items-center justify-center w-7 h-7  transform transition-transform duration-200 ease-in-out hover:scale-110  "
                     >
-                      <PencilSquareIcon className="w-4 h-4 " />
+                      <PencilSquareIcon className="w-6 h-6 " />
                     </button>
                   )}
                 </td>
@@ -310,7 +359,7 @@ const PianificazionePulizia = () => {
               <td className="text-center ">
                 <button
                   onClick={handleAddPulizia}
-                  className="w-7 h-7 bg-neutral-400 text-white rounded-full hover:bg-blue-600 text-sm hover:shadow-md hover:shadow-blue-600/50 focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                  className="w-7 h-7 bg-blue-400 text-white rounded-full hover:bg-blue-600 text-sm hover:shadow-md hover:shadow-blue-600/50 focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
                   title="Aggiungi"
                 >
                   +
