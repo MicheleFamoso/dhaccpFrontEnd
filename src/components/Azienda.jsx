@@ -251,10 +251,11 @@ const Azienda = () => {
             {!loading && !error && !showForm && azienda && (
               <div
                 key={azienda.id}
-                className="flex justify-center items-center h-[calc(100vh-100px)] w-full"
+                className="flex justify-center mt-20 h-[calc(100vh-100px)] w-full"
               >
                 <div
-                  className="relative w-[350px] h-[200px] perspective cursor-pointer  "
+                  className="relative w-[450px] h-[250px] cursor-pointer"
+                  style={{ perspective: "1200px" }}
                   onClick={() => setFlipped(!flipped)}
                 >
                   <div
@@ -263,17 +264,22 @@ const Azienda = () => {
                     }`}
                   >
                     {/* Fronte */}
-                    <div className="absolute w-full h-full scale-150 backface-hidden transform rotate-y-0 bg-gradient-to-br from-neutral-200 to-neutral-300 rounded-sm shadow-xl flex flex-col items-center justify-center   ">
-                      <p className="text-5xl font-bold text-neutral-700 font-[Unna] text-shadow-1 ">
+                    <div className="absolute w-full h-full scale-150 backface-hidden transform rotate-y-[28deg] transition-transform duration-700 ease-in-out bg-gray-50 p-4 rounded-md shadow-xl  border-1 border-gray-200 flex flex-col items-center justify-center">
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/10 rounded-md pointer-events-none" />
+
+                      <p className="text-5xl font-bold text-neutral-700 font-[Unna] text-shadow-md transform-gpu rotate-y-[28deg]">
                         {azienda.denominazioneAziendale}
                       </p>
-                      <p className="text-md font-light font-[Unna] text-neutral-600 text-shadow-1">
+                      <p className="text-md font-light font-[Unna] text-neutral-600 text-shadow-md transform-gpu rotate-y-[28deg]">
                         {azienda.tipologiaAttivita}
+                      </p>
+                      <p className="text-xs italic text-stone-500 mt-4 transform-gpu rotate-y-[28deg]">
+                        →
                       </p>
                     </div>
 
                     {/* Retro */}
-                    <div className="absolute w-full h-full scale-150 backface-hidden transform rotate-y-180 bg-gradient-to-br from-neutral-300 to-neutral-400 rounded-sm shadow-lg flex flex-col justify-center    ">
+                    <div className="absolute w-full h-full scale-150 backface-hidden transform rotate-y-180 bg-gray-50 p-4 rounded-md shadow-xl hover:shadow-2xl border-1 border-gray-200  flex flex-col justify-center    ">
                       <div className="flex items-center ml-5 mb-3 gap-2">
                         <MapPinIcon className="h-4 w-4 text-red-400" />
                         <p className="text-neutral-700 text-shadow-1 text-xs">

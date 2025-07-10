@@ -56,8 +56,10 @@ const Login = () => {
       </div>
 
       <div className="ml-20 flex flex-col  ">
-        <h1 className="font-[Unna] text-[200px] -mt-10 ">d/haccp</h1>
-        <p className="text-4xl font-[Unna] ml-15 -mt-15">
+        <h1 className="font-[Unna] text-[180px] -mt-20 ">
+          d<span className="text-blue-500">/</span>haccp
+        </h1>
+        <p className="text-4xl font-[Unna] ml-12 -mt-18">
           Digital HACCP Management
         </p>
       </div>
@@ -73,28 +75,31 @@ const Login = () => {
             placeholder="UserName"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
-            className="w-full mb-3   p-2   border-b focus:border-amber-800 focus:outline-hidden "
+            className="w-full mb-3   p-2   border-b focus:border-blue-500 focus:border-b-2 focus:outline-hidden "
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full mb-4 p-2 border-b  focus:border-amber-800 focus:outline-hidden"
+            className="w-full mb-4 p-2 border-b  focus:border-blue-500 focus:border-b-2 focus:outline-hidden"
           />
-          <div className="flex justify-around mt-3 mb-3">
-            <button
-              onClick={() => navigate("/registrazione")}
-              className="w-25 bg-gray-200  text-gray-800 py-2 rounded hover:bg-gray-300 "
-            >
-              Registrati
-            </button>
+          <div className=" mt-3 mb-3">
             <button
               type="submit"
-              className="w-25 bg-gray-200  text-gray-800 py-2 rounded hover:bg-lime-400/60 "
+              className="w-1/1  bg-gray-200  text-gray-800 py-2 rounded hover:bg-lime-400/60 "
             >
               Accedi
             </button>
+          </div>
+          <div className="flex ">
+            <p className="mr-2 text-gray-700">Non hai un account ? </p>
+            <button
+              onClick={() => navigate("/registrazione")}
+              className="underline underline-offset-1 cursor-pointer hover:text-blue-500"
+            >
+              Registrati
+            </button>{" "}
           </div>
         </form>
       </div>

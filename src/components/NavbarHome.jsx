@@ -9,19 +9,19 @@ import {
   UserCircleIcon,
   EnvelopeIcon,
   MapPinIcon,
-} from "@heroicons/react/24/outline"
+} from "@heroicons/react/24/solid"
 
 const NavbarHome = () => {
   const [activePanel, setActivePanel] = useState(null)
   return (
     <>
       <div className=" flex justify-end ">
-        <div className=" mr-20 mt-5 ">
+        <div className=" mr-20 mt-2 ">
           <button
             onClick={() =>
               setActivePanel(activePanel === "features" ? null : "features")
             }
-            className={`px-8 py-3 rounded-4xl  text-blue-500 ${
+            className={`px-8 py-3 rounded-4xl  text-gray-900 ${
               activePanel === "features"
                 ? "bg-stone-300/70"
                 : "hover:bg-stone-300/50"
@@ -31,7 +31,7 @@ const NavbarHome = () => {
           </button>
           <button
             onClick={() => setActivePanel(activePanel === "noi" ? null : "noi")}
-            className={`px-8 py-3 rounded-4xl  text-blue-500 ${
+            className={`px-8 py-3 rounded-4xl  text-gray-900 ${
               activePanel === "noi"
                 ? "bg-stone-300/70 "
                 : "hover:bg-stone-300/50  "
@@ -43,7 +43,7 @@ const NavbarHome = () => {
             onClick={() =>
               setActivePanel(activePanel === "contact" ? null : "contact")
             }
-            className={`px-8 py-3 rounded-4xl  text-blue-500 ${
+            className={`px-8 py-3 rounded-4xl  text-gray-900 ${
               activePanel === "contact"
                 ? "bg-stone-300/70"
                 : "hover:bg-stone-300/50"
@@ -51,22 +51,10 @@ const NavbarHome = () => {
           >
             Contatti
           </button>
-          <button
-            onClick={() =>
-              setActivePanel(activePanel === "sede" ? null : "sede")
-            }
-            className={`px-8 py-3 rounded-4xl  text-blue-500 ${
-              activePanel === "sede"
-                ? "bg-stone-300/70"
-                : "hover:bg-stone-300/50"
-            }`}
-          >
-            Sede
-          </button>
         </div>
       </div>
       {activePanel === "features" && (
-        <div className="absolute right-45 top-20 z-10">
+        <div className="absolute right-20 top-16 z-10 shadow-xl">
           <div className="bg-neutral-100  rounded-md shadow-md border-1 border-stone-200 w-100 p-6">
             <p className="m2-3 flex items-center gap-2">
               <BuildingStorefrontIcon className="h-5 w-5 text-amber-600" />
@@ -92,7 +80,7 @@ const NavbarHome = () => {
         </div>
       )}
       {activePanel === "noi" && (
-        <div className="absolute right-45 top-20 z-10">
+        <div className="absolute right-28 top-16 z-10 shadow-xl ">
           <div className="bg-neutral-100  rounded-md shadow-md border-1 border-stone-200 w-80 p-6">
             <p className=" text-wrap">
               <span className="font-[Unna] font-bold text-xl ">d/HACCP</span> è
@@ -105,7 +93,7 @@ const NavbarHome = () => {
         </div>
       )}
       {activePanel === "contact" && (
-        <div className="absolute right-32 top-20 z-10">
+        <div className="absolute right-22 top-16 z-10 shadow-xl">
           <div className="bg-neutral-100  rounded-md shadow-md border-1 border-stone-200 w-70 px-6 py-3">
             <p className="mt-1 flex items-center gap-2">
               <UserCircleIcon className="h-5 w-5 text-blue-600" />
@@ -114,16 +102,6 @@ const NavbarHome = () => {
             <p className="mt-3 flex items-center gap-2">
               <EnvelopeIcon className="h-5 w-5 text-red-500" />
               michelefamoso@gmail.com
-            </p>
-          </div>
-        </div>
-      )}
-      {activePanel === "sede" && (
-        <div className="absolute right-22 top-20 z-10">
-          <div className="bg-neutral-100  rounded-md shadow-md border-1 border-stone-200 w-55 px-6 py-2">
-            <p className="mt-3 flex items-center gap-2 mb-2">
-              <MapPinIcon className="h-5 w-5 text-green-600" />
-              Sviluppato a Milano
             </p>
           </div>
         </div>

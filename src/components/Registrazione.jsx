@@ -54,8 +54,10 @@ const Registrazione = () => {
         <div className="relative z-50">
           <NavbarHome />
         </div>
-        <h1 className="font-[Unna] text-[200px] -mt-10 ">d/haccp</h1>
-        <p className="text-4xl font-[Unna] ml-15 -mt-15">
+        <h1 className="font-[Unna] text-[180px] -mt-20 ">
+          d<span className="text-blue-500">/</span>haccp
+        </h1>
+        <p className="text-4xl font-[Unna] ml-12 -mt-18">
           Digital HACCP Management
         </p>
       </div>
@@ -76,26 +78,26 @@ const Registrazione = () => {
             placeholder="Nome"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
-            className="w-full mb-3   p-2   border-b focus:border-amber-800 focus:outline-hidden "
+            className="w-full mb-3   p-2   border-b focus:border-blue-500 focus:border-b-2 focus:outline-hidden "
           />
           <input
             placeholder="Cognome"
             value={cognome}
             onChange={(e) => setCognome(e.target.value)}
-            className="w-full mb-3   p-2   border-b focus:border-amber-800 focus:outline-hidden "
+            className="w-full mb-3   p-2   border-b focus:border-blue-500 focus:border-b-2 focus:outline-hidden "
           />
           <input
             placeholder="UserName"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
-            className="w-full mb-3   p-2   border-b focus:border-amber-800 focus:outline-hidden "
+            className="w-full mb-3   p-2   border-b focus:border-blue-500 focus:border-b-2 focus:outline-hidden "
           />
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full mb-3   p-2   border-b focus:border-amber-800 focus:outline-hidden "
+            className="w-full mb-3   p-2   border-b focus:border-blue-500 focus:border-b-2 focus:outline-hidden "
           />
 
           <input
@@ -103,7 +105,7 @@ const Registrazione = () => {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full mb-4 p-2 border-b  focus:border-amber-800 focus:outline-hidden"
+            className="w-full mb-4 p-2 border-b focus:border-blue-500 focus:border-b-2 focus:outline-hidden"
           />
           <div className="flex justify-around mt-3 mb-3">
             <button

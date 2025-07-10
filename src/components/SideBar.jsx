@@ -14,6 +14,8 @@ import {
   UsersIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
+  Bars3BottomLeftIcon,
+  Bars3BottomRightIcon,
 } from "@heroicons/react/24/outline"
 
 const SideBar = () => {
@@ -35,10 +37,10 @@ const SideBar = () => {
       >
         {isExpanded ? (
           <>
-            <ChevronLeftIcon className="h-5 w-5 m-1 text-stone-700 transform transition-transform duration-200 ease-in-out   hover:text-blue-700 hover:scale-170" />
+            <Bars3BottomLeftIcon className="h-5 w-5 m-1 text-stone-700 transform transition-transform duration-200 ease-in-out   hover:text-blue-700 hover:scale-170" />
           </>
         ) : (
-          <ChevronRightIcon className="h-5 w-5 m-1 text-stone-700 transform transition-transform duration-200 ease-in-out hover:scale-170 hover:text-blue-700" />
+          <Bars3BottomRightIcon className="h-5 w-5 m-1 text-stone-700 transform transition-transform duration-200 ease-in-out hover:scale-170 hover:text-blue-700" />
         )}
       </button>
       <div
