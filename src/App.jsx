@@ -10,6 +10,7 @@ import Azienda from "./components/Azienda"
 import Utenti from "./components/Utenti"
 import PianificazionePulizia from "./components/PianificazionePulizia"
 import Fornitori from "./components/Fornitori"
+import Forniture from "./components/Forniture"
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/utenti" element={<Utenti />}></Route>
         <Route path="/pulizie" element={<PianificazionePulizia />}></Route>
         <Route path="/fornitori" element={<Fornitori />}></Route>
+        <Route path="/forniture" element={<Forniture />}></Route>
       </Routes>
     </BrowserRouter>
   )

@@ -289,7 +289,7 @@ const PianificazionePulizia = () => {
                           frequenza: pulizia.frequenza,
                         })
                       }}
-                      className=" ml-2 flex items-center justify-center w-7 h-7  transform transition-transform duration-200 ease-in-out hover:scale-110  "
+                      className=" ml-2 flex items-center justify-center w-7 h-7  transform transition-transform duration-200 ease-in-out hover:scale-110  hover:text-yellow-600  "
                     >
                       <PencilSquareIcon className="w-6 h-6 " />
                     </button>
