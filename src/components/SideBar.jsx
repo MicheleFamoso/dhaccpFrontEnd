@@ -27,7 +27,7 @@ const SideBar = () => {
 
   return (
     <div
-      className={` h-9/10 my-5 bg-neutral-100 ml-5 backdrop-blur-[3px] rounded-sm  shadow-sm shadow-neutral-300  border-1 border-neutral-300  ${
+      className={` h-9/10 my-5 bg-neutral-100 ml-5 backdrop-blur-[3px] rounded-3xl  shadow-xl shadow-neutral-300    ${
         isExpanded ? "w-60" : "w-18"
       } p-3 flex flex-col`}
     >
@@ -37,40 +37,42 @@ const SideBar = () => {
       >
         {isExpanded ? (
           <>
-            <Bars3BottomLeftIcon className="h-5 w-5 m-1 text-stone-700 transform transition-transform duration-200 ease-in-out   hover:text-blue-700 hover:scale-170" />
+            <Bars3BottomLeftIcon className="h-8 w-8 m-1 text-stone-100 transform transition-transform duration-200 ease-in-out   hover:text-lime-300 hover:scale-170" />
           </>
         ) : (
-          <Bars3BottomRightIcon className="h-5 w-5 m-1 text-stone-700 transform transition-transform duration-200 ease-in-out hover:scale-170 hover:text-blue-700" />
+          <Bars3BottomRightIcon className="h-8 w-8 m-1 text-stone-100 transform transition-transform duration-200 ease-in-out hover:scale-170 hover:text-lime-300" />
         )}
       </button>
       <div
         onClick={() => navigate("/Profilo")}
-        className={`flex items-center gap-3 p-2 rounded-sm cursor-pointer hover:bg-stone-200 ${
-          location.pathname === "/Profilo" ? "bg-stone-200/60" : ""
+        className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-lime-600  ${
+          location.pathname === "/Profilo" ? "bg-lime-400" : ""
         }`}
       >
         <UserIcon
-          className={`h-8 w-8 p-1  backdrop-blur-sm transform transition-transform duration-200 ease-in-out hover:scale-125 ${
+          className={`h-8 w-8 p-1   transform transition-transform duration-200 ease-in-out hover:scale-125 ${
             location.pathname === "/Profilo"
-              ? "text-blue-600 scale-110"
-              : "text-stone-500"
+              ? "text-slate-800 scale-110"
+              : "text-slate-100"
           }`}
         />
         {isExpanded && (
           <span
             className={`text-sm ${
-              location.pathname === "/Profilo" ? "text-blue-600 font-bold" : ""
+              location.pathname === "/Profilo"
+                ? "text-slate-800 font-bold"
+                : "text-slate-50 hover:text-slate-800"
             }`}
           >
             Profilo
           </span>
         )}
       </div>
-      <hr className="my-3 border-t border-stone-300" />
+      <hr className="my-3 border-t border-slate-600" />
       <div
         onClick={() => navigate("/HomePage")}
-        className={`flex items-center gap-3 p-2 rounded-sm cursor-pointer hover:bg-stone-200 ${
-          location.pathname === "/HomePage" ? "bg-stone-200/60" : ""
+        className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-lime-600 ${
+          location.pathname === "/HomePage" ? "bg-lime-400" : ""
         }`}
       >
         <HomeIcon

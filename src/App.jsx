@@ -12,6 +12,7 @@ import PianificazionePulizia from "./components/PianificazionePulizia"
 import Fornitori from "./components/Fornitori"
 import Forniture from "./components/Forniture"
 import Infestanti from "./components/Infestanti"
+import Temperature from "./components/Temperature"
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/fornitori" element={<Fornitori />}></Route>
         <Route path="/forniture" element={<Forniture />}></Route>
         <Route path="/infestanti" element={<Infestanti />}></Route>
+        <Route path="/temperatura" element={<Temperature />}></Route>
       </Routes>
     </BrowserRouter>
   )
