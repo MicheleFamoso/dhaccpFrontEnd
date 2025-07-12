@@ -2,21 +2,25 @@ import { useState, useEffect } from "react"
 import {
   format,
   parseISO,
-  startOfMonth,
-  endOfMonth,
-  subMonths,
-  addMonths,
+  startOfWeek,
+  endOfWeek,
+  subWeeks,
+  addWeeks,
 } from "date-fns"
 import SideBar from "./SideBar"
 
 const HomePage = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date())
+
+  const start = format(
+    startOfWeek(currentMonth, { weekStartsOn: 1 }),
+    "yyyy-MM-dd"
+  )
+  const end = format(endOfWeek(currentMonth, { weekStartsOn: 1 }), "yyyy-MM-dd")
+
   const [datiCalendario, setDatiCalendario] = useState([])
 
   useEffect(() => {
-    const start = format(startOfMonth(currentMonth), "yyyy-MM-dd")
-    const end = format(endOfMonth(currentMonth), "yyyy-MM-dd")
-
     const fetchDati = async () => {
       try {
         const token = localStorage.getItem("token")
@@ -35,7 +39,7 @@ const HomePage = () => {
     }
 
     fetchDati()
-  }, [currentMonth])
+  }, [currentMonth, start, end])
 
   const groupedByDate = datiCalendario.reduce((acc, item) => {
     if (!item?.data || isNaN(new Date(item.data))) return acc
@@ -54,7 +58,7 @@ const HomePage = () => {
     if (items.length > 2 || mediaLunghezzaDescrizione > 40) {
       return "md:col-span-2 md:row-span-2"
     } else if (items.length === 1 && mediaLunghezzaDescrizione < 20) {
-      return "md:col-span-1 md:row-span-1"
+      return "md:col-span-2 md:row-span-0"
     } else {
       return "md:col-span-2"
     }
@@ -66,28 +70,33 @@ const HomePage = () => {
       <main className="flex-1  p-20 overflow-auto">
         <div className="flex justify-between items-center mb-6">
           <button
-            onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
+            onClick={() => setCurrentMonth(subWeeks(currentMonth, 1))}
             className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
           >
-            ◀ Mese Precedente
+            ◀ Settimana Precedente
           </button>
           <h1 className="text-2xl font-bold">
-            Controlli - {format(currentMonth, "MMMM yyyy")}
+            Controlli -{" "}
+            {format(startOfWeek(currentMonth, { weekStartsOn: 1 }), "dd MMM")} ➝{" "}
+            {format(
+              endOfWeek(currentMonth, { weekStartsOn: 1 }),
+              "dd MMM yyyy"
+            )}
           </h1>
           <button
-            onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
+            onClick={() => setCurrentMonth(addWeeks(currentMonth, 1))}
             className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
           >
-            Mese Successivo ▶
+            Settimana Successiva ▶
           </button>
         </div>
 
         {sortedDates.length === 0 ? (
           <p className="text-gray-600">
-            Nessun controllo disponibile per questo mese.
+            Nessun controllo disponibile per questa settimana.
           </p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-6 auto-rows-[minmax(100px,_auto)] gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-6 auto-rows-[minmax(100px,_auto)] gap-10">
             {sortedDates
               .filter((date) => date && !isNaN(new Date(date)))
               .map((date) => {
