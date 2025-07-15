@@ -170,7 +170,7 @@ const Infestanti = () => {
   }
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-beige">
       <div>
         <SideBar />
       </div>
@@ -179,7 +179,7 @@ const Infestanti = () => {
           <button
             id="filter-button"
             onClick={() => setShowFilterDropdown(!showFilterDropdown)}
-            className="px-3 py-1 ml-150 bg-gray-200 text-gray-800 hover:bg-blue-200 rounded-4xl "
+            className="ml-200 px-4 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl "
             type="button"
           >
             Filtri
@@ -188,9 +188,9 @@ const Infestanti = () => {
           {showFilterDropdown && (
             <div
               ref={dropdownRef}
-              className="absolute top-full mt-2 right-0 z-50 w-105 bg-white rounded-md shadow-2xl p-4 border border-gray-200"
+              className="absolute top-full mt-2 right-0 z-50 w-105 bg-salviaChiaro rounded-2xl shadow-salvia shadow-2xl p-4 border border-salvia"
             >
-              <h2 className="text-lg font-semibold mb-3">Filtra infestanti</h2>
+              <h2 className="text-lg font-semibold mb-3 text-center">Filtri</h2>
               <div className="mb-4">
                 <label className="block text-sm text-gray-600 mb-1">
                   Data specifica
@@ -200,11 +200,11 @@ const Infestanti = () => {
                     type="date"
                     value={dataFiltro}
                     onChange={(e) => setDataFiltro(e.target.value)}
-                    className="px-2 py-1 border border-gray-300 rounded-4xl flex-grow"
+                    className="px-2 py-1 border border-salviaScuro rounded-4xl flex-grow"
                   />
                   <button
                     onClick={handleFiltroData}
-                    className="px-3 py-1 bg-blue-500 text-white rounded-4xl hover:bg-blue-600 text-sm"
+                    className="px-3 py-1 bg-salvia  text-white rounded-4xl hover:bg-salviaScuro text-shadow-md text-sm"
                   >
                     Filtra
                   </button>
@@ -220,19 +220,19 @@ const Infestanti = () => {
                     type="date"
                     value={dataInizio}
                     onChange={(e) => setDataInizio(e.target.value)}
-                    className="px-2 py-1 border border-gray-300 rounded-4xl flex-1"
+                    className="px-2 py-1 border border-salviaScuro rounded-4xl flex-1"
                   />
                   <input
                     type="date"
                     value={dataFine}
                     onChange={(e) => setDataFine(e.target.value)}
-                    className="px-2 py-1 border border-gray-300 rounded-4xl flex-1"
+                    className="px-2 py-1 border border-salviaScuro rounded-4xl flex-1"
                   />
                   <button
                     onClick={handleFiltroRange}
-                    className=" px-3 py-1 bg-blue-500 text-white rounded-4xl hover:bg-blue-600 text-sm"
+                    className=" px-3 py-1 bg-salvia text-white rounded-4xl hover:bg-salviaScuro text-shadow-md text-sm"
                   >
-                    Applica
+                    Filtra
                   </button>
                 </div>
               </div>
@@ -244,7 +244,7 @@ const Infestanti = () => {
                   <select
                     value={filtroConformita}
                     onChange={(e) => setFiltroConformita(e.target.value)}
-                    className="w-full p-2 py-1 border border-gray-300 rounded-4xl"
+                    className="w-full p-2 py-1 border border-salviaScuro rounded-4xl"
                   >
                     <option value="">Tutti</option>
                     <option value="CONFORME">Conforme</option>
@@ -252,7 +252,7 @@ const Infestanti = () => {
                   </select>
                   <button
                     onClick={handleFiltroConformita}
-                    className="px-3 py-1 bg-blue-500 text-white rounded-4xl hover:bg-blue-600 text-sm"
+                    className="px-3 py-1 bg-salvia text-white rounded-4xl hover:bg-salviaScuro text-sm"
                   >
                     Filtra
                   </button>
@@ -260,7 +260,7 @@ const Infestanti = () => {
                 <div className="mt-4">
                   <button
                     onClick={resetFiltri}
-                    className="w-full px-3 py-1 bg-gray-300 text-gray-800 rounded-4xl hover:bg-gray-400 text-sm"
+                    className="w-full px-3 text-shadow-md py-1 bg-rosso/80 text-white rounded-4xl hover:bg-rosso text-sm"
                   >
                     Annulla filtri
                   </button>
@@ -287,31 +287,37 @@ const Infestanti = () => {
                 dataInizio
               )} al ${formattaData(dataFine)}`
             }
-            return "Tutti gli infestanti"
+            return "Tutti i controlli"
           })()}
         </div>
 
         {error && (
-          <div className="mb-2 text-center text-red-600 font-medium">
-            {error}
-          </div>
+          <div className="mb-2 text-center text-rosso font-medium">{error}</div>
         )}
 
-        <div className="overflow-x-auto bg-white rounded shadow">
-          <table className="min-w-full text-sm text-center">
+        <div className=" ">
+          <table className="w-250 border-collapse bg-salviaChiaro shadow-md rounded-2xl shadow-salviaScuro">
             <thead className="bg-gray-200 text-gray-600">
               <tr>
-                <th className="py-2 px-4">Data</th>
-                <th className="py-2 px-4">Roditori</th>
-                <th className="py-2 px-4">Insetti Striscianti</th>
-                <th className="py-2 px-4">Insetti Volanti</th>
-                <th className="py-2 px-4"></th>
+                <th className="rounded-tl-2xl px-6 py-3 bg-salvia text-shadow-lg text-gray-200">
+                  Data
+                </th>
+                <th className="px-6 py-3 bg-salvia  text-shadow-lg text-gray-200">
+                  Roditori
+                </th>
+                <th className="px-6 py-3 bg-salvia  text-shadow-lg text-gray-200">
+                  Insetti Striscianti
+                </th>
+                <th className="px-6 py-3 bg-salvia  text-shadow-lg text-gray-200">
+                  Insetti Volanti
+                </th>
+                <th className="px-6 py-3 bg-salvia rounded-tr-2xl"></th>
               </tr>
             </thead>
             <tbody>
               {(risultatiRicerca || infestanti).map((i) => (
-                <tr key={i.id} className="border-t border-gray-300">
-                  <td className="px-2 py-2">
+                <tr key={i.id}>
+                  <td className="border-b border-salvia py-3 text-center">
                     {editingId === i.id ? (
                       <input
                         type="date"
@@ -322,13 +328,13 @@ const Infestanti = () => {
                             data: e.target.value,
                           })
                         }
-                        className="w-full text-center"
+                        className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                       />
                     ) : (
                       i.data
                     )}
                   </td>
-                  <td className="px-2 py-2">
+                  <td className="border-b border-salvia py-3 text-center bg-avorio">
                     {editingId === i.id ? (
                       <select
                         value={InfestantiModificata.roditori}
@@ -338,9 +344,9 @@ const Infestanti = () => {
                             roditori: e.target.value,
                           })
                         }
-                        className="w-full text-center"
+                        className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                       >
-                        <option value="">Seleziona...</option>
+                        <option value="">Seleziona</option>
                         <option value="CONFORME">CONFORME</option>
                         <option value="NON_CONFORME">NON CONFORME</option>
                       </select>
@@ -354,7 +360,7 @@ const Infestanti = () => {
                       i.roditori
                     )}
                   </td>
-                  <td className="px-2 py-2">
+                  <td className="border-b border-salvia py-3 text-center">
                     {editingId === i.id ? (
                       <select
                         value={InfestantiModificata.insettiStriscianti}
@@ -364,9 +370,9 @@ const Infestanti = () => {
                             insettiStriscianti: e.target.value,
                           })
                         }
-                        className="w-full text-center"
+                        className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                       >
-                        <option value="">Seleziona...</option>
+                        <option value="">Seleziona</option>
                         <option value="CONFORME">CONFORME</option>
                         <option value="NON_CONFORME">NON CONFORME</option>
                       </select>
@@ -380,7 +386,7 @@ const Infestanti = () => {
                       i.insettiStriscianti
                     )}
                   </td>
-                  <td className="px-2 py-2">
+                  <td className="border-b border-salvia py-3 text-center bg-avorio">
                     {editingId === i.id ? (
                       <select
                         value={InfestantiModificata.insettiVolanti}
@@ -390,9 +396,9 @@ const Infestanti = () => {
                             insettiVolanti: e.target.value,
                           })
                         }
-                        className="w-full text-center"
+                        className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                       >
-                        <option value="">Seleziona...</option>
+                        <option value="">Seleziona</option>
                         <option value="CONFORME">CONFORME</option>
                         <option value="NON_CONFORME">NON CONFORME</option>
                       </select>
@@ -406,13 +412,13 @@ const Infestanti = () => {
                       i.insettiVolanti
                     )}
                   </td>
-                  <td className="px-2 py-2">
+                  <td className="border-b border-salvia bg-avorio py-3 text-center px-3">
                     {editingId === i.id ? (
                       <button
                         onClick={() => handleSaveInfestante(i.id)}
-                        className="ml-2 flex items-center justify-center w-7 h-7 rounded-full bg-green-400  hover:bg-green-500 transform transition-transform duration-200 ease-in-out hover:scale-110"
+                        className="ml-2 text-gray-100 text-shadow-lg  flex items-center justify-center w-7 h-7 rounded-2xl bg-salvia hover:bg-salviaScuro py-4 px-12 transform transition-transform duration-200 ease-in-out hover:scale-110  "
                       >
-                        <CheckIcon className="w-4 h-4 " />
+                        salva
                       </button>
                     ) : (
                       <button
@@ -425,17 +431,16 @@ const Infestanti = () => {
                             insettiVolanti: i.insettiVolanti,
                           })
                         }}
-                        className=" ml-2 flex items-center justify-center w-7 h-7  transform transition-transform duration-200 ease-in-out hover:scale-110 hover:text-yellow-600"
+                        className=" ml-2 text-gray-100 text-shadow-lg  flex items-center justify-center w-7 h-7 rounded-2xl bg-ambra/90 hover:bg-ambra py-4 px-12 transform transition-transform duration-200 ease-in-out hover:scale-110   "
                       >
-                        {" "}
-                        <PencilSquareIcon className="w-6 h-6 " />
+                        modifica
                       </button>
                     )}
                   </td>
                 </tr>
               ))}
-              <tr className="border-t border-gray-300 bg-gray-50">
-                <td className="px-2 py-2">
+              <tr>
+                <td className="px-2 py-4">
                   <input
                     type="date"
                     value={nuoviInfestanti.data}
@@ -445,10 +450,10 @@ const Infestanti = () => {
                         data: e.target.value,
                       })
                     }
-                    className="w-full text-center"
+                    className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   />
                 </td>
-                <td className="px-2 py-2">
+                <td className="px-2 py-4 bg-avorio">
                   <select
                     value={nuoviInfestanti.roditori}
                     onChange={(e) =>
@@ -457,14 +462,14 @@ const Infestanti = () => {
                         roditori: e.target.value,
                       })
                     }
-                    className="w-full text-center"
+                    className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden "
                   >
-                    <option value="">Seleziona...</option>
+                    <option value="">Seleziona</option>
                     <option value="CONFORME">CONFORME</option>
                     <option value="NON_CONFORME">NON CONFORME</option>
                   </select>
                 </td>
-                <td className="px-2 py-2">
+                <td className="px-2 py-4">
                   <select
                     value={nuoviInfestanti.insettiStriscianti}
                     onChange={(e) =>
@@ -473,14 +478,14 @@ const Infestanti = () => {
                         insettiStriscianti: e.target.value,
                       })
                     }
-                    className="w-full text-center"
+                    className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden "
                   >
-                    <option value="">Seleziona...</option>
+                    <option value="">Seleziona</option>
                     <option value="CONFORME">CONFORME</option>
                     <option value="NON_CONFORME">NON CONFORME</option>
                   </select>
                 </td>
-                <td className="px-2 py-2">
+                <td className="px-2 py-4 bg-avorio">
                   <select
                     value={nuoviInfestanti.insettiVolanti}
                     onChange={(e) =>
@@ -489,14 +494,14 @@ const Infestanti = () => {
                         insettiVolanti: e.target.value,
                       })
                     }
-                    className="w-full text-center"
+                    className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden "
                   >
-                    <option value="">Seleziona...</option>
+                    <option value="">Seleziona</option>
                     <option value="CONFORME">CONFORME</option>
                     <option value="NON_CONFORME">NON CONFORME</option>
                   </select>
                 </td>
-                <td className="px-2 py-2">
+                <td className="text-center px-4 py4 bg-avorio rounded-br-2xl ">
                   <button
                     onClick={() => {
                       if (
@@ -538,9 +543,9 @@ const Infestanti = () => {
                           setError(err.message)
                         })
                     }}
-                    className="w-7 h-7 bg-blue-400 text-white rounded-full hover:bg-blue-600 text-sm hover:shadow-md hover:shadow-blue-600/50 focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                    className="ml-1 text-gray-100 text-shadow-lg  flex items-center justify-center w-7 h-7 rounded-2xl bg-salvia hover:bg-salviaScuro py-4 px-12 transform transition-transform duration-200 ease-in-out hover:scale-110 "
                   >
-                    +
+                    aggiungi
                   </button>
                 </td>
               </tr>

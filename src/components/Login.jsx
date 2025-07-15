@@ -50,7 +50,7 @@ const Login = () => {
   }
 
   return (
-    <div className="bg-[url('/data.svg')] w-screen h-screen bg-no-repeat bg-[position:right_bottom] bg-[length:700px_700px]">
+    <div className="bg-[url('/12.png')] w-screen h-screen bg-no-repeat bg-[position:right_bottom] bg-[length:700px_700px] bg-beige">
       <div className="relative z-50">
         <NavbarHome />
       </div>

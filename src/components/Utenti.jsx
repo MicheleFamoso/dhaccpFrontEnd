@@ -123,7 +123,7 @@ const Utenti = () => {
   }
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-beige">
       <div>
         <SideBar />
       </div>
@@ -135,7 +135,7 @@ const Utenti = () => {
             </p>
           )}
           {error && (
-            <p className="text-xl  text-center w-full py-10 text-red-600">
+            <p className="text-xl  text-center w-full py-10 text-rosso">
               {error}
             </p>
           )}
@@ -143,7 +143,7 @@ const Utenti = () => {
             <div className="flex flex-col items-center text-center w-full py-10 gap-4">
               <p className="text-xl">Nessun utente disponibile.</p>
               <button
-                className="w-60 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded"
+                className="w-60 mt-4  bg-salvia hover:bg-salviaScuro text-salviaChiaro py-1 px-4 rounded-2xl border-salviaScuro border-1 text-shadow-md "
                 onClick={() => setShowForm(true)}
               >
                 Aggiungi utente
@@ -151,7 +151,7 @@ const Utenti = () => {
             </div>
           )}
           {!loading && !error && showForm && (
-            <div className="w-full p-6">
+            <div className="w-200 m-auto p-6 rounded-2xl bg-salviaChiaro border-1 border-salvia shadow-md shadow-salvia">
               <h2 className="text-2xl font-bold text-center mb-6">
                 {idUtente ? "Modifica utente" : "Crea utente"}
               </h2>
@@ -172,7 +172,7 @@ const Utenti = () => {
                   placeholder="Nome"
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
-                  className="w-full p-2 border-b focus:outline-none focus:border-blue-500"
+                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   required
                 />
                 <input
@@ -180,7 +180,7 @@ const Utenti = () => {
                   placeholder="Cognome"
                   value={cognome}
                   onChange={(e) => setCognome(e.target.value)}
-                  className="w-full p-2 border-b focus:outline-none focus:border-blue-500"
+                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   required
                 />
                 <input
@@ -188,7 +188,7 @@ const Utenti = () => {
                   placeholder="Username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full p-2 border-b focus:outline-none focus:border-blue-500"
+                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   required
                 />
                 <input
@@ -196,7 +196,7 @@ const Utenti = () => {
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-2 border-b focus:outline-none focus:border-blue-500"
+                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   required
                 />
                 <input
@@ -204,30 +204,32 @@ const Utenti = () => {
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setpassword(e.target.value)}
-                  className="w-full p-2 border-b focus:outline-none focus:border-blue-500"
+                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   required
                 />
-                <button
-                  type="submit"
-                  className="w-60 self-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600 hover:shadow-md hover:shadow-blue-500/50"
-                >
-                  {idUtente ? "Salva modifiche" : "Crea utente"}
-                </button>
-                <button
-                  type="button"
-                  className="w-60 self-center bg-gray-300 text-gray-800 py-2 rounded hover:bg-gray-400 mt-2"
-                  onClick={() => setShowForm(false)}
-                >
-                  Annulla
-                </button>
+                <div className="flex justify-around mt-2">
+                  <button
+                    type="button"
+                    className="w-60 px-2 py-1 bg-grigio border-1 border-salviaScuro shadow-md text-white  hover:bg-rosso mb-6 rounded-2xl"
+                    onClick={() => setShowForm(false)}
+                  >
+                    Annulla
+                  </button>
+                  <button
+                    type="submit"
+                    className="w-60  px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl"
+                  >
+                    {idUtente ? "Salva modifiche" : "Crea utente"}
+                  </button>
+                </div>
               </form>
             </div>
           )}
           {!loading && !error && !showForm && utenti.length > 0 && (
             <div className="flex flex-col gap-4">
-              <div className="flex justify-end">
+              <div className="flex justify-start">
                 <button
-                  className="mb-4 bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-4 rounded-sm"
+                  className=" self-start bg-salvia hover:bg-ambra text-avorio py-1 px-4 rounded-2xl border-salviaScuro border-1 text-shadow-md mb-8"
                   onClick={() => {
                     setNome("")
                     setCognome("")
@@ -238,51 +240,55 @@ const Utenti = () => {
                     setShowForm(true)
                   }}
                 >
-                  Aggiungi utente
+                  Aggiungi
                 </button>
               </div>
               <div className="grid grid-cols-2 gap-6">
                 {utenti.map((utente) => (
                   <div
                     key={utente.id}
-                    className="relative bg-gray-50 p-4 rounded-xs shadow-lg border-1 border-gray-200 flex flex-col"
+                    className="relative  flex flex-col  bg-salviaChiaro p-4 rounded-2xl shadow-salvia shadow-lg border-1 border-salvia "
                   >
                     <button
                       onClick={() => {
                         setUtenteToDelete(utente)
                         setShowDeleteModal(true)
                       }}
-                      className="absolute -top-4 right-1  w-8 h-8 bg-gray-200 border-1 border-gray-200 text-neutral-800  rounded-full hover:bg-red-400 hover:text-white shadow-md text-center "
+                      className="absolute -top-4 right-1  w-8 h-8 bg-gray-200 border-1 border-salvia text-neutral-800  rounded-full hover:bg-rosso hover:text-white shadow-md text-center "
                       title="Elimina utente"
                     >
                       x
                     </button>
                     <div className="flex items-center gap-4">
                       <img
-                        className="w-30 h-30 object-cover rounded-full"
+                        className="w-30 h-30 object-cover rounded-full border-1 border-salvia "
                         src="/public/IMG_6352.PNG"
                         alt="user-placeholder"
                       />
                       <div className="flex flex-col ml-5">
-                        <p className="text-xl font-semibold">
+                        <p className="text-xl font-bold text-salviaScuro text-shadow-xs mt-1.5">
                           {utente.nome} {utente.cognome}
                         </p>
-                        <p className="text-sm text-gray-600">
-                          Username: {utente.username}
+                        <p className=" text-gray-800 mb-1 mt-2">
+                          <span className="font-semibold">Username:</span>{" "}
+                          {utente.username}
                         </p>
-                        <p className="text-sm text-gray-600">
-                          Email: {utente.email}
+                        <p className=" text-gray-800 mb-1">
+                          <span className="font-semibold">Email:</span>{" "}
+                          {utente.email}
                         </p>
-                        <p className="text-sm text-gray-600">
-                          Ruolo: {utente.role}
+                        <p className=" text-gray-800 mb-1">
+                          <span className="font-semibold">Ruolo:</span>{" "}
+                          {utente.role}
                         </p>
-                        <p className="text-sm text-gray-600">
-                          Azienda: {utente.azienda.denominazioneAziendale}
+                        <p className=" text-gray-800">
+                          <span className="font-semibold">Azienda:</span>{" "}
+                          {utente.azienda.denominazioneAziendale}
                         </p>
                       </div>
                     </div>
                     <button
-                      className="mt-4 self-end bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-4 rounded-sm"
+                      className="mt-4 self-end bg-salvia hover:bg-salviaScuro text-salviaChiaro py-1 px-4 rounded-2xl border-salviaScuro border-1 text-shadow-md"
                       onClick={() => {
                         setNome(utente.nome)
                         setCognome(utente.cognome)
@@ -304,7 +310,7 @@ const Utenti = () => {
       </div>
       {showDeleteModal && (
         <div className="fixed inset-0 bg-neutral-400/50 bg-opacity-30 flex items-center justify-center  ">
-          <div className="bg-white rounded-sm p-6 w-100 shadow-lg ">
+          <div className="bg-salviaChiaro rounded-2xl border-1 border-salviaScuro p-6 w-100 shadow-lg shadow-salvia text-center ">
             <h2 className="text-xl  mb-4">Conferma eliminazione</h2>
             <p>
               Sei sicuro di voler eliminare&nbsp;
@@ -313,10 +319,10 @@ const Utenti = () => {
               </span>
               ?
             </p>
-            <div className="mt-6 flex justify-end gap-4">
+            <div className="mt-6 flex justify-around gap-4">
               <button
                 onClick={() => setShowDeleteModal(false)}
-                className="px-4 py-2 rounded-sm bg-gray-300 hover:bg-gray-400"
+                className="px-4 py-1 border-1 border-salvia rounded-2xl bg-gray-300 hover:bg-gray-400"
               >
                 Annulla
               </button>
@@ -340,7 +346,7 @@ const Utenti = () => {
                       setShowDeleteModal(false)
                     })
                 }}
-                className="px-2 py-1 rounded-sm bg-red-400 text-white hover:bg-red-500 hover:shadow-md hover:shadow-red-500/50"
+                className="px-4 py-1 rounded-2xl bg-rosso text-white hover:bg-red-500 border-1 border-red-200"
               >
                 Conferma
               </button>

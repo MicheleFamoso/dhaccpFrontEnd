@@ -124,7 +124,7 @@ const PianificazionePulizia = () => {
   }
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-full bg-beige">
       <div>
         <SideBar />
       </div>
@@ -135,42 +135,40 @@ const PianificazionePulizia = () => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Cerca per oggetto, frequenza o altro"
-            className="px-3 py-1 bg-white border border-gray-300 rounded-2xl w-150 shadow-sm mb-6 focus:outline-hidden focus:shadow-blue-300 focus:shadow-md"
+            className="px-3 py-1 bg-salviaChiaro border border-salvia rounded-2xl w-150 shadow-sm mb-6 focus:outline-hidden focus:shadow-salvia focus:shadow-md"
           />
           <button
             onClick={handleSearch}
-            className="px-2 py-1 bg-blue-400 text-white  hover:bg-blue-600 mb-6 rounded-2xl m"
+            className="px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl "
           >
             Cerca
           </button>
         </div>
         {error && (
-          <div className="mb-4 text-center text-red-600 font-medium">
-            {error}
-          </div>
+          <div className="mb-4 text-center text-rosso font-medium">{error}</div>
         )}
-        <table className="w-250 border-collapse bg-neutral-50 shadow-xl">
+        <table className="w-250 border-collapse bg-salviaChiaro shadow-md rounded-2xl shadow-salviaScuro">
           <thead>
             <tr>
-              <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200">
+              <th className=" rounded-tl-2xl px-6 py-3 bg-salvia text-shadow-lg text-gray-200">
                 Oggetto
               </th>
-              <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200">
+              <th className=" px-6 py-3 bg-salvia  text-shadow-lg text-gray-200">
                 Detergente
               </th>
-              <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200">
+              <th className=" px-6 py-3 bg-salvia  text-shadow-lg text-gray-200">
                 Attrezzature utilizzate
               </th>
-              <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200">
+              <th className=" px-6 py-3 bg-salvia  text-shadow-lg text-gray-200">
                 Frequenza
               </th>
-              <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200"></th>
+              <th className=" px-6 py-3 bg-salvia rounded-tr-2xl"></th>
             </tr>
           </thead>
           <tbody>
             {(risultatiRicerca || pulizie).map((pulizia) => (
               <tr key={pulizia.id}>
-                <td className="border-b border-gray-300 py-3 text-center">
+                <td className="border-b border-salvia py-3 text-center">
                   {editingId === pulizia.id ? (
                     <input
                       type="text"
@@ -181,13 +179,13 @@ const PianificazionePulizia = () => {
                           oggetto: e.target.value,
                         })
                       }
-                      className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                      className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                     />
                   ) : (
                     pulizia.oggetto
                   )}
                 </td>
-                <td className="border-b border-gray-300 py-3 text-center bg-neutral-100">
+                <td className="border-b border-salvia py-3 text-center bg-avorio">
                   {editingId === pulizia.id ? (
                     <input
                       type="text"
@@ -198,13 +196,13 @@ const PianificazionePulizia = () => {
                           detergente: e.target.value,
                         })
                       }
-                      className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                      className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                     />
                   ) : (
                     pulizia.detergente
                   )}
                 </td>
-                <td className="border-b border-gray-300 py-3 text-center">
+                <td className="border-b border-salvia py-3 text-center">
                   {editingId === pulizia.id ? (
                     <input
                       type="text"
@@ -215,13 +213,13 @@ const PianificazionePulizia = () => {
                           attrezzatureUtilizzate: e.target.value,
                         })
                       }
-                      className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                      className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                     />
                   ) : (
                     pulizia.attrezzatureUtilizzate
                   )}
                 </td>
-                <td className="border-b border-gray-300 py-3 text-center bg-neutral-100">
+                <td className="border-b border-salvia py-3 text-center bg-avorio">
                   {editingId === pulizia.id ? (
                     <input
                       type="text"
@@ -232,13 +230,13 @@ const PianificazionePulizia = () => {
                           frequenza: e.target.value,
                         })
                       }
-                      className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden "
+                      className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                     />
                   ) : (
                     pulizia.frequenza
                   )}
                 </td>
-                <td className="border-b border-gray-300 py-3 text-center px-3">
+                <td className="border-b border-salvia bg-avorio py-3 text-center px-3">
                   {editingId === pulizia.id ? (
                     <button
                       onClick={() => {
@@ -273,9 +271,9 @@ const PianificazionePulizia = () => {
                             setError(err.message)
                           })
                       }}
-                      className="ml-2 flex items-center justify-center w-7 h-7 rounded-full bg-green-400  hover:bg-green-500 transform transition-transform duration-200 ease-in-out hover:scale-110 "
+                      className="ml-2 text-gray-100 text-shadow-lg  flex items-center justify-center w-7 h-7 rounded-2xl bg-salvia hover:bg-salviaScuro py-4 px-12 transform transition-transform duration-200 ease-in-out hover:scale-110  "
                     >
-                      <CheckIcon className="w-4 h-4 " />
+                      salva
                     </button>
                   ) : (
                     <button
@@ -289,9 +287,9 @@ const PianificazionePulizia = () => {
                           frequenza: pulizia.frequenza,
                         })
                       }}
-                      className=" ml-2 flex items-center justify-center w-7 h-7  transform transition-transform duration-200 ease-in-out hover:scale-110  hover:text-yellow-600  "
+                      className=" ml-2 text-gray-100 text-shadow-lg  flex items-center justify-center w-7 h-7 rounded-2xl bg-ambra/90 hover:bg-ambra py-4 px-12 transform transition-transform duration-200 ease-in-out hover:scale-110   "
                     >
-                      <PencilSquareIcon className="w-6 h-6 " />
+                      modifica
                     </button>
                   )}
                 </td>
@@ -300,7 +298,7 @@ const PianificazionePulizia = () => {
           </tbody>
           <tfoot>
             <tr>
-              <td className="border-t border-gray-300 px-2 py-2">
+              <td className=" px-2 py-4">
                 <input
                   type="text"
                   value={nuovaPulizia.oggetto}
@@ -310,11 +308,11 @@ const PianificazionePulizia = () => {
                       oggetto: e.target.value,
                     })
                   }
-                  className="w-full px-2 py-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                  className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   placeholder="Oggetto"
                 />
               </td>
-              <td className="border-t border-gray-300 px-2 py-2 bg-neutral-100">
+              <td className=" px-2 py-4 bg-avorio">
                 <input
                   type="text"
                   value={nuovaPulizia.detergente}
@@ -324,11 +322,11 @@ const PianificazionePulizia = () => {
                       detergente: e.target.value,
                     })
                   }
-                  className="w-full px-2 py-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden "
+                  className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden "
                   placeholder="Detergente"
                 />
               </td>
-              <td className="border-t border-gray-300 px-2 py-2">
+              <td className=" px-2 py-4">
                 <input
                   type="text"
                   value={nuovaPulizia.attrezzatureUtilizzate}
@@ -338,11 +336,11 @@ const PianificazionePulizia = () => {
                       attrezzatureUtilizzate: e.target.value,
                     })
                   }
-                  className="w-full px-2 py-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                  className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   placeholder="Attrezzature"
                 />
               </td>
-              <td className="border-t border-gray-300 px-2 py-2 bg-neutral-100 flex justify-center">
+              <td className=" px-2 py-4 bg-avorio flex justify-center">
                 <input
                   type="text"
                   value={nuovaPulizia.frequenza}
@@ -352,17 +350,17 @@ const PianificazionePulizia = () => {
                       frequenza: e.target.value,
                     })
                   }
-                  className="w-3/4 px-2 py-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                  className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   placeholder="Frequenza"
                 />
               </td>
-              <td className="text-center ">
+              <td className="text-center px-4 py4 bg-avorio rounded-br-2xl ">
                 <button
                   onClick={handleAddPulizia}
-                  className="w-7 h-7 bg-blue-400 text-white rounded-full hover:bg-blue-600 text-sm hover:shadow-md hover:shadow-blue-600/50 focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                  className="ml-1 text-gray-100 text-shadow-lg  flex items-center justify-center w-7 h-7 rounded-2xl bg-salvia hover:bg-salviaScuro py-4 px-12 transform transition-transform duration-200 ease-in-out hover:scale-110 "
                   title="Aggiungi"
                 >
-                  +
+                  aggiungi
                 </button>
               </td>
             </tr>

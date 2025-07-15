@@ -58,14 +58,14 @@ const HomePage = () => {
     if (items.length > 2 || mediaLunghezzaDescrizione > 40) {
       return "md:col-span-2 md:row-span-2"
     } else if (items.length === 1 && mediaLunghezzaDescrizione < 20) {
-      return "md:col-span-2 md:row-span-0"
+      return "md:col-span- md:row-span-0"
     } else {
       return "md:col-span-2"
     }
   }
 
   return (
-    <div className="flex h-screen bg-neutral-100">
+    <div className="flex h-screen bg-avorio">
       <SideBar />
       <main className="flex-1  p-20 overflow-auto">
         <div className="flex justify-between items-center mb-6">

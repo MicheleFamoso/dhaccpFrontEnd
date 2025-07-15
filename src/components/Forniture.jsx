@@ -282,7 +282,7 @@ const Forniture = () => {
   }
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-beige">
       <div>
         <SideBar />
       </div>
@@ -293,18 +293,18 @@ const Forniture = () => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Cerca per prodotto o fornitore"
-            className="px-3 py-1 bg-white border border-gray-300 rounded-2xl w-150 shadow-sm mb-6 focus:outline-hidden focus:shadow-blue-300 focus:shadow-md"
+            className="px-3 py-1 bg-salviaChiaro border border-salvia rounded-2xl w-150 shadow-sm mb-6 focus:outline-hidden focus:shadow-salvia focus:shadow-md"
           />
           <button
             onClick={handleSearch}
-            className="px-2 py-1 bg-blue-400 text-white  hover:bg-blue-600 mb-6 rounded-2xl m"
+            className="px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl "
           >
             Cerca
           </button>
           <button
             id="filter-button"
             onClick={() => setShowFilterDropdown(!showFilterDropdown)}
-            className="px-3 py-1 bg-gray-200 text-gray-800 hover:bg-blue-200 mb-6 rounded-2xl ml-2"
+            className="ml-2 px-4 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl "
             type="button"
           >
             Filtri
@@ -313,7 +313,7 @@ const Forniture = () => {
           {showFilterDropdown && (
             <div
               ref={dropdownRef}
-              className="absolute top-full  right-0 z-50 w-105 bg-white rounded-md shadow-2xl p-4 border border-gray-200"
+              className="absolute top-full  right-0 z-50 w-105 bg-salviaChiaro rounded-2xl shadow-salvia shadow-2xl p-4 border border-salvia"
             >
               <h2 className="text-lg font-semibold mb-3">Filtra forniture</h2>
               <div className="mb-4">
@@ -325,14 +325,14 @@ const Forniture = () => {
                     type="date"
                     value={dataFiltro}
                     onChange={(e) => setDataFiltro(e.target.value)}
-                    className="px-2 py-1 border border-gray-300  flex-grow rounded-4xl"
+                    className="px-2 py-1 border border-salviaScuro rounded-4xl flex-grow"
                   />
                   <button
                     onClick={() => {
                       handleFiltroData()
                       setShowFilterDropdown(false)
                     }}
-                    className="px-3 py-1 bg-blue-500 text-white  hover:bg-blue-600 text-sm rounded-4xl"
+                    className="px-3 py-1 bg-salvia  text-white rounded-4xl hover:bg-salviaScuro text-shadow-md text-sm"
                   >
                     Filtra
                   </button>
@@ -347,20 +347,20 @@ const Forniture = () => {
                     type="date"
                     value={dataInizio}
                     onChange={(e) => setDataInizio(e.target.value)}
-                    className="px-2 py-1 border border-gray-300  flex-1 rounded-4xl"
+                    className="px-2 py-1 border border-salviaScuro rounded-4xl flex-1"
                   />
                   <input
                     type="date"
                     value={dataFine}
                     onChange={(e) => setDataFine(e.target.value)}
-                    className="px-2 py-1 border border-gray-300 rounded-4xl flex-1 "
+                    className="px-2 py-1 border border-salviaScuro rounded-4xl flex-1 "
                   />
                   <button
                     onClick={() => {
                       handleFiltroRange()
                       setShowFilterDropdown(false)
                     }}
-                    className="px-3 py-1 bg-blue-500 text-white rounded-4xl hover:bg-blue-600 text-sm"
+                    className="px-3 py-1 bg-salvia text-white rounded-4xl hover:bg-salviaScuro text-shadow-md text-sm"
                   >
                     Filtra
                   </button>
@@ -374,7 +374,7 @@ const Forniture = () => {
                     <select
                       value={filtroConformita}
                       onChange={(e) => setFiltroConformita(e.target.value)}
-                      className="w-full p-2 py-1 border border-gray-300 rounded-4xl"
+                      className="w-full p-2 py-1 border border-salviaScuro rounded-4xl"
                     >
                       <option value="">Tutti</option>
                       <option value="CONFORME">Conforme</option>
@@ -382,7 +382,7 @@ const Forniture = () => {
                     </select>
                     <button
                       onClick={handleFiltroConformita}
-                      className="px-3 py-1 bg-blue-500 text-white rounded-4xl hover:bg-blue-600 text-sm"
+                      className="px-3 py-1 bg-salvia text-white rounded-4xl hover:bg-salviaScuro text-sm"
                     >
                       Filtra
                     </button>
@@ -398,7 +398,7 @@ const Forniture = () => {
                       setRisultatiRicerca(null)
                       setShowFilterDropdown(false)
                     }}
-                    className="w-full px-3 py-1 bg-gray-300 text-gray-800 rounded-4xl hover:bg-gray-400 text-sm"
+                    className="w-full px-3 text-shadow-md py-1 bg-rosso/80 text-white rounded-4xl hover:bg-rosso text-sm"
                   >
                     Annulla filtri
                   </button>
@@ -408,38 +408,36 @@ const Forniture = () => {
           )}
         </div>
         {error && (
-          <div className="mb-4 text-center text-red-600 font-medium">
-            {error}
-          </div>
+          <div className="mb-4 text-center text-rosso font-medium">{error}</div>
         )}
         <div className="mb-4 text-center text-gray-700 font-semibold">
           {descrizioneFiltro()}
         </div>
-        <table className="w-250 border-collapse bg-neutral-50 shadow-xl">
+        <table className="w-250 border-collapse bg-salviaChiaro shadow-md rounded-2xl shadow-salviaScuro">
           <thead>
             <tr>
-              <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200">
+              <th className="rounded-tl-2xl px-6 py-3 bg-salvia text-shadow-lg text-gray-200">
                 Data
               </th>
-              <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200">
+              <th className="px-6 py-3 bg-salvia  text-shadow-lg text-gray-200">
                 Fornitore
               </th>
-              <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200">
+              <th className="px-6 py-3 bg-salvia  text-shadow-lg text-gray-200">
                 Prodotto
               </th>
-              <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200">
+              <th className="px-6 py-3 bg-salvia  text-shadow-lg text-gray-200">
                 Conforme
               </th>
-              <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200">
+              <th className="px-6 py-3 bg-salvia  text-shadow-lg text-gray-200">
                 Lotto
               </th>
-              <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200"></th>
+              <th className="px-6 py-3 bg-salvia rounded-tr-2xl"></th>
             </tr>
           </thead>
           <tbody>
             {(risultatiRicerca || forniture).map((fornitura) => (
               <tr key={fornitura.id}>
-                <td className="border-b border-gray-300 py-3 text-center">
+                <td className="border-b border-salvia py-3 text-center">
                   {editingId === fornitura.id ? (
                     <input
                       type="date"
@@ -450,13 +448,13 @@ const Forniture = () => {
                           data: e.target.value,
                         })
                       }
-                      className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                      className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                     />
                   ) : (
                     fornitura.data
                   )}
                 </td>
-                <td className="border-b border-gray-300 py-3 text-center bg-neutral-100">
+                <td className="border-b border-salvia py-3 text-center bg-avorio">
                   {editingId === fornitura.id ? (
                     <select
                       value={fornituraModificata.fornitoreId}
@@ -466,7 +464,7 @@ const Forniture = () => {
                           fornitoreId: e.target.value,
                         })
                       }
-                      className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                      className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                     >
                       <option value="">Seleziona fornitore</option>
                       {fornitori.map((f) => (
@@ -483,7 +481,7 @@ const Forniture = () => {
                     ""
                   )}
                 </td>
-                <td className="border-b border-gray-300 py-3 text-center">
+                <td className="border-b border-salvia py-3 text-center">
                   {editingId === fornitura.id ? (
                     <input
                       type="text"
@@ -494,13 +492,13 @@ const Forniture = () => {
                           prodotto: e.target.value,
                         })
                       }
-                      className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                      className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                     />
                   ) : (
                     fornitura.prodotto
                   )}
                 </td>
-                <td className="border-b border-gray-300 py-3 text-center bg-neutral-100">
+                <td className="border-b border-salvia py-3 text-center bg-avorio">
                   {editingId === fornitura.id ? (
                     <select
                       value={fornituraModificata.conformita}
@@ -510,7 +508,7 @@ const Forniture = () => {
                           conformita: e.target.value,
                         })
                       }
-                      className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                      className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                     >
                       <option value="CONFORME">Conforme</option>
                       <option value="NON_CONFORME">Non conforme</option>
@@ -519,7 +517,7 @@ const Forniture = () => {
                     fornitura.conformita
                   )}
                 </td>
-                <td className="border-b border-gray-300 py-3 text-center">
+                <td className="border-b border-salvia py-3 text-center">
                   {editingId === fornitura.id ? (
                     <input
                       type="text"
@@ -530,19 +528,19 @@ const Forniture = () => {
                           lotto: e.target.value,
                         })
                       }
-                      className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                      className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                     />
                   ) : (
                     fornitura.lotto
                   )}
                 </td>
-                <td className="text-center border-b border-gray-300  bg-neutral-100 p-3">
+                <td className="text-center border-b border-salvia  bg-avorio p-3">
                   {editingId === fornitura.id ? (
                     <button
                       onClick={() => handleSaveFornitura(fornitura.id)}
-                      className="ml-2 flex items-center justify-center w-7 h-7 rounded-full bg-green-400  hover:bg-green-500 transform transition-transform duration-200 ease-in-out hover:scale-110"
+                      className="ml-2 text-gray-100 text-shadow-lg  flex items-center justify-center w-7 h-7 rounded-2xl bg-salvia hover:bg-salviaScuro py-4 px-12 transform transition-transform duration-200 ease-in-out hover:scale-110 "
                     >
-                      <CheckIcon className="w-4 h-4 " />
+                      salva
                     </button>
                   ) : (
                     <button
@@ -560,9 +558,9 @@ const Forniture = () => {
                           lotto: fornitura.lotto,
                         })
                       }}
-                      className=" ml-2 flex items-center justify-center w-7 h-7  transform transition-transform duration-200 ease-in-out hover:scale-110 hover:text-yellow-600"
+                      className="ml-2 text-gray-100 text-shadow-lg  flex items-center justify-center w-7 h-7 rounded-2xl bg-ambra/90 hover:bg-ambra py-4 px-12 transform transition-transform duration-200 ease-in-out hover:scale-110  "
                     >
-                      <PencilSquareIcon className="w-6 h-6 " />
+                      modifica
                     </button>
                   )}
                 </td>
@@ -571,7 +569,7 @@ const Forniture = () => {
           </tbody>
           <tfoot>
             <tr>
-              <td className="border-t border-gray-300 px-2 py-2">
+              <td className="px-2 py-2">
                 <input
                   type="date"
                   value={nuovaFornitura.data}
@@ -581,11 +579,11 @@ const Forniture = () => {
                       data: e.target.value,
                     })
                   }
-                  className="w-full px-2 py-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                  className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   placeholder="Data"
                 />
               </td>
-              <td className="border-t border-gray-300 px-2 py-2 bg-neutral-100">
+              <td className=" px-2 py-2 bg-avorio">
                 <select
                   value={nuovaFornitura.fornitoreId}
                   onChange={(e) =>
@@ -594,7 +592,7 @@ const Forniture = () => {
                       fornitoreId: e.target.value,
                     })
                   }
-                  className="w-full px-2 py-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                  className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                 >
                   <option value="">Seleziona fornitore</option>
                   {fornitori.map((f) => (
@@ -604,7 +602,7 @@ const Forniture = () => {
                   ))}
                 </select>
               </td>
-              <td className="border-t border-gray-300 px-2 py-2">
+              <td className=" px-2 py-2">
                 <input
                   type="text"
                   value={nuovaFornitura.prodotto}
@@ -614,11 +612,11 @@ const Forniture = () => {
                       prodotto: e.target.value,
                     })
                   }
-                  className="w-full px-2 py-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                  className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   placeholder="Prodotto"
                 />
               </td>
-              <td className="border-t border-gray-300 px-2 py-2 bg-neutral-100">
+              <td className="px-2 py-2 bg-avorio">
                 <select
                   value={nuovaFornitura.conformita}
                   onChange={(e) =>
@@ -627,14 +625,14 @@ const Forniture = () => {
                       conformita: e.target.value,
                     })
                   }
-                  className="w-full px-2 py-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                  className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                 >
                   <option value="">Seleziona</option>
                   <option value="CONFORME">Conforme</option>
                   <option value="NON_CONFORME">Non conforme</option>
                 </select>
               </td>
-              <td className="border-t border-gray-300 px-2 py-2 text-center">
+              <td className=" px-2 py-2 text-center">
                 <input
                   type="text"
                   value={nuovaFornitura.lotto}
@@ -644,17 +642,17 @@ const Forniture = () => {
                       lotto: e.target.value,
                     })
                   }
-                  className="w-full px-2 py-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                  className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   placeholder="Lotto"
                 />
               </td>
-              <td className="text-center">
+              <td className="text-center bg-avorio rounded-br-2xl">
                 <button
                   onClick={handleAddFornitura}
-                  className="w-7 h-7 bg-blue-400 text-white rounded-full hover:bg-blue-600 text-sm hover:shadow-md hover:shadow-blue-600/50 focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                  className="ml-5 text-gray-100 text-shadow-lg  flex items-center justify-center w-7 h-7 rounded-2xl bg-salvia hover:bg-salviaScuro py-4 px-12 transform transition-transform duration-200 ease-in-out hover:scale-110 "
                   title="Aggiungi"
                 >
-                  +
+                  aggiungi
                 </button>
               </td>
             </tr>

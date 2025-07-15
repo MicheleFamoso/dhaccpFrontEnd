@@ -27,7 +27,7 @@ const SideBar = () => {
 
   return (
     <div
-      className={` h-9/10 my-5 bg-neutral-100 ml-5 backdrop-blur-[3px] rounded-3xl  shadow-xl shadow-neutral-300    ${
+      className={`   bg-salvia h-dvh  shadow-xl shadow-neutral-300    ${
         isExpanded ? "w-60" : "w-18"
       } p-3 flex flex-col`}
     >
@@ -37,81 +37,71 @@ const SideBar = () => {
       >
         {isExpanded ? (
           <>
-            <Bars3BottomLeftIcon className="h-8 w-8 m-1 text-stone-100 transform transition-transform duration-200 ease-in-out   hover:text-lime-300 hover:scale-170" />
+            <Bars3BottomLeftIcon className="h-8 w-8 m-1 text-salviaScuro  transform transition-transform duration-200 ease-in-out   hover:text-ambra hover:scale-120" />
           </>
         ) : (
-          <Bars3BottomRightIcon className="h-8 w-8 m-1 text-stone-100 transform transition-transform duration-200 ease-in-out hover:scale-170 hover:text-lime-300" />
+          <Bars3BottomRightIcon className="h-8 w-8 m-1 text-salviaScuro transform transition-transform duration-200 ease-in-out hover:scale-120 hover:text-ambra" />
         )}
       </button>
       <div
         onClick={() => navigate("/Profilo")}
-        className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-lime-600  ${
-          location.pathname === "/Profilo" ? "bg-lime-400" : ""
+        className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-salviaScuro  ${
+          location.pathname === "/Profilo" ? "bg-ambra" : ""
         }`}
       >
         <UserIcon
-          className={`h-8 w-8 p-1   transform transition-transform duration-200 ease-in-out hover:scale-125 ${
-            location.pathname === "/Profilo"
-              ? "text-slate-800 scale-110"
-              : "text-slate-100"
+          className={`h-8 w-8 p-1  text-slate-800 transform transition-transform duration-200 ease-in-out hover:scale-125 ${
+            location.pathname === "/Profilo" ? " scale-110" : ""
           }`}
         />
         {isExpanded && (
           <span
-            className={`text-sm ${
-              location.pathname === "/Profilo"
-                ? "text-slate-800 font-bold"
-                : "text-slate-50 hover:text-slate-800"
+            className={`text-sm text-slate-800${
+              location.pathname === "/Profilo" ? " font-bold " : ""
             }`}
           >
             Profilo
           </span>
         )}
       </div>
-      <hr className="my-3 border-t border-slate-600" />
+      <hr className="my-3 border-t border-salviaScuro" />
       <div
         onClick={() => navigate("/HomePage")}
-        className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-lime-600 ${
-          location.pathname === "/HomePage" ? "bg-lime-400" : ""
+        className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-salviaScuro ${
+          location.pathname === "/HomePage" ? "bg-ambra" : ""
         }`}
       >
         <HomeIcon
-          className={`h-6 w-6    backdrop-blur-sm transform transition-transform duration-200 ease-in-out hover:scale-125 ${
-            location.pathname === "/HomePage"
-              ? "text-blue-600 scale-110"
-              : "text-stone-500"
+          className={`h-6 w-6 text-slate-800   backdrop-blur-sm transform transition-transform duration-200 ease-in-out hover:scale-125 ${
+            location.pathname === "/HomePage" ? "scale-110" : ""
           }`}
         />
         {isExpanded && (
           <span
-            className={`text-sm ${
-              location.pathname === "/HomePage" ? "text-blue-600 font-bold" : ""
+            className={`text-sm  text-slate-800${
+              location.pathname === "/HomePage" ? " font-bold" : ""
             }`}
           >
             Dashboard
           </span>
         )}
       </div>
-      <hr className="my-3 border-t border-stone-300" />
+      <hr className="my-3 border-t border-salviaScuro" />
       <div
         onClick={() => navigate("/temperatura")}
-        className={`flex items-center gap-3 p-2 rounded-sm cursor-pointer hover:bg-stone-200 ${
-          location.pathname === "/temperatura" ? "bg-stone-200/60" : ""
+        className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-salviaScuro ${
+          location.pathname === "/temperatura" ? "bg-ambra" : ""
         }`}
       >
         <ClipboardDocumentListIcon
-          className={`h-6 w-6    backdrop-blur-sm transform transition-transform duration-200 ease-in-out hover:scale-125 ${
-            location.pathname === "/temperatura"
-              ? "text-blue-600 scale-110"
-              : "text-stone-500"
+          className={`h-6 w-6  text-slate-800  backdrop-blur-sm transform transition-transform duration-200 ease-in-out hover:scale-125 ${
+            location.pathname === "/temperatura" ? "scale-110" : ""
           }`}
         />
         {isExpanded && (
           <span
-            className={`text-sm ${
-              location.pathname === "/temperatura"
-                ? "text-blue-600 font-bold"
-                : ""
+            className={`text-sm text-slate-800 ${
+              location.pathname === "/temperatura" ? " font-bold" : ""
             }`}
           >
             Controllo Temperatura
@@ -120,21 +110,19 @@ const SideBar = () => {
       </div>
       <div
         onClick={() => navigate("/pulizie")}
-        className={`flex items-center gap-3 p-2 rounded-sm cursor-pointer hover:bg-stone-200 ${
-          location.pathname === "/pulizie" ? "bg-stone-200/60" : ""
+        className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-salviaScuro ${
+          location.pathname === "/pulizie" ? "bg-ambra" : ""
         }`}
       >
         <SparklesIcon
-          className={`h-6 w-6    backdrop-blur-sm  transform transition-transform duration-200 ease-in-out hover:scale-125 ${
-            location.pathname === "/pulizie"
-              ? "text-blue-600 scale-110"
-              : "text-stone-500"
+          className={`h-6 w-6 text-slate-800   backdrop-blur-sm  transform transition-transform duration-200 ease-in-out hover:scale-125 ${
+            location.pathname === "/pulizie" ? " scale-110" : ""
           }`}
         />
         {isExpanded && (
           <span
-            className={`text-sm ${
-              location.pathname === "/pulizie" ? "text-blue-600 font-bold" : ""
+            className={`text-sm  text-slate-800${
+              location.pathname === "/pulizie" ? " font-bold" : ""
             }`}
           >
             Pianificazione Pulizie
@@ -143,50 +131,42 @@ const SideBar = () => {
       </div>
       <div
         onClick={() => navigate("/infestanti")}
-        className={`flex items-center gap-3 p-2 rounded-sm cursor-pointer hover:bg-stone-200 ${
-          location.pathname === "/infestanti" ? "bg-stone-200/60" : ""
+        className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-salviaScuro ${
+          location.pathname === "/infestanti" ? "bg-ambra" : ""
         }`}
       >
         <BugAntIcon
-          className={`h-6 w-6    backdrop-blur-sm  transform transition-transform duration-200 ease-in-out hover:scale-125 ${
-            location.pathname === "/infestanti"
-              ? "text-blue-600 scale-110"
-              : "text-stone-500"
+          className={`h-6 w-6 text-slate-800   backdrop-blur-sm  transform transition-transform duration-200 ease-in-out hover:scale-125 ${
+            location.pathname === "/infestanti" ? " scale-110" : ""
           }`}
         />
         {isExpanded && (
           <span
-            className={`text-sm ${
-              location.pathname === "/infestanti"
-                ? "text-blue-600 font-bold"
-                : ""
+            className={`text-sm text-slate-800 ${
+              location.pathname === "/infestanti" ? " font-bold" : ""
             }`}
           >
             Controllo Infestanti
           </span>
         )}
       </div>
-      <hr className="my-3 border-t border-stone-300" />
+      <hr className="my-3 border-t border-salviaScuro" />
 
       <div
         onClick={() => navigate("/fornitori")}
-        className={`flex items-center gap-3 p-2 rounded-sm cursor-pointer hover:bg-stone-200 mt-2 ${
-          location.pathname === "/fornitori" ? "bg-stone-200/60" : ""
+        className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-salviaScuro mt-2 ${
+          location.pathname === "/fornitori" ? "bg-ambra" : ""
         }`}
       >
         <TruckIcon
-          className={`h-6 w-6    backdrop-blur-sm  transform transition-transform duration-200 ease-in-out hover:scale-125 ${
-            location.pathname === "/fornitori"
-              ? "text-blue-600 scale-110"
-              : "text-stone-500"
+          className={`h-6 w-6  text-slate-800  backdrop-blur-sm  transform transition-transform duration-200 ease-in-out hover:scale-125 ${
+            location.pathname === "/fornitori" ? " scale-110" : ""
           }`}
         />
         {isExpanded && (
           <span
-            className={`text-sm ${
-              location.pathname === "/fornitori"
-                ? "text-blue-600 font-bold"
-                : ""
+            className={`text-sm text-slate-800 ${
+              location.pathname === "/fornitori" ? " font-bold" : ""
             }`}
           >
             Fornitori
@@ -195,48 +175,42 @@ const SideBar = () => {
       </div>
       <div
         onClick={() => navigate("/forniture")}
-        className={`flex items-center gap-3 p-2 rounded-sm cursor-pointer hover:bg-stone-200 ${
-          location.pathname === "/forniture" ? "bg-stone-200/60" : ""
+        className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-salviaScuro ${
+          location.pathname === "/forniture" ? "bg-ambra" : ""
         }`}
       >
         <ArchiveBoxIcon
-          className={`h-6 w-6    backdrop-blur-sm  transform transition-transform duration-200 ease-in-out hover:scale-125 ${
-            location.pathname === "/forniture"
-              ? "text-blue-600 scale-110"
-              : "text-stone-500"
+          className={`h-6 w-6 text-slate-800    backdrop-blur-sm  transform transition-transform duration-200 ease-in-out hover:scale-125 ${
+            location.pathname === "/forniture" ? "scale-110" : ""
           }`}
         />
         {isExpanded && (
           <span
-            className={`text-sm ${
-              location.pathname === "/forniture"
-                ? "text-blue-600 font-bold"
-                : ""
+            className={`text-sm text-slate-800 ${
+              location.pathname === "/forniture" ? "font-bold" : ""
             }`}
           >
             Forniture
           </span>
         )}
       </div>
-      <hr className="my-3 border-t border-stone-300" />
+      <hr className="my-3 border-t border-salviaScuro" />
       {ruolo === "ADMIN" && (
         <div
           onClick={() => navigate("/utenti")}
-          className={`flex items-center gap-3 p-2 rounded-sm cursor-pointer hover:bg-stone-200 mt-2 ${
-            location.pathname === "/utenti" ? "bg-stone-200/60" : ""
+          className={`flex items-center gap-3 p-2 rounded-sm cursor-pointer hover:bg-salviaScuro mt-2 ${
+            location.pathname === "/utenti" ? "bg-ambra" : ""
           }`}
         >
           <UsersIcon
-            className={`h-6 w-6    backdrop-blur-sm  transform transition-transform duration-200 ease-in-out hover:scale-125 ${
-              location.pathname === "/utenti"
-                ? "text-blue-600 scale-110"
-                : "text-stone-500"
+            className={`h-6 w-6 text-slate-800   backdrop-blur-sm  transform transition-transform duration-200 ease-in-out hover:scale-125 ${
+              location.pathname === "/utenti" ? " scale-110" : ""
             }`}
           />
           {isExpanded && (
             <span
-              className={`text-sm ${
-                location.pathname === "/utenti" ? "text-blue-600 font-bold" : ""
+              className={`text-sm text-slate-800 ${
+                location.pathname === "/utenti" ? "font-bold" : ""
               }`}
             >
               Utenti
@@ -246,49 +220,45 @@ const SideBar = () => {
       )}
       <div
         onClick={() => navigate("/azienda")}
-        className={`flex items-center gap-3 p-2 rounded-sm cursor-pointer hover:bg-stone-200 ${
-          location.pathname === "/azienda" ? "bg-stone-200/60" : ""
+        className={`flex items-center gap-3 p-2 rounded-sm cursor-pointer hover:bg-salviaScuro ${
+          location.pathname === "/azienda" ? "bg-ambra" : ""
         }`}
       >
         <BuildingStorefrontIcon
-          className={`h-6 w-6    backdrop-blur-sm  transform transition-transform duration-200 ease-in-out hover:scale-125 ${
-            location.pathname === "/azienda"
-              ? "text-blue-600 scale-110 h-7 w-7"
-              : "text-stone-500"
+          className={`h-6 w-6 text-slate-800   backdrop-blur-sm  transform transition-transform duration-200 ease-in-out hover:scale-125 ${
+            location.pathname === "/azienda" ? "scale-110 h-7 w-7" : ""
           }`}
         />
         {isExpanded && (
           <span
-            className={`text-sm ${
-              location.pathname === "/azienda" ? "text-blue-600 font-bold" : ""
+            className={`text-sm  text-slate-800${
+              location.pathname === "/azienda" ? "font-bold" : ""
             }`}
           >
             Azienda
           </span>
         )}
       </div>
-      <hr className="my-3 border-t border-stone-300" />
+      <hr className="my-3 border-t border-salviaScuro" />
       <div
         onClick={() => {
           navigate("/")
           localStorage.removeItem("token")
           localStorage.removeItem("ruolo")
         }}
-        className={`flex items-center gap-3 p-2 rounded-sm cursor-pointer hover:bg-stone-200 ${
-          location.pathname === "/" ? "bg-stone-200/60" : ""
+        className={`flex items-center gap-3 p-2 rounded-sm cursor-pointer hover:bg-salviaScuro ${
+          location.pathname === "/" ? "bg-ambra" : ""
         }`}
       >
         <XCircleIcon
-          className={`h-6 w-6    backdrop-blur-sm  transform transition-transform duration-200 ease-in-out hover:scale-125 ${
-            location.pathname === "/"
-              ? "text-blue-600 scale-110"
-              : "text-stone-500"
+          className={`h-6 w-6  text-slate-800  backdrop-blur-sm  transform transition-transform duration-200 ease-in-out hover:scale-125 ${
+            location.pathname === "/" ? " scale-110" : ""
           }`}
         />
         {isExpanded && (
           <span
-            className={`text-sm ${
-              location.pathname === "/" ? "text-blue-600 font-bold" : ""
+            className={`text-sm text-slate-800 ${
+              location.pathname === "/" ? " font-bold" : ""
             }`}
           >
             Log Out

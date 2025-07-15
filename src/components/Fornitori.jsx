@@ -167,7 +167,7 @@ const Fornitori = () => {
   }
 
   return (
-    <div className="flex h-screen bg-gray-100 ">
+    <div className="flex h-screen bg-beige ">
       <div>
         <SideBar />
       </div>
@@ -180,7 +180,7 @@ const Fornitori = () => {
             </p>
           )}
           {error && (
-            <p className="text-xl  text-center w-full py-10 text-red-600">
+            <p className="text-xl  text-center w-full py-10 text-rosso">
               {error}
             </p>
           )}
@@ -192,7 +192,7 @@ const Fornitori = () => {
               <div className="flex flex-col items-center text-center w-full py-10 gap-4">
                 <p className="text-xl">Nessun Fornitore disponibile.</p>
                 <button
-                  className="w-60 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded"
+                  className="px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl "
                   onClick={() => setShowForm(true)}
                 >
                   Aggiungi Fornitore
@@ -200,7 +200,7 @@ const Fornitori = () => {
               </div>
             )}
           {!loading && !error && showForm && (
-            <div className="w-full p-6">
+            <div className="w-200 m-auto p-6 rounded-2xl bg-salviaChiaro border-1 border-salvia shadow-md shadow-salvia">
               <h2 className="text-2xl font-bold text-center mb-6">
                 {idUtente ? "Modifica fornitore" : "Crea fornitore"}
               </h2>
@@ -221,7 +221,7 @@ const Fornitori = () => {
                   placeholder="Nome fornitore"
                   value={nomeFornitore}
                   onChange={(e) => setNomeFornitore(e.target.value)}
-                  className="w-full p-2 border-b focus:outline-none focus:border-blue-500"
+                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   required
                 />
                 <input
@@ -229,7 +229,7 @@ const Fornitori = () => {
                   placeholder="Sede"
                   value={sede}
                   onChange={(e) => setSede(e.target.value)}
-                  className="w-full p-2 border-b focus:outline-none focus:border-blue-500"
+                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   required
                 />
                 <input
@@ -237,7 +237,7 @@ const Fornitori = () => {
                   placeholder="Telefono"
                   value={telefono}
                   onChange={(e) => setTelefono(e.target.value)}
-                  className="w-full p-2 border-b focus:outline-none focus:border-blue-500"
+                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   required
                 />
                 <input
@@ -245,7 +245,7 @@ const Fornitori = () => {
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-2 border-b focus:outline-none focus:border-blue-500"
+                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   required
                 />
                 <input
@@ -253,22 +253,24 @@ const Fornitori = () => {
                   placeholder="Prodotti forniti"
                   value={prodottiForniti}
                   onChange={(e) => setProdottiForniti(e.target.value)}
-                  className="w-full p-2 border-b focus:outline-none focus:border-blue-500"
+                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   required
                 />
-                <button
-                  type="submit"
-                  className="w-60 self-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600 hover:shadow-md hover:shadow-blue-500/50"
-                >
-                  {idUtente ? "Salva modifiche" : "Crea Fornitore"}
-                </button>
-                <button
-                  type="button"
-                  className="w-60 self-center bg-gray-300 text-gray-800 py-2 rounded hover:bg-gray-400 mt-2"
-                  onClick={() => setShowForm(false)}
-                >
-                  Annulla
-                </button>
+                <div className="flex justify-around">
+                  <button
+                    type="button"
+                    className="w-60 px-2 py-1 bg-grigio border-1 border-salviaScuro shadow-md text-white  hover:bg-rosso mb-6 rounded-2xl"
+                    onClick={() => setShowForm(false)}
+                  >
+                    Annulla
+                  </button>{" "}
+                  <button
+                    type="submit"
+                    className="w-60  px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl"
+                  >
+                    {idUtente ? "Salva modifiche" : "Crea Fornitore"}
+                  </button>
+                </div>
               </form>
             </div>
           )}
@@ -279,11 +281,11 @@ const Fornitori = () => {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Cerca fornitori per nome o prodotto"
-                className="px-3 py-1 bg-white border border-gray-300 rounded-2xl w-150 shadow-sm mb-6 focus:outline-hidden focus:shadow-blue-300 focus:shadow-md"
+                className="px-3 py-1 bg-salviaChiaro border border-salvia rounded-2xl w-150 shadow-sm mb-6 focus:outline-hidden focus:shadow-salvia focus:shadow-md"
               />
               <button
                 onClick={handleSearch}
-                className="px-2 py-1 bg-blue-400 text-white  hover:bg-blue-600 mb-6 rounded-2xl m"
+                className="px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl "
               >
                 Cerca
               </button>
@@ -292,9 +294,9 @@ const Fornitori = () => {
           {!loading && !error && !showForm && fornitori.length > 0 && (
             <div className="flex flex-col gap-4">
               {isAdmin && (
-                <div className="flex justify-end">
+                <div className="flex justify-start">
                   <button
-                    className="mb-4 bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-4 rounded-sm"
+                    className="px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl"
                     onClick={() => {
                       setNomeFornitore("")
                       setSede("")
@@ -305,7 +307,7 @@ const Fornitori = () => {
                       setShowForm(true)
                     }}
                   >
-                    Aggiungi Fornitore
+                    Aggiungi
                   </button>
                 </div>
               )}
@@ -313,7 +315,7 @@ const Fornitori = () => {
                 {(risultatiRicerca || fornitori).map((fornitore) => (
                   <div
                     key={fornitore.id}
-                    className="relative bg-gray-50 p-4 rounded-xs shadow-lg border-1 border-gray-200 flex flex-col"
+                    className="relative bg-salviaChiaro p-4 rounded-2xl shadow-salvia shadow-lg border-1 border-salvia flex flex-col"
                   >
                     {isAdmin && (
                       <button
@@ -321,7 +323,7 @@ const Fornitori = () => {
                           setFornitoreToDelete(fornitore)
                           setShowDeleteModal(true)
                         }}
-                        className="absolute -top-4 right-1  w-8 h-8 bg-gray-200 border-1 border-gray-200 text-neutral-800  rounded-full hover:bg-red-400 hover:text-white shadow-md text-center "
+                        className="absolute -top-4 right-1  w-8 h-8 bg-avorio border-1 border-salvia text-neutral-800  rounded-full hover:bg-rosso hover:text-white shadow-md shadow-salvia text-center "
                         title="Elimina fornitore"
                       >
                         x
@@ -329,37 +331,48 @@ const Fornitori = () => {
                     )}
                     <div className="flex items-center gap-4">
                       <img
-                        className="w-30 h-30 bg-purple-300 rounded-full border-1 border-gray-200  object-cover   drop-shadow-xl "
+                        className="w-30 h-30 bg-salvia/70 rounded-full border-1 border-salviaScuro  object-cover   drop-shadow-xl shadow-salvia"
                         src="/public/20.png"
                         alt="user-placeholder"
                       />
                       <div className="flex flex-col ml-5">
-                        <p className="text-2xl font-semibold mb-2">
-                          {fornitore.nomeFornitore}
+                        <p className="text-2xl font-semibold mb-2 text-salviaScuro text-shadow-xs">
+                          • {fornitore.nomeFornitore} •
                         </p>
-                        <p className="text-sm text-gray-600 mb-1">
+                        <p className=" text-gray-700 mb-2 font-semibold ">
                           Sede:
-                          {fornitore.sede}
+                          <span className=" font-normal ">
+                            {" "}
+                            {fornitore.sede}
+                          </span>
                         </p>
-                        <p className="text-sm text-gray-600 mb-1">
-                          Email: {fornitore.email}
+                        <p className=" text-gray-700 mb-2 font-semibold">
+                          Email:
+                          <span className=" font-normal">
+                            {" "}
+                            {fornitore.email}
+                          </span>
                         </p>
-                        <p className="text-sm text-gray-600 mb-1">
-                          Telefono: {fornitore.telefono}
+                        <p className=" text-gray-700 mb-2 font-semibold">
+                          Telefono:
+                          <span className=" font-normal">
+                            {" "}
+                            {fornitore.telefono}
+                          </span>
                         </p>
                       </div>
                     </div>
+                    <hr className="my-3 border-t border-salviaScuro" />
+                    <div className="text-center  py-2  ">
+                      <p className="font-semibold mb-2">Prodotti:</p>
 
-                    <div className="text-center mt-5 p-5">
-                      <hr className=" border-t border-stone-300 mb-2" />
-                      <p>Prodotti:</p>
-                      <p className="text-sm text-gray-600 px-10">
+                      <p className=" text-gray-600 px-10 ">
                         {fornitore.prodottiForniti.join(" • ")}
                       </p>
                     </div>
                     {isAdmin && (
                       <button
-                        className="mt-4 self-end bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-4 rounded-sm"
+                        className="mt-4 self-end bg-salvia hover:bg-salviaScuro text-salviaChiaro py-1 px-4 rounded-2xl border-salviaScuro border-1 text-shadow-md"
                         onClick={() => {
                           setNomeFornitore(fornitore.nomeFornitore)
                           setSede(fornitore.sede)

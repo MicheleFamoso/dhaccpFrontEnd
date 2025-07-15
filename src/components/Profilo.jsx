@@ -2,7 +2,7 @@ import SideBar from "./SideBar"
 
 const Profilo = () => {
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-beige">
       <div>
         <SideBar />
       </div>

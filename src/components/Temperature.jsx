@@ -6,6 +6,8 @@ import {
   ArrowLeftIcon,
   ArrowRightIcon,
 } from "@heroicons/react/24/outline"
+import { format, subDays, addDays } from "date-fns"
+import { it } from "date-fns/locale"
 
 const Temperature = () => {
   const [temperature, setTemperature] = useState([])
@@ -126,7 +128,6 @@ const Temperature = () => {
     new Intl.DateTimeFormat("it-IT", {
       day: "2-digit",
       month: "long",
-      year: "numeric",
     }).format(new Date(data))
 
   // Gestione aggiunta nuova temperatura
@@ -214,20 +215,20 @@ const Temperature = () => {
     filtroTemperatura
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-beige">
       <SideBar />
       <div className="flex-1 p-6">
         {/* Bottone mostra/nascondi filtri e dropdown */}
         <div className="relative flex justify-end mb-4 mr-20">
           <button
-            className="px-3 py-1 bg-gray-200 text-gray-800 hover:bg-blue-200 rounded-4xl"
+            className="px-4 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl"
             onClick={() => setMostraFiltri((prev) => !prev)}
           >
             Filtri
           </button>
 
           {mostraFiltri && (
-            <div className="absolute right-0 top-full mt-2 z-50 w-[500px] bg-white rounded-md shadow-2xl p-4 border border-gray-200">
+            <div className="absolute right-0 top-full mt-2 z-50 w-[500px] bg-salviaChiaro rounded-2xl shadow-salvia shadow-2xl p-4 border border-salvia">
               <h2 className="font-semibold mb-2">Filtri</h2>
               <div className="">
                 <div className="mb-4">
@@ -237,14 +238,14 @@ const Temperature = () => {
                   <div className="flex gap-2">
                     <input
                       type="date"
-                      className="px-2 py-1 border border-gray-300 rounded-4xl flex-1"
+                      className="px-2 py-1 border border-salviaScuro rounded-4xl flex-grow"
                       placeholder="Data"
                       value={filtroData}
                       onChange={(e) => setFiltroData(e.target.value)}
                     />
                     <button
                       onClick={applicaFiltri}
-                      className="px-3 py-1 bg-blue-500 text-white rounded-4xl hover:bg-blue-600 text-sm"
+                      className="px-3 py-1 bg-salvia  text-white rounded-4xl hover:bg-salviaScuro text-shadow-md text-sm"
                     >
                       Filtra
                     </button>
@@ -257,21 +258,21 @@ const Temperature = () => {
                   <div className="flex gap-2">
                     <input
                       type="date"
-                      className="px-2 py-1 border border-gray-300 rounded-4xl flex-1"
+                      className="px-2 py-1 border border-salviaScuro rounded-4xl flex-grow"
                       placeholder="Da"
                       value={filtroStart}
                       onChange={(e) => setFiltroStart(e.target.value)}
                     />{" "}
                     <input
                       type="date"
-                      className="px-2 py-1 border border-gray-300 rounded-4xl flex-1"
+                      className="px-2 py-1 border border-salviaScuro rounded-4xl flex-grow"
                       placeholder="A"
                       value={filtroEnd}
                       onChange={(e) => setFiltroEnd(e.target.value)}
                     />
                     <button
                       onClick={applicaFiltri}
-                      className="px-3 py-1 bg-blue-500 text-white rounded-4xl hover:bg-blue-600 text-sm"
+                      className="px-3 py-1 bg-salvia  text-white rounded-4xl hover:bg-salviaScuro text-shadow-md text-sm"
                     >
                       Filtra
                     </button>
@@ -285,14 +286,14 @@ const Temperature = () => {
                   <div className="flex gap-2">
                     <input
                       type="text"
-                      className="px-2 py-1 border border-gray-300 rounded-4xl flex-1"
+                      className="px-2 py-1 border border-salviaScuro rounded-4xl flex-grow"
                       placeholder="Frigo"
                       value={filtroFrigo}
                       onChange={(e) => setFiltroFrigo(e.target.value)}
                     />
                     <button
                       onClick={applicaFiltri}
-                      className="px-3 py-1 bg-blue-500 text-white rounded-4xl hover:bg-blue-600 text-sm"
+                      className="px-3 py-1 bg-salvia  text-white rounded-4xl hover:bg-salviaScuro text-shadow-md text-sm"
                     >
                       Filtra
                     </button>
@@ -306,14 +307,14 @@ const Temperature = () => {
                   <div className="flex gap-2">
                     <input
                       type="number"
-                      className="px-2 py-1 border border-gray-300 rounded-4xl flex-1"
+                      className="px-2 py-1 border border-salviaScuro rounded-4xl flex-grow"
                       placeholder="Temperatura"
                       value={filtroTemperatura}
                       onChange={(e) => setFiltroTemperatura(e.target.value)}
                     />
                     <button
                       onClick={applicaFiltri}
-                      className="px-3 py-1 bg-blue-500 text-white rounded-4xl hover:bg-blue-600 text-sm"
+                      className="px-3 py-1 bg-salvia  text-white rounded-4xl hover:bg-salviaScuro text-shadow-md text-sm"
                     >
                       Filtra
                     </button>
@@ -325,7 +326,7 @@ const Temperature = () => {
                   </label>
                   <div className="flex gap-2">
                     <select
-                      className="px-2 py-1 border border-gray-300 rounded-4xl flex-1"
+                      className="px-2 py-1 border border-salviaScuro rounded-4xl flex-grow"
                       value={filtroConformita}
                       onChange={(e) => setFiltroConformita(e.target.value)}
                     >
@@ -335,7 +336,7 @@ const Temperature = () => {
                     </select>
                     <button
                       onClick={applicaFiltri}
-                      className="px-3 py-1 bg-blue-500 text-white rounded-4xl hover:bg-blue-600 text-sm"
+                      className="px-3 py-1 bg-salvia  text-white rounded-4xl hover:bg-salviaScuro text-shadow-md text-sm"
                     >
                       Filtra
                     </button>
@@ -344,7 +345,7 @@ const Temperature = () => {
               </div>
               <div className="mt-4 flex gap-2">
                 <button
-                  className="w-full px-3 py-1 bg-gray-300 text-gray-800 rounded-4xl hover:bg-gray-400 text-sm"
+                  className="w-full px-3 text-shadow-md py-1 bg-rosso/80 text-white rounded-4xl hover:bg-rosso text-sm"
                   onClick={resetFiltri}
                 >
                   Annulla filtri
@@ -355,34 +356,38 @@ const Temperature = () => {
         </div>
 
         <div className=" flex-1 p-6 justify-items-center justify-center ">
-          <div className="flex justify-between mb-6">
+          <div className="flex justify-center justify-items-center mb-15">
             <button
               disabled={giornoCorrente === 0}
               onClick={() => setGiornoCorrente((prev) => prev - 1)}
-              className=" bg-blue-500 text-white p-2 rounded-full disabled:opacity-50 mr-30  hover:bg-blue-800"
+              className=" text-xl bg-avorio border-1 border-salvia shadow-md shadow-salviaChiaro  text-gray-700  rounded-4xl px-8 disabled:opacity-50 mr-30  hover:bg-salviaChiaro"
             >
-              <ArrowLeftIcon className="h-8" />
+              ◀ &nbsp;&nbsp;
+              {giornoSelezionato && !isNaN(new Date(giornoSelezionato))
+                ? format(subDays(new Date(giornoSelezionato), 1), "dd", {
+                    locale: it,
+                  })
+                : "–"}
+              &nbsp;&nbsp;&nbsp;
             </button>
 
-            <h1 className="text-2xl mb-4 text-center">
+            <h1 className="text-2xl  text-center bg-red-500 border-1 border-salvia shadow-md shadow-salvia text-shadow-md py-3 px-4 rounded-4xl text-gray-50">
               {!haFiltriAttivi()
                 ? giornoSelezionato
-                  ? `Temperature registrate - Giorno: ${formattaData(
-                      giornoSelezionato
-                    )}`
+                  ? ` ${formattaData(giornoSelezionato)}`
                   : "Temperature registrate"
                 : filtroConformita
                 ? `Temperature ${filtroConformita
                     .toLowerCase()
                     .replace("_", " ")} rilevate`
                 : filtroData
-                ? `Temperature del ${formattaData(filtroData)}`
+                ? ` ${formattaData(filtroData)}`
                 : filtroStart && filtroEnd
-                ? `Temperature dal ${formattaData(
-                    filtroStart
-                  )} al ${formattaData(filtroEnd)}`
+                ? ` Dal ${formattaData(filtroStart)} al ${formattaData(
+                    filtroEnd
+                  )}`
                 : filtroFrigo
-                ? `Temperature del frigo ${filtroFrigo}`
+                ? ` Frigo ${filtroFrigo}`
                 : filtroTemperatura
                 ? `Temperature pari a ${filtroTemperatura}°C`
                 : "Risultati del filtro"}
@@ -390,27 +395,34 @@ const Temperature = () => {
             <button
               disabled={giornoCorrente === giorni.length - 1}
               onClick={() => setGiornoCorrente((prev) => prev + 1)}
-              className=" p-2 bg-blue-500 text-white rounded-full disabled:opacity-50 ml-30 hover:bg-blue-800"
+              className=" text-xl border-1 border-salvia shadow-md shadow-salviaChiaro px-8 rounded-4xl bg-avorio text-gray-800  disabled:opacity-50 ml-30 hover:bg-salviaChiaro"
             >
-              <ArrowRightIcon className="h-8" />
+              {" "}
+              &nbsp;&nbsp;
+              {giornoSelezionato && !isNaN(new Date(giornoSelezionato))
+                ? format(addDays(new Date(giornoSelezionato), 1), "dd", {
+                    locale: it,
+                  })
+                : "–"}
+              &nbsp; ▶&nbsp;&nbsp;
             </button>
           </div>
-          <table className="w-250 border-collapse bg-neutral-50 shadow-xl">
+          <table className="w-250 border-collapse bg-salviaChiaro shadow-md rounded-2xl shadow-salviaScuro">
             <thead>
               <tr>
-                <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200">
+                <th className="rounded-tl-2xl px-6 py-3 bg-salvia text-shadow-lg text-gray-200">
                   Data
                 </th>
-                <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200">
+                <th className="px-6 py-3 bg-salvia  text-shadow-lg text-gray-200">
                   Frigo
                 </th>
-                <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200">
+                <th className="px-6 py-3 bg-salvia  text-shadow-lg text-gray-200">
                   Temperatura
                 </th>
-                <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200">
+                <th className="px-6 py-3 bg-salvia  text-shadow-lg text-gray-200">
                   Conformità
                 </th>
-                <th className="border-b border-gray-300 px-6 py-3 bg-neutral-200"></th>
+                <th className="px-6 py-3 bg-salvia rounded-tr-2xl"></th>
               </tr>
             </thead>
             <tbody>
@@ -421,10 +433,10 @@ const Temperature = () => {
                 <tr key={t.id || index}>
                   {editingId === t.id ? (
                     <>
-                      <td className="border-b border-gray-300 py-3 text-center">
+                      <td className="border-b border-salvia py-3 text-center bg-avorio">
                         <input
                           type="date"
-                          className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                          className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                           value={temperaturaModificata.data || ""}
                           onChange={(e) =>
                             setTemperaturaModificata((prev) => ({
@@ -434,10 +446,10 @@ const Temperature = () => {
                           }
                         />
                       </td>
-                      <td className="border-b border-gray-300 py-3 text-center ">
+                      <td className="border-b border-salvia py-3 text-center">
                         <input
                           type="text"
-                          className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                          className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                           value={temperaturaModificata.frigo}
                           onChange={(e) =>
                             setTemperaturaModificata((prev) => ({
@@ -447,10 +459,10 @@ const Temperature = () => {
                           }
                         />
                       </td>
-                      <td className="border-b border-gray-300 py-3 text-center">
+                      <td className="border-b border-salvia py-3 text-center bg-avorio">
                         <input
                           type="number"
-                          className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                          className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                           value={temperaturaModificata.temperatura}
                           onChange={(e) =>
                             setTemperaturaModificata((prev) => ({
@@ -460,9 +472,9 @@ const Temperature = () => {
                           }
                         />
                       </td>
-                      <td className="border-b border-gray-300 py-3 text-center">
+                      <td className="border-b border-salvia py-3 text-center">
                         <select
-                          className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                          className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                           value={temperaturaModificata.conformita}
                           onChange={(e) =>
                             setTemperaturaModificata((prev) => ({
@@ -476,32 +488,32 @@ const Temperature = () => {
                           <option value="NON_CONFORME">NON CONFORME</option>
                         </select>
                       </td>
-                      <td className="border-b border-gray-300 py-3 text-center">
+                      <td className="border-b border-salvia py-3 text-center bg-avorio">
                         <button
-                          className="ml-5 flex items-center justify-center w-7 h-7 rounded-full bg-green-400  hover:bg-green-500 transform transition-transform duration-200 ease-in-out hover:scale-110"
+                          className="ml-2 text-gray-100 text-shadow-lg  flex items-center justify-center w-7 h-7 rounded-2xl bg-salvia hover:bg-salviaScuro py-4 px-12 transform transition-transform duration-200 ease-in-out hover:scale-110 "
                           onClick={(e) => handleUpdateTemperatura(t.id, e)}
                         >
-                          <CheckIcon className="w-4 h-4 " />
+                          salva
                         </button>
                       </td>
                     </>
                   ) : (
                     <>
-                      <td className="border-b border-gray-300 py-3 text-center px-3 bg-neutral-100">
+                      <td className="border-b border-salvia py-3 text-center px-3 bg-avorio">
                         {formattaData(t.data)}
                       </td>
-                      <td className="border-b border-gray-300 py-3 text-center px-3">
+                      <td className="border-b border-salvia py-3 text-center px-3">
                         {t.frigo}
                       </td>
-                      <td className="border-b border-gray-300 py-3 text-center px-3 bg-neutral-100">
+                      <td className="border-b border-salvia py-3 text-center px-3 bg-avorio">
                         {t.temperatura}
                       </td>
-                      <td className="border-b border-gray-300 py-3 text-center px-3">
+                      <td className="border-b border-salvia py-3 text-center px-3">
                         {t.conformita}
                       </td>
-                      <td className="border-b border-gray-300 py-3 text-center px-3 bg-neutral-100">
+                      <td className="border-b border-salvia py-3 text-center px-3 bg-avorio">
                         <button
-                          className="ml-2 flex items-center justify-center w-7 h-7  transform transition-transform duration-200 ease-in-out hover:scale-110  hover:text-yellow-600 "
+                          className=" m-auto text-gray-100 text-shadow-lg  flex items-center justify-center w-7 h-7 rounded-2xl bg-ambra/90 hover:bg-ambra py-4 px-12 transform transition-transform duration-200 ease-in-out hover:scale-110 "
                           onClick={() => {
                             setEditingId(t.id)
                             setTemperaturaModificata({
@@ -512,7 +524,7 @@ const Temperature = () => {
                             })
                           }}
                         >
-                          <PencilSquareIcon className="w-6 h-6 " />
+                          modifica
                         </button>
                       </td>
                     </>
@@ -528,10 +540,10 @@ const Temperature = () => {
               )}
               {/* Riga per inserimento nuova temperatura */}
               <tr>
-                <td className="px-4 py-2">
+                <td className="px-4 py-2 bg-avorio rounded-bl-2xl">
                   <input
                     type="date"
-                    className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                    className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                     value={nuovaTemperatura.data || ""}
                     onChange={(e) =>
                       setNuovaTemperatura((prev) => ({
@@ -544,7 +556,7 @@ const Temperature = () => {
                 <td className="px-4 py-2">
                   <input
                     type="text"
-                    className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                    className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                     placeholder="Frigo"
                     value={nuovaTemperatura.frigo}
                     onChange={(e) =>
@@ -555,10 +567,10 @@ const Temperature = () => {
                     }
                   />
                 </td>
-                <td className="px-4 py-2">
+                <td className="px-4 py-2 bg-avorio">
                   <input
                     type="number"
-                    className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                    className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                     placeholder="Temperatura"
                     value={nuovaTemperatura.temperatura}
                     onChange={(e) =>
@@ -571,7 +583,7 @@ const Temperature = () => {
                 </td>
                 <td className="px-4 py-2">
                   <select
-                    className="w-full px-1 text-center text-sm focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                    className="w-full px-1 text-center text-gray-500  focus:border-b-2 focus:border-ambra focus:outline-hidden"
                     value={nuovaTemperatura.conformita}
                     onChange={(e) =>
                       setNuovaTemperatura((prev) => ({
@@ -585,9 +597,9 @@ const Temperature = () => {
                     <option value="NON_CONFORME">NON CONFORME</option>
                   </select>
                 </td>
-                <td className="px-4 py-2">
+                <td className="px-4 py-2 bg-avorio rounded-br-2xl">
                   <button
-                    className="w-7 h-7 bg-blue-400 text-white rounded-full hover:bg-blue-600 text-sm hover:shadow-md hover:shadow-blue-600/50 focus:border-b-2 focus:border-blue-800 focus:outline-hidden"
+                    className="m-auto text-gray-100 text-shadow-lg  flex items-center justify-center w-7 h-7 rounded-2xl bg-salvia hover:bg-salviaScuro py-4 px-12 transform transition-transform duration-200 ease-in-out hover:scale-110 "
                     onClick={handleAddTemperatura}
                     disabled={
                       !nuovaTemperatura.data ||
@@ -596,7 +608,7 @@ const Temperature = () => {
                       !nuovaTemperatura.conformita
                     }
                   >
-                    +
+                    aggiungi
                   </button>
                 </td>
               </tr>
