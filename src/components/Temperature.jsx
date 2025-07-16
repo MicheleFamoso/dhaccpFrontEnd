@@ -371,7 +371,7 @@ const Temperature = () => {
               &nbsp;&nbsp;&nbsp;
             </button>
 
-            <h1 className="text-2xl  text-center bg-red-500 border-1 border-salvia shadow-md shadow-salvia text-shadow-md py-3 px-4 rounded-4xl text-gray-50">
+            <h1 className="text-2xl  text-center bg-salviaChiaro border-1 border-salvia shadow-md shadow-salvia text-shadow-md py-3 px-4 rounded-4xl text-gray-80">
               {!haFiltriAttivi()
                 ? giornoSelezionato
                   ? ` ${formattaData(giornoSelezionato)}`

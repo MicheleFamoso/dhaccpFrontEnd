@@ -39,7 +39,7 @@ const Registrazione = () => {
           throw new Error("Errore nella registrazione")
         } else {
           setSuccess("Registrazione avvenuta con successo!")
-          setTimeout(() => navigate("/login"), 2000)
+          setTimeout(() => navigate("/"), 1000)
         }
       })
       .catch((error) => {
