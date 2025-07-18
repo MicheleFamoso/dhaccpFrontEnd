@@ -57,13 +57,14 @@ const Login = () => {
 
       <div className="ml-20 flex flex-col  ">
         <h1 className="font-[Unna] text-[180px] -mt-20 ">
-          d<span className="text-blue-500">/</span>haccp
+          d<span className="text-salvia text-shadow-2xs">/</span>haccp
         </h1>
         <p className="text-4xl font-[Unna] ml-12 -mt-18">
-          Digital HACCP Management
+          Digital <span className="text-salvia text-shadow-2xs">HACCP </span>
+          Management
         </p>
       </div>
-      <div className="bg-stone-100/70  p-6 rounded-sm shadow-md w-90 border-1 border-stone-200 flex ml-45   mt-10  ">
+      <div className="bg-salviaChiaro  p-6 rounded-3xl shadow-md shadow-salvia w-90 border-1 border-salvia flex ml-45   mt-10  ">
         <form onSubmit={handleSubmit}>
           <h2 className="text-2xl   mb-4 text-center">Benvenuto</h2>
           {error && (
@@ -75,28 +76,28 @@ const Login = () => {
             placeholder="UserName"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
-            className="w-full mb-3   p-2   border-b focus:border-blue-500 focus:border-b-2 focus:outline-hidden "
+            className="w-full mb-3   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden "
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full mb-4 p-2 border-b  focus:border-blue-500 focus:border-b-2 focus:outline-hidden"
+            className="w-full mb-4 p-2 border-b  focus:border-ambra focus:border-b-2 focus:outline-hidden"
           />
           <div className=" mt-3 mb-3">
             <button
               type="submit"
-              className="w-1/1  bg-gray-200  text-gray-800 py-2 rounded hover:bg-lime-400/60 "
+              className="w-1/1  bg-salvia font-bold text-white text-shadow-2xs py-2 rounded-3xl hover:bg-salviaScuro "
             >
               Accedi
             </button>
           </div>
-          <div className="flex ">
+          <div className="flex justify-center">
             <p className="mr-2 text-gray-700">Non hai un account ? </p>
             <button
               onClick={() => navigate("/registrazione")}
-              className="underline underline-offset-1 cursor-pointer hover:text-blue-500"
+              className="underline underline-offset-1 font-bold cursor-pointer hover:text-ambra"
             >
               Registrati
             </button>{" "}

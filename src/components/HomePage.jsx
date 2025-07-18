@@ -7,6 +7,7 @@ import {
   subWeeks,
   addWeeks,
 } from "date-fns"
+import { it } from "date-fns/locale"
 import SideBar from "./SideBar"
 
 const HomePage = () => {
@@ -50,99 +51,135 @@ const HomePage = () => {
 
   const sortedDates = Object.keys(groupedByDate).sort()
 
-  const getCardSize = (items) => {
-    const mediaLunghezzaDescrizione =
-      items.reduce((acc, i) => acc + (i.descrizione?.length || 0), 0) /
-      items.length
+  const startDate = startOfWeek(currentMonth, { weekStartsOn: 1 })
+  const endDate = endOfWeek(currentMonth, { weekStartsOn: 1 })
 
-    if (items.length > 2 || mediaLunghezzaDescrizione > 40) {
-      return "md:col-span-2 md:row-span-2"
-    } else if (items.length === 1 && mediaLunghezzaDescrizione < 20) {
-      return "md:col-span- md:row-span-0"
+  const formatMonthDisplay = () => {
+    if (startDate.getMonth() === endDate.getMonth()) {
+      return format(startDate, "MMM", { locale: it })
     } else {
-      return "md:col-span-2"
+      return `${format(startDate, "MMM", { locale: it })}-${format(
+        endDate,
+        "MMM",
+        { locale: it }
+      )}`
     }
   }
 
   return (
-    <div className="flex h-screen bg-avorio">
+    <div className="flex h-screen bg-beige">
       <SideBar />
-      <main className="flex-1  p-20 overflow-auto">
-        <div className="flex justify-between items-center mb-6">
+      <main className="flex-1   overflow-auto">
+        <div className="mx-auto  flex bg-salviaChiaro/80 pt-2 pb-2 lg:pt-6 lg:pb-3 mb-0 lg:mb-2 sticky left-0 top-0 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+          <h1 className="lg:text-6xl  text-xl ml-2 md:ml-12 lg:mb-2 font-[Unna] text-salviaScuro text-shadow-xs">
+            Dashboard
+          </h1>
+        </div>
+
+        <div className="flex backdrop-blur-sm  justify-center gap-9 items-center mb-20 sticky top-11 pt-3  lg:fixed lg:top-2 lg:left-180 left-0">
           <button
             onClick={() => setCurrentMonth(subWeeks(currentMonth, 1))}
-            className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+            className="md:text-xl text-xs bg-avorio border-1 border-salvia shadow-md shadow-salviaChiaro  text-gray-700  rounded-4xl md:px-8 px-6 disabled:opacity-50   hover:bg-salviaChiaro"
           >
-            ◀ Settimana Precedente
-          </button>
-          <h1 className="text-2xl font-bold">
-            Controlli -{" "}
-            {format(startOfWeek(currentMonth, { weekStartsOn: 1 }), "dd MMM")} ➝{" "}
+            <p className="text-center">{formatMonthDisplay()}</p>
             {format(
-              endOfWeek(currentMonth, { weekStartsOn: 1 }),
-              "dd MMM yyyy"
+              startOfWeek(subWeeks(currentMonth, 1), { weekStartsOn: 1 }),
+              "dd",
+              { locale: it }
+            )}{" "}
+            -{" "}
+            {format(
+              endOfWeek(subWeeks(currentMonth, 1), { weekStartsOn: 1 }),
+              "dd",
+              { locale: it }
             )}
-          </h1>
+          </button>
+          <div className="bg-ambra shadow-md shadow-salvia md:px-4 px-3 md:py-2 py-1 rounded-4xl md:rounded-full">
+            <p className="text-center">{formatMonthDisplay()}</p>
+            <h1 className="md:text-2xl text-xs font-bold">
+              {format(startDate, "dd", { locale: it })} -{" "}
+              {format(endDate, "dd", { locale: it })}
+            </h1>
+          </div>
+
           <button
             onClick={() => setCurrentMonth(addWeeks(currentMonth, 1))}
-            className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+            className="md:text-xl text-xs bg-avorio border-1 border-salvia shadow-md shadow-salviaChiaro  text-gray-700  rounded-4xl md:px-8 px-6 disabled:opacity-50   hover:bg-salviaChiaro"
           >
-            Settimana Successiva ▶
+            <p className="text-center">{formatMonthDisplay()}</p>
+            {format(
+              startOfWeek(addWeeks(currentMonth, 1), { weekStartsOn: 1 }),
+              "dd",
+              { locale: it }
+            )}{" "}
+            -{" "}
+            {format(
+              endOfWeek(addWeeks(currentMonth, 1), { weekStartsOn: 1 }),
+              "dd",
+              { locale: it }
+            )}
           </button>
         </div>
 
         {sortedDates.length === 0 ? (
-          <p className="text-gray-600">
+          <p className="text-gray-600 text-center">
             Nessun controllo disponibile per questa settimana.
           </p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-6 auto-rows-[minmax(100px,_auto)] gap-10">
-            {sortedDates
-              .filter((date) => date && !isNaN(new Date(date)))
-              .map((date) => {
-                const items = groupedByDate[date]
-                return (
-                  <div
-                    key={date}
-                    className={`bg-neutral-200 p-4 rounded-3xl shadow-md ${getCardSize(
-                      items
-                    )}`}
-                  >
-                    <h2 className="font-semibold text-lg mb-2 text-blue-800 text-center">
-                      {format(parseISO(date), "dd MMMM yyyy")}
-                    </h2>
-                    <ul className="space-y-2 text-sm">
-                      {items.map((item, i) => (
-                        <li key={i} className="  rounded-3xl p-4 text-center">
-                          <p>
-                            <strong>Tipo:</strong> {item.tipoControllo}
-                          </p>
-                          <p>
-                            <strong>descrizione:</strong> {item.descrizione}{" "}
-                          </p>
-                          <p>
-                            <strong>Esito:</strong>{" "}
-                            <span
-                              className={
-                                item.conformita === "CONFORME"
-                                  ? "text-green-600"
-                                  : "text-red-600"
-                              }
-                            >
-                              {item.conformita}
-                            </span>
-                          </p>
-                          {item.note && (
-                            <p>
-                              <strong>Note:</strong> {item.note}
-                            </p>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
+          <div className="grid md:grid-cols-[100px_1fr] grid-cols-[60px_1fr] gap-1 ml-5 mt-5">
+            {" "}
+            {sortedDates.map((date) => (
+              <div key={date} className="contents">
+                <div className="font-semibold  text-gray-700 flex items-center justify-end mr-5">
+                  <div className="flex flex-col items-center bg-ambra rounded-full p-3  ">
+                    {" "}
+                    <p className="md:text-3xl text-xs">
+                      {format(parseISO(date), "d", { locale: it })}
+                    </p>
+                    <p className="md:text-sm text-2xs">
+                      {" "}
+                      {format(parseISO(date), "EEE", { locale: it })}
+                    </p>
                   </div>
-                )
-              })}
+                </div>
+
+                <div className="flex  gap-3 ">
+                  {groupedByDate[date].map((controllo, index) => (
+                    <>
+                      <div
+                        key={index}
+                        className={`md:w-56 md:h-40 w-32 h-23 pt-2 px-4 md:px-0 md:pt-4  text-center rounded-2xl border-1 flex flex-col justify-between ${
+                          controllo.conformita === "NON_CONFORME"
+                            ? "bg-rosso/10 border-rosso/30"
+                            : "bg-salvia/10 border-salvia/30"
+                        }`}
+                      >
+                        <p className="  md:mb-2 text-xs md:text-base">
+                          <span className="font-bold text-gray-700 ">
+                            {controllo.tipoControllo}:{" "}
+                          </span>
+                          <span className="md:text-lg text-gray-900">
+                            {controllo.descrizione}
+                          </span>
+                        </p>
+                        <p
+                          className={`mb-1 md:text-base text-xs md:mx-6 text-shadow-2xs md:mb-3 md:rounded-3xl py-2 ${
+                            controllo.conformita === "NON_CONFORME"
+                              ? "md:bg-rosso text-red-900"
+                              : "md:bg-salvia md:text-salviaChiaro text-salviaScuro"
+                          } `}
+                        >
+                          {controllo.conformita}
+                        </p>
+                      </div>
+                    </>
+                  ))}
+                </div>
+                <div className="col-span-2">
+                  <hr className="border-t border-salvia my-4" />
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </main>

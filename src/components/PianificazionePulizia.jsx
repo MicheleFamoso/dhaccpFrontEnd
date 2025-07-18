@@ -124,30 +124,36 @@ const PianificazionePulizia = () => {
   }
 
   return (
-    <div className="flex h-full bg-beige">
+    <div className="flex h-screen bg-beige">
       <div>
         <SideBar />
       </div>
-      <div className="flex-1 p-6 justify-items-center justify-center">
-        <div className="mb-4 flex gap-2 items-center">
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Cerca per oggetto, frequenza o altro"
-            className="px-3 py-1 bg-salviaChiaro border border-salvia rounded-2xl w-150 shadow-sm mb-6 focus:outline-hidden focus:shadow-salvia focus:shadow-md"
-          />
-          <button
-            onClick={handleSearch}
-            className="px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl "
-          >
-            Cerca
-          </button>
+      <div className="flex-1  justify-items-center justify-center overflow-auto">
+        <div className="mx-auto flex bg-salviaChiaro/80  pt-6 pb-3 mb-6 sticky left-0 top-0 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+          <h1 className="text-6xl ml-12 mb-2 font-[Unna] text-salviaScuro text-shadow-xs">
+            Pulizie
+          </h1>
+          <div className=" flex gap-2 items-center justify-center ml-30">
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Cerca per oggetto, frequenza o altro"
+              className="px-3 py-1 bg-avorio border border-salvia rounded-2xl w-150 shadow-sm focus:outline-hidden focus:shadow-salvia focus:shadow-md"
+            />
+            <button
+              onClick={handleSearch}
+              className="px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra  rounded-2xl "
+            >
+              Cerca
+            </button>
+          </div>
         </div>
+
         {error && (
           <div className="mb-4 text-center text-rosso font-medium">{error}</div>
         )}
-        <table className="w-250 border-collapse bg-salviaChiaro shadow-md rounded-2xl shadow-salviaScuro">
+        <table className="w-250 border-collapse bg-salviaChiaro shadow-md rounded-2xl shadow-salviaScuro mb-10">
           <thead>
             <tr>
               <th className=" rounded-tl-2xl px-6 py-3 bg-salvia text-shadow-lg text-gray-200">

@@ -127,7 +127,12 @@ const Utenti = () => {
       <div>
         <SideBar />
       </div>
-      <div className="flex-1 mt-10 justify-items-center justify-center p-6">
+      <div className="flex-1  justify-items-center justify-center ">
+        <div className="mx-auto flex bg-salviaChiaro/80  pt-6 pb-3 mb-2 sticky left-0 top-0 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+          <h1 className="text-6xl ml-12 mb-2 font-[Unna] text-salviaScuro text-shadow-xs">
+            Dipendenti
+          </h1>
+        </div>
         <div className=" w-250">
           {loading && (
             <p className="text-xl text-center w-full py-10">
@@ -229,7 +234,7 @@ const Utenti = () => {
             <div className="flex flex-col gap-4">
               <div className="flex justify-start">
                 <button
-                  className=" self-start bg-salvia hover:bg-ambra text-avorio py-1 px-4 rounded-2xl border-salviaScuro border-1 text-shadow-md mb-8"
+                  className=" self-start bg-salvia hover:bg-ambra text-avorio py-1 px-4 rounded-2xl mt-4 border-salviaScuro border-1 text-shadow-md mb-2"
                   onClick={() => {
                     setNome("")
                     setCognome("")

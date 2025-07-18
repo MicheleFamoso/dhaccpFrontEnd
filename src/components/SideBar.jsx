@@ -28,7 +28,7 @@ const SideBar = () => {
   return (
     <div
       className={`   bg-salvia h-dvh  shadow-xl shadow-neutral-300    ${
-        isExpanded ? "w-60" : "w-18"
+        isExpanded ? "lg:w-60 md:w-70 w-full" : "lg:w-18 "
       } p-3 flex flex-col`}
     >
       <button
@@ -37,10 +37,10 @@ const SideBar = () => {
       >
         {isExpanded ? (
           <>
-            <Bars3BottomLeftIcon className="h-8 w-8 m-1 text-salviaScuro  transform transition-transform duration-200 ease-in-out   hover:text-ambra hover:scale-120" />
+            <Bars3BottomLeftIcon className="lg:h-8 lg:w-8 w-10 h-10 m-1 text-salviaScuro  transform transition-transform duration-200 ease-in-out   hover:text-ambra hover:scale-120" />
           </>
         ) : (
-          <Bars3BottomRightIcon className="h-8 w-8 m-1 text-salviaScuro transform transition-transform duration-200 ease-in-out hover:scale-120 hover:text-ambra" />
+          <Bars3BottomRightIcon className="lg:h-8 lg:w-8 w-10 h-10 m-1 text-salviaScuro transform transition-transform duration-200 ease-in-out hover:scale-120 hover:text-ambra" />
         )}
       </button>
       <div
@@ -56,7 +56,7 @@ const SideBar = () => {
         />
         {isExpanded && (
           <span
-            className={`text-sm text-slate-800${
+            className={`lg:text-sm text-lg text-slate-800${
               location.pathname === "/Profilo" ? " font-bold " : ""
             }`}
           >
@@ -78,7 +78,7 @@ const SideBar = () => {
         />
         {isExpanded && (
           <span
-            className={`text-sm  text-slate-800${
+            className={`lg:text-sm text-lg  text-slate-800${
               location.pathname === "/HomePage" ? " font-bold" : ""
             }`}
           >
@@ -100,7 +100,7 @@ const SideBar = () => {
         />
         {isExpanded && (
           <span
-            className={`text-sm text-slate-800 ${
+            className={`lg:text-sm text-lg  text-slate-800 ${
               location.pathname === "/temperatura" ? " font-bold" : ""
             }`}
           >
@@ -121,7 +121,7 @@ const SideBar = () => {
         />
         {isExpanded && (
           <span
-            className={`text-sm  text-slate-800${
+            className={`lg:text-sm text-lg   text-slate-800${
               location.pathname === "/pulizie" ? " font-bold" : ""
             }`}
           >
@@ -142,7 +142,7 @@ const SideBar = () => {
         />
         {isExpanded && (
           <span
-            className={`text-sm text-slate-800 ${
+            className={`lg:text-sm text-lg  text-slate-800 ${
               location.pathname === "/infestanti" ? " font-bold" : ""
             }`}
           >
@@ -165,7 +165,7 @@ const SideBar = () => {
         />
         {isExpanded && (
           <span
-            className={`text-sm text-slate-800 ${
+            className={`lg:text-sm text-lg  text-slate-800 ${
               location.pathname === "/fornitori" ? " font-bold" : ""
             }`}
           >
@@ -186,7 +186,7 @@ const SideBar = () => {
         />
         {isExpanded && (
           <span
-            className={`text-sm text-slate-800 ${
+            className={`lg:text-sm text-lg  text-slate-800 ${
               location.pathname === "/forniture" ? "font-bold" : ""
             }`}
           >
@@ -198,7 +198,7 @@ const SideBar = () => {
       {ruolo === "ADMIN" && (
         <div
           onClick={() => navigate("/utenti")}
-          className={`flex items-center gap-3 p-2 rounded-sm cursor-pointer hover:bg-salviaScuro mt-2 ${
+          className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-salviaScuro mt-2 ${
             location.pathname === "/utenti" ? "bg-ambra" : ""
           }`}
         >
@@ -209,18 +209,18 @@ const SideBar = () => {
           />
           {isExpanded && (
             <span
-              className={`text-sm text-slate-800 ${
+              className={`lg:text-sm text-lg  text-slate-800 ${
                 location.pathname === "/utenti" ? "font-bold" : ""
               }`}
             >
-              Utenti
+              Dipendenti
             </span>
           )}
         </div>
       )}
       <div
         onClick={() => navigate("/azienda")}
-        className={`flex items-center gap-3 p-2 rounded-sm cursor-pointer hover:bg-salviaScuro ${
+        className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-salviaScuro ${
           location.pathname === "/azienda" ? "bg-ambra" : ""
         }`}
       >
@@ -231,7 +231,7 @@ const SideBar = () => {
         />
         {isExpanded && (
           <span
-            className={`text-sm  text-slate-800${
+            className={`lg:text-sm text-lg   text-slate-800${
               location.pathname === "/azienda" ? "font-bold" : ""
             }`}
           >
@@ -246,7 +246,7 @@ const SideBar = () => {
           localStorage.removeItem("token")
           localStorage.removeItem("ruolo")
         }}
-        className={`flex items-center gap-3 p-2 rounded-sm cursor-pointer hover:bg-salviaScuro ${
+        className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-salviaScuro ${
           location.pathname === "/" ? "bg-ambra" : ""
         }`}
       >
@@ -257,7 +257,7 @@ const SideBar = () => {
         />
         {isExpanded && (
           <span
-            className={`text-sm text-slate-800 ${
+            className={`lg:text-sm text-lg  text-slate-800 ${
               location.pathname === "/" ? " font-bold" : ""
             }`}
           >

@@ -174,12 +174,17 @@ const Infestanti = () => {
       <div>
         <SideBar />
       </div>
-      <div className="flex-1 p-6 justify-items-center justify-center relative">
-        <div className="mb-4 flex gap-2 items-center relative">
+      <div className="flex-1  justify-items-center justify-center relative">
+        <div className="mx-auto flex bg-salviaChiaro/80  pt-6 pb-3 mb-2 sticky left-0 top-0 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+          <h1 className="text-6xl ml-12 mb-2 font-[Unna] text-salviaScuro text-shadow-xs">
+            Infestanti
+          </h1>
+        </div>
+        <div className=" flex gap-2 left-100 relative">
           <button
             id="filter-button"
             onClick={() => setShowFilterDropdown(!showFilterDropdown)}
-            className="ml-200 px-4 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl "
+            className=" px-4 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-shadow-md text-white  hover:bg-ambra  rounded-2xl "
             type="button"
           >
             Filtri
@@ -270,7 +275,7 @@ const Infestanti = () => {
           )}
         </div>
 
-        <div className="mb-4 text-center text-gray-700 font-semibold">
+        <div className="mb-4 text-center text-gray-600 font-semibold">
           {(() => {
             const formattaData = (data) =>
               new Intl.DateTimeFormat("it-IT", {

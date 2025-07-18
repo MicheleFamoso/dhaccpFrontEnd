@@ -143,7 +143,12 @@ const Azienda = () => {
         <div>
           <SideBar />
         </div>
-        <div className="flex-1 mt-10 justify-items-center justify-center   p-6">
+        <div className="flex-1  justify-items-center justify-center ">
+          <div className="mx-auto flex bg-salviaChiaro/80  pt-6 pb-3 mb-2 sticky left-0 top-0 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+            <h1 className="text-6xl ml-12 mb-2 font-[Unna] text-salviaScuro text-shadow-xs">
+              Azienda
+            </h1>
+          </div>
           <div className="     flex     ">
             {loading && (
               <p className="text-xl text-center w-full py-10">
@@ -169,8 +174,8 @@ const Azienda = () => {
               </div>
             )}
             {!loading && !error && showForm && (
-              <div className="w-200 p-6 bg-salviaChiaro border-1  border-salvia shadow-md shadow-salvia">
-                <h2 className="text-2xl font-bold text-center mb-6 text-gray-700 text-shadow-md">
+              <div className="w-150 p-6 rounded-4xl bg-salviaChiaro border-1  border-salvia shadow-md shadow-salvia">
+                <h2 className="text-2xl font-bold text-center mb-2 text-gray-700 text-shadow-md">
                   Crea azienda
                 </h2>
                 <form
@@ -189,7 +194,7 @@ const Azienda = () => {
                     placeholder="Denominazione Aziendale"
                     value={denominazioneAziendale}
                     onChange={(e) => setDenominazioneAziendale(e.target.value)}
-                    className="w-full mb-3   p-2   border-b focus:border-ambra  focus:border-b-2 focus:outline-hidden"
+                    className="w-full mb-2   p-2   border-b focus:border-ambra  focus:border-b-2 focus:outline-hidden"
                     required
                   />
                   <input
@@ -197,7 +202,7 @@ const Azienda = () => {
                     placeholder="Ragione Sociale"
                     value={ragioneSociale}
                     onChange={(e) => setRagioneSociale(e.target.value)}
-                    className="w-full mb-3   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    className="w-full mb-2   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
                     required
                   />
                   <input
@@ -205,7 +210,7 @@ const Azienda = () => {
                     placeholder="Tipologia Attività"
                     value={tipologiaAttivita}
                     onChange={(e) => setTipologiaAttivita(e.target.value)}
-                    className="w-full mb-3   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    className="w-full mb-2   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
                     required
                   />
                   <input
@@ -213,7 +218,7 @@ const Azienda = () => {
                     placeholder="Sede Operativa"
                     value={sedeOperativa}
                     onChange={(e) => setSedeOperativa(e.target.value)}
-                    className="w-full mb-3   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    className="w-full mb-2   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
                     required
                   />
                   <input
@@ -221,7 +226,7 @@ const Azienda = () => {
                     placeholder="Partita IVA"
                     value={partitaIva}
                     onChange={(e) => setPartitaIva(e.target.value)}
-                    className="w-full mb-3   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    className="w-full mb-2   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
                     required
                   />
                   <input
@@ -229,7 +234,7 @@ const Azienda = () => {
                     placeholder="Telefono"
                     value={telefono}
                     onChange={(e) => setTelefono(e.target.value)}
-                    className="w-full mb-3   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    className="w-full mb-2   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
                     required
                   />
                   <input
@@ -237,7 +242,7 @@ const Azienda = () => {
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full mb-3   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    className="w-full mb-2   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
                     required
                   />
                   <button

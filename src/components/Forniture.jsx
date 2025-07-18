@@ -286,127 +286,133 @@ const Forniture = () => {
       <div>
         <SideBar />
       </div>
-      <div className="flex-1 p-6 justify-items-center justify-center relative">
-        <div className="mb-4 flex gap-2 items-center relative">
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Cerca per prodotto o fornitore"
-            className="px-3 py-1 bg-salviaChiaro border border-salvia rounded-2xl w-150 shadow-sm mb-6 focus:outline-hidden focus:shadow-salvia focus:shadow-md"
-          />
-          <button
-            onClick={handleSearch}
-            className="px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl "
-          >
-            Cerca
-          </button>
-          <button
-            id="filter-button"
-            onClick={() => setShowFilterDropdown(!showFilterDropdown)}
-            className="ml-2 px-4 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl "
-            type="button"
-          >
-            Filtri
-          </button>
-
-          {showFilterDropdown && (
-            <div
-              ref={dropdownRef}
-              className="absolute top-full  right-0 z-50 w-105 bg-salviaChiaro rounded-2xl shadow-salvia shadow-2xl p-4 border border-salvia"
+      <div className="flex-1 justify-items-center justify-center relative">
+        <div className="mx-auto flex bg-salviaChiaro/80  pt-6 pb-3 mb-2 sticky left-0 top-0 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+          <h1 className="text-6xl ml-12 mb-2 font-[Unna] text-salviaScuro text-shadow-xs">
+            Forniture
+          </h1>{" "}
+          <div className=" flex gap-2 items-center relative">
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Cerca per prodotto o fornitore"
+              className="px-3 py-1 bg-avorio border border-salvia rounded-2xl w-150 shadow-sm ml-4 focus:outline-hidden focus:shadow-salvia focus:shadow-md"
+            />
+            <button
+              onClick={handleSearch}
+              className="px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra  rounded-2xl "
             >
-              <h2 className="text-lg font-semibold mb-3">Filtra forniture</h2>
-              <div className="mb-4">
-                <label className="block text-sm text-gray-600 mb-1">
-                  Data specifica
-                </label>
-                <div className="flex gap-2">
-                  <input
-                    type="date"
-                    value={dataFiltro}
-                    onChange={(e) => setDataFiltro(e.target.value)}
-                    className="px-2 py-1 border border-salviaScuro rounded-4xl flex-grow"
-                  />
-                  <button
-                    onClick={() => {
-                      handleFiltroData()
-                      setShowFilterDropdown(false)
-                    }}
-                    className="px-3 py-1 bg-salvia  text-white rounded-4xl hover:bg-salviaScuro text-shadow-md text-sm"
-                  >
-                    Filtra
-                  </button>
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm text-gray-600 mb-1">
-                  Intervallo date
-                </label>
-                <div className="flex gap-2">
-                  <input
-                    type="date"
-                    value={dataInizio}
-                    onChange={(e) => setDataInizio(e.target.value)}
-                    className="px-2 py-1 border border-salviaScuro rounded-4xl flex-1"
-                  />
-                  <input
-                    type="date"
-                    value={dataFine}
-                    onChange={(e) => setDataFine(e.target.value)}
-                    className="px-2 py-1 border border-salviaScuro rounded-4xl flex-1 "
-                  />
-                  <button
-                    onClick={() => {
-                      handleFiltroRange()
-                      setShowFilterDropdown(false)
-                    }}
-                    className="px-3 py-1 bg-salvia text-white rounded-4xl hover:bg-salviaScuro text-shadow-md text-sm"
-                  >
-                    Filtra
-                  </button>
-                </div>
+              Cerca
+            </button>
+            <button
+              id="filter-button"
+              onClick={() => setShowFilterDropdown(!showFilterDropdown)}
+              className="ml-2 px-4 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-shadow-md text-white  hover:bg-ambra  rounded-2xl "
+              type="button"
+            >
+              Filtri
+            </button>
 
-                <div className="mt-4">
+            {showFilterDropdown && (
+              <div
+                ref={dropdownRef}
+                className="absolute top-full  right-0 z-50 w-105 bg-salviaChiaro rounded-2xl shadow-salvia shadow-2xl p-4 border border-salvia"
+              >
+                <h2 className="text-lg font-semibold mb-3">Filtra forniture</h2>
+                <div className="mb-4">
                   <label className="block text-sm text-gray-600 mb-1">
-                    Conformità
+                    Data specifica
                   </label>
                   <div className="flex gap-2">
-                    <select
-                      value={filtroConformita}
-                      onChange={(e) => setFiltroConformita(e.target.value)}
-                      className="w-full p-2 py-1 border border-salviaScuro rounded-4xl"
-                    >
-                      <option value="">Tutti</option>
-                      <option value="CONFORME">Conforme</option>
-                      <option value="NON_CONFORME">Non conforme</option>
-                    </select>
+                    <input
+                      type="date"
+                      value={dataFiltro}
+                      onChange={(e) => setDataFiltro(e.target.value)}
+                      className="px-2 py-1 border border-salviaScuro rounded-4xl flex-grow"
+                    />
                     <button
-                      onClick={handleFiltroConformita}
-                      className="px-3 py-1 bg-salvia text-white rounded-4xl hover:bg-salviaScuro text-sm"
+                      onClick={() => {
+                        handleFiltroData()
+                        setShowFilterDropdown(false)
+                      }}
+                      className="px-3 py-1 bg-salvia  text-white rounded-4xl hover:bg-salviaScuro text-shadow-md text-sm"
                     >
                       Filtra
                     </button>
                   </div>
                 </div>
-                <div className="mt-4">
-                  <button
-                    onClick={() => {
-                      setDataFiltro("")
-                      setDataInizio("")
-                      setDataFine("")
-                      setFiltroConformita("")
-                      setRisultatiRicerca(null)
-                      setShowFilterDropdown(false)
-                    }}
-                    className="w-full px-3 text-shadow-md py-1 bg-rosso/80 text-white rounded-4xl hover:bg-rosso text-sm"
-                  >
-                    Annulla filtri
-                  </button>
+                <div>
+                  <label className="block text-sm text-gray-600 mb-1">
+                    Intervallo date
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="date"
+                      value={dataInizio}
+                      onChange={(e) => setDataInizio(e.target.value)}
+                      className="px-2 py-1 border border-salviaScuro rounded-4xl flex-1"
+                    />
+                    <input
+                      type="date"
+                      value={dataFine}
+                      onChange={(e) => setDataFine(e.target.value)}
+                      className="px-2 py-1 border border-salviaScuro rounded-4xl flex-1 "
+                    />
+                    <button
+                      onClick={() => {
+                        handleFiltroRange()
+                        setShowFilterDropdown(false)
+                      }}
+                      className="px-3 py-1 bg-salvia text-white rounded-4xl hover:bg-salviaScuro text-shadow-md text-sm"
+                    >
+                      Filtra
+                    </button>
+                  </div>
+
+                  <div className="mt-4">
+                    <label className="block text-sm text-gray-600 mb-1">
+                      Conformità
+                    </label>
+                    <div className="flex gap-2">
+                      <select
+                        value={filtroConformita}
+                        onChange={(e) => setFiltroConformita(e.target.value)}
+                        className="w-full p-2 py-1 border border-salviaScuro rounded-4xl"
+                      >
+                        <option value="">Tutti</option>
+                        <option value="CONFORME">Conforme</option>
+                        <option value="NON_CONFORME">Non conforme</option>
+                      </select>
+                      <button
+                        onClick={handleFiltroConformita}
+                        className="px-3 py-1 bg-salvia text-white rounded-4xl hover:bg-salviaScuro text-sm"
+                      >
+                        Filtra
+                      </button>
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <button
+                      onClick={() => {
+                        setDataFiltro("")
+                        setDataInizio("")
+                        setDataFine("")
+                        setFiltroConformita("")
+                        setRisultatiRicerca(null)
+                        setShowFilterDropdown(false)
+                      }}
+                      className="w-full px-3 text-shadow-md py-1 bg-rosso/80 text-white rounded-4xl hover:bg-rosso text-sm"
+                    >
+                      Annulla filtri
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
+
         {error && (
           <div className="mb-4 text-center text-rosso font-medium">{error}</div>
         )}

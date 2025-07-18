@@ -172,7 +172,29 @@ const Fornitori = () => {
         <SideBar />
       </div>
 
-      <div className="flex-1 mt-10 justify-items-center justify-center p-6">
+      <div className="flex-1 justify-items-center justify-center ">
+        <div className="mx-auto flex bg-salviaChiaro/80  pt-6 pb-3 mb-2 sticky left-0 top-0 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+          <h1 className="text-6xl ml-12 mb-2 font-[Unna] text-salviaScuro text-shadow-xs">
+            Fornitori
+          </h1>
+          {!loading && !error && !showForm && (
+            <div className=" flex gap-2 items-center justify-items-center justify-center ml-10">
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Cerca fornitori per nome o prodotto"
+                className="px-3 py-1 bg-avorio border border-salvia rounded-2xl w-150 shadow-sm  focus:outline-hidden focus:shadow-salvia focus:shadow-md"
+              />
+              <button
+                onClick={handleSearch}
+                className="px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra  rounded-2xl "
+              >
+                Cerca
+              </button>
+            </div>
+          )}
+        </div>
         <div className=" w-250">
           {loading && (
             <p className="text-xl text-center w-full py-10">
@@ -274,23 +296,7 @@ const Fornitori = () => {
               </form>
             </div>
           )}
-          {!loading && !error && !showForm && (
-            <div className="mb-4 flex gap-2 items-center justify-items-center justify-center">
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Cerca fornitori per nome o prodotto"
-                className="px-3 py-1 bg-salviaChiaro border border-salvia rounded-2xl w-150 shadow-sm mb-6 focus:outline-hidden focus:shadow-salvia focus:shadow-md"
-              />
-              <button
-                onClick={handleSearch}
-                className="px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl "
-              >
-                Cerca
-              </button>
-            </div>
-          )}
+
           {!loading && !error && !showForm && fornitori.length > 0 && (
             <div className="flex flex-col gap-4">
               {isAdmin && (

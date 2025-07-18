@@ -217,9 +217,14 @@ const Temperature = () => {
   return (
     <div className="flex h-screen bg-beige">
       <SideBar />
-      <div className="flex-1 p-6">
-        {/* Bottone mostra/nascondi filtri e dropdown */}
-        <div className="relative flex justify-end mb-4 mr-20">
+      <div className="flex-1 overflow-auto">
+        <div className="mx-auto  flex bg-salviaChiaro/80 pt-2 pb-2 lg:pt-6 lg:pb-3 mb-0 lg:mb-2 sticky left-0 top-0 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+          <h1 className="lg:text-6xl  text-xl ml-2 md:ml-12 lg:mb-2 font-[Unna] text-salviaScuro text-shadow-xs">
+            Temperature
+          </h1>
+        </div>
+
+        <div className="relative flex justify-end md:mr-30 mr-4 mt-2 md:-mb-4">
           <button
             className="px-4 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl"
             onClick={() => setMostraFiltri((prev) => !prev)}
@@ -228,7 +233,7 @@ const Temperature = () => {
           </button>
 
           {mostraFiltri && (
-            <div className="absolute right-0 top-full mt-2 z-50 w-[500px] bg-salviaChiaro rounded-2xl shadow-salvia shadow-2xl p-4 border border-salvia">
+            <div className="absolute  left-2 md:left-140 top-full mt-1 z-50 w-80 md:w-[500px] bg-salviaChiaro rounded-2xl shadow-salvia shadow-2xl p-4 border border-salvia">
               <h2 className="font-semibold mb-2">Filtri</h2>
               <div className="">
                 <div className="mb-4">
@@ -255,7 +260,7 @@ const Temperature = () => {
                   <label className="block text-sm text-gray-600 mb-1">
                     Intervallo date
                   </label>
-                  <div className="flex gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <input
                       type="date"
                       className="px-2 py-1 border border-salviaScuro rounded-4xl flex-grow"
@@ -356,11 +361,11 @@ const Temperature = () => {
         </div>
 
         <div className=" flex-1 p-6 justify-items-center justify-center ">
-          <div className="flex justify-center justify-items-center mb-15">
+          <div className="flex justify-center backdrop-blur-sm justify-items-center mb-15 sticky md:fixed top-11 md:top-6 md:left-180">
             <button
               disabled={giornoCorrente === 0}
               onClick={() => setGiornoCorrente((prev) => prev - 1)}
-              className=" text-xl bg-avorio border-1 border-salvia shadow-md shadow-salviaChiaro  text-gray-700  rounded-4xl px-8 disabled:opacity-50 mr-30  hover:bg-salviaChiaro"
+              className=" text-xs md:text-xl bg-avorio border-1 border-salvia shadow-md shadow-salviaChiaro  text-gray-700  rounded-4xl md:px-8 disabled:opacity-50 mb:mr-6  hover:bg-salviaChiaro"
             >
               ◀ &nbsp;&nbsp;
               {giornoSelezionato && !isNaN(new Date(giornoSelezionato))
@@ -371,7 +376,7 @@ const Temperature = () => {
               &nbsp;&nbsp;&nbsp;
             </button>
 
-            <h1 className="text-2xl  text-center bg-salviaChiaro border-1 border-salvia shadow-md shadow-salvia text-shadow-md py-3 px-4 rounded-4xl text-gray-80">
+            <h1 className="text-2xl  text-center bg-ambra  shadow-md shadow-salvia text-shadow-md py-3 px-4 rounded-4xl text-gray-80">
               {!haFiltriAttivi()
                 ? giornoSelezionato
                   ? ` ${formattaData(giornoSelezionato)}`
@@ -395,7 +400,7 @@ const Temperature = () => {
             <button
               disabled={giornoCorrente === giorni.length - 1}
               onClick={() => setGiornoCorrente((prev) => prev + 1)}
-              className=" text-xl border-1 border-salvia shadow-md shadow-salviaChiaro px-8 rounded-4xl bg-avorio text-gray-800  disabled:opacity-50 ml-30 hover:bg-salviaChiaro"
+              className=" text-xl border-1 border-salvia shadow-md shadow-salviaChiaro px-8 rounded-4xl bg-avorio text-gray-800  disabled:opacity-50 ml-6 hover:bg-salviaChiaro"
             >
               {" "}
               &nbsp;&nbsp;
@@ -407,22 +412,23 @@ const Temperature = () => {
               &nbsp; ▶&nbsp;&nbsp;
             </button>
           </div>
-          <table className="w-250 border-collapse bg-salviaChiaro shadow-md rounded-2xl shadow-salviaScuro">
+          <div></div>
+          <table className="hidden sm:table w-full max-w-full sm:max-w-[200px] md:max-w-[800px] lg:max-w-[1000px] border-collapse bg-salviaChiaro shadow-md rounded-2xl shadow-salviaScuro">
             <thead>
               <tr>
-                <th className="rounded-tl-2xl px-6 py-3 bg-salvia text-shadow-lg text-gray-200">
+                <th className="rounded-tl-2xl md:px-6 px-1 md:py-3 py-1 bg-salvia text-shadow-lg text-gray-200">
                   Data
                 </th>
-                <th className="px-6 py-3 bg-salvia  text-shadow-lg text-gray-200">
+                <th className="md:px-6 px-1 md:py-3 py-1 bg-salvia  text-shadow-lg text-gray-200">
                   Frigo
                 </th>
-                <th className="px-6 py-3 bg-salvia  text-shadow-lg text-gray-200">
+                <th className="md:px-6 px-1 md:py-3 py-1 bg-salvia  text-shadow-lg text-gray-200">
                   Temperatura
                 </th>
-                <th className="px-6 py-3 bg-salvia  text-shadow-lg text-gray-200">
+                <th className="md:px-6 px-1 md:py-3 py-1 bg-salvia  text-shadow-lg text-gray-200">
                   Conformità
                 </th>
-                <th className="px-6 py-3 bg-salvia rounded-tr-2xl"></th>
+                <th className="md:px-6 px-1 md:py-3 py-1 bg-salvia rounded-tr-2xl"></th>
               </tr>
             </thead>
             <tbody>
@@ -483,7 +489,7 @@ const Temperature = () => {
                             }))
                           }
                         >
-                          <option value="">Seleziona...</option>
+                          <option value="">Seleziona</option>
                           <option value="CONFORME">CONFORME</option>
                           <option value="NON_CONFORME">NON CONFORME</option>
                         </select>
@@ -538,7 +544,7 @@ const Temperature = () => {
                   </td>
                 </tr>
               )}
-              {/* Riga per inserimento nuova temperatura */}
+
               <tr>
                 <td className="px-4 py-2 bg-avorio rounded-bl-2xl">
                   <input
@@ -614,6 +620,183 @@ const Temperature = () => {
               </tr>
             </tbody>
           </table>
+
+          <div className="block sm:hidden space-y-4 mt-4">
+            {(risultatiFiltrati?.length > 0
+              ? risultatiFiltrati
+              : temperatureDelGiorno
+            ).map((t, index) => (
+              <div
+                key={t.id || index}
+                className={`p-4 rounded-xl shadow-md ${
+                  t.conformita === "NON_CONFORME"
+                    ? "bg-red-100"
+                    : "bg-salviaChiaro"
+                }`}
+              >
+                {editingId === t.id ? (
+                  <form
+                    onSubmit={(e) => handleUpdateTemperatura(t.id, e)}
+                    className="space-y-2"
+                  >
+                    <input
+                      type="date"
+                      className="w-full px-2 py-1 rounded"
+                      value={temperaturaModificata.data}
+                      onChange={(e) =>
+                        setTemperaturaModificata((prev) => ({
+                          ...prev,
+                          data: e.target.value,
+                        }))
+                      }
+                    />
+                    <input
+                      type="text"
+                      className="w-full px-2 py-1 rounded"
+                      placeholder="Frigo"
+                      value={temperaturaModificata.frigo}
+                      onChange={(e) =>
+                        setTemperaturaModificata((prev) => ({
+                          ...prev,
+                          frigo: e.target.value,
+                        }))
+                      }
+                    />
+                    <input
+                      type="number"
+                      className="w-full px-2 py-1 rounded"
+                      placeholder="Temperatura"
+                      value={temperaturaModificata.temperatura}
+                      onChange={(e) =>
+                        setTemperaturaModificata((prev) => ({
+                          ...prev,
+                          temperatura: e.target.value,
+                        }))
+                      }
+                    />
+                    <select
+                      className="w-full px-2 py-1 rounded"
+                      value={temperaturaModificata.conformita}
+                      onChange={(e) =>
+                        setTemperaturaModificata((prev) => ({
+                          ...prev,
+                          conformita: e.target.value,
+                        }))
+                      }
+                    >
+                      <option value="">Seleziona</option>
+                      <option value="CONFORME">CONFORME</option>
+                      <option value="NON_CONFORME">NON CONFORME</option>
+                    </select>
+                    <button
+                      type="submit"
+                      className="bg-salvia text-white rounded px-4 py-1 hover:bg-salviaScuro"
+                    >
+                      Salva
+                    </button>
+                  </form>
+                ) : (
+                  <div className="space-y-1">
+                    <p>
+                      <strong>Data:</strong> {formattaData(t.data)}
+                    </p>
+                    <p>
+                      <strong>Frigo:</strong> {t.frigo}
+                    </p>
+                    <p>
+                      <strong>Temperatura:</strong> {t.temperatura}°C
+                    </p>
+                    <p>
+                      <strong>Conformità:</strong> {t.conformita}
+                    </p>
+                    <button
+                      className="mt-2 text-sm bg-ambra text-white px-3 py-1 rounded hover:bg-ambra/90"
+                      onClick={() => {
+                        setEditingId(t.id)
+                        setTemperaturaModificata({
+                          frigo: t.frigo,
+                          temperatura: t.temperatura,
+                          conformita: t.conformita,
+                          data: t.data,
+                        })
+                      }}
+                    >
+                      Modifica
+                    </button>
+                  </div>
+                )}
+              </div>
+            ))}
+            {/* Card inserimento nuova temperatura per mobile */}
+            <div className="p-4 rounded-xl shadow-md bg-avorio">
+              <h3 className="font-semibold mb-2 text-salviaScuro">
+                Aggiungi temperatura
+              </h3>
+              <form onSubmit={handleAddTemperatura} className="space-y-2">
+                <input
+                  type="date"
+                  className="w-full px-2 py-1 rounded"
+                  value={nuovaTemperatura.data}
+                  onChange={(e) =>
+                    setNuovaTemperatura((prev) => ({
+                      ...prev,
+                      data: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  type="text"
+                  className="w-full px-2 py-1 rounded"
+                  placeholder="Frigo"
+                  value={nuovaTemperatura.frigo}
+                  onChange={(e) =>
+                    setNuovaTemperatura((prev) => ({
+                      ...prev,
+                      frigo: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  type="number"
+                  className="w-full px-2 py-1 rounded"
+                  placeholder="Temperatura"
+                  value={nuovaTemperatura.temperatura}
+                  onChange={(e) =>
+                    setNuovaTemperatura((prev) => ({
+                      ...prev,
+                      temperatura: e.target.value,
+                    }))
+                  }
+                />
+                <select
+                  className="w-full px-2 py-1 rounded"
+                  value={nuovaTemperatura.conformita}
+                  onChange={(e) =>
+                    setNuovaTemperatura((prev) => ({
+                      ...prev,
+                      conformita: e.target.value,
+                    }))
+                  }
+                >
+                  <option value="">Seleziona conformità</option>
+                  <option value="CONFORME">CONFORME</option>
+                  <option value="NON_CONFORME">NON CONFORME</option>
+                </select>
+                <button
+                  type="submit"
+                  className="w-full bg-salvia text-white rounded px-4 py-1 hover:bg-salviaScuro"
+                  disabled={
+                    !nuovaTemperatura.data ||
+                    !nuovaTemperatura.frigo ||
+                    !nuovaTemperatura.temperatura ||
+                    !nuovaTemperatura.conformita
+                  }
+                >
+                  Aggiungi
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
