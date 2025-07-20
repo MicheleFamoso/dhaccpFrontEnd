@@ -1,4 +1,5 @@
 import SideBar from "./SideBar"
+import SidebMobile from "./SidebMobile"
 
 const Profilo = () => {
   return (
@@ -8,6 +9,7 @@ const Profilo = () => {
       </div>
       <div className="flex-1 p-6">
         <h1>Profilo</h1>
+        <SidebMobile></SidebMobile>
       </div>
     </div>
   )

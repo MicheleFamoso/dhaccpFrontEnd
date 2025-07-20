@@ -1,6 +1,7 @@
 import SideBar from "./SideBar"
 import { useState, useEffect } from "react"
 import { jwtDecode } from "jwt-decode"
+import SidebMobile from "./SidebMobile"
 
 const Fornitori = () => {
   const [fornitori, setFornitori] = useState([])
@@ -177,6 +178,7 @@ const Fornitori = () => {
           <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
             Fornitori
           </h1>
+          <SidebMobile></SidebMobile>
           {!loading && !error && !showForm && (
             <div className=" flex justify-center gap-2 w-full md:w-auto mb-2 md:mb-0">
               <input

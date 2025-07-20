@@ -7,6 +7,7 @@ import {
 } from "@heroicons/react/24/solid"
 
 import { useState, useEffect } from "react"
+import SidebMobile from "./SidebMobile"
 const Azienda = () => {
   const [azienda, setAzienda] = useState(null)
   const [flipped, setFlipped] = useState(false)
@@ -148,6 +149,7 @@ const Azienda = () => {
             <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
               Azienda
             </h1>
+            <SidebMobile></SidebMobile>
           </div>
           <div className="     flex     ">
             {loading && (

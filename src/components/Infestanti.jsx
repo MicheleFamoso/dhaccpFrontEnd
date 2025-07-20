@@ -1,6 +1,7 @@
 import SideBar from "./SideBar"
 import { PencilSquareIcon, CheckIcon } from "@heroicons/react/24/outline"
 import { useState, useEffect, useRef } from "react"
+import SidebMobile from "./SidebMobile"
 const Infestanti = () => {
   const [infestanti, SetInfestanti] = useState([])
   const [, setLoading] = useState(false)
@@ -179,6 +180,7 @@ const Infestanti = () => {
           <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
             Infestanti
           </h1>{" "}
+          <SidebMobile></SidebMobile>
           <button
             id="filter-button"
             onClick={() => setShowFilterDropdown(!showFilterDropdown)}

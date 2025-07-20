@@ -74,9 +74,7 @@ const HomePage = () => {
       <main className="flex-1   overflow-auto">
         {" "}
         <div className="w-full flex flex-col md:flex-row items-center justify-between md:px-20 px:4 py-2 bg-salviaChiaro/80 sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
-          <div>
-            <SidebMobile />
-          </div>
+          <SidebMobile />
           <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
             Dashboard
           </h1>{" "}

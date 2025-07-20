@@ -1,5 +1,6 @@
 import SideBar from "./SideBar"
 import { useState, useEffect } from "react"
+import SidebMobile from "./SidebMobile"
 const Utenti = () => {
   const [utenti, setUtenti] = useState([])
   const [loading, setLoading] = useState(false)
@@ -132,6 +133,7 @@ const Utenti = () => {
           <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
             Dipendenti
           </h1>
+          <SidebMobile></SidebMobile>
         </div>
         <div>
           {loading && (

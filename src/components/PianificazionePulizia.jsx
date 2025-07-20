@@ -2,6 +2,7 @@ import SideBar from "./SideBar"
 import { useState, useEffect } from "react"
 
 import { PencilSquareIcon, CheckIcon } from "@heroicons/react/24/outline"
+import SidebMobile from "./SidebMobile"
 const PianificazionePulizia = () => {
   const [pulizie, setPulizie] = useState([])
 
@@ -133,6 +134,7 @@ const PianificazionePulizia = () => {
           <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
             Pulizie
           </h1>
+          <SidebMobile></SidebMobile>
           <div className=" flex justify-center gap-2 w-full md:w-auto mb-2 md:mb-0">
             <input
               type="text"

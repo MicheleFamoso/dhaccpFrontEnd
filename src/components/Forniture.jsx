@@ -1,6 +1,7 @@
 import SideBar from "./SideBar"
 import { useState, useEffect, useRef } from "react"
 import { PencilSquareIcon, CheckIcon } from "@heroicons/react/24/outline"
+import SidebMobile from "./SidebMobile"
 const Forniture = () => {
   const descrizioneFiltro = () => {
     if (filtroConformita) {
@@ -291,6 +292,7 @@ const Forniture = () => {
           <h1 className="lg:text-6xl  text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
             Forniture
           </h1>{" "}
+          <SidebMobile></SidebMobile>
           <div className=" flex justify-center  gap-2 w-full md:w-auto mb-2 md:mb-0">
             <input
               type="text"

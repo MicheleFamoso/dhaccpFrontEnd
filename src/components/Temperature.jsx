@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/outline"
 import { format, subDays, addDays } from "date-fns"
 import { it } from "date-fns/locale"
+import SidebMobile from "./SidebMobile"
 
 const Temperature = () => {
   const [temperature, setTemperature] = useState([])
@@ -221,6 +222,7 @@ const Temperature = () => {
           <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
             Temperature
           </h1>
+          <SidebMobile></SidebMobile>
 
           <div className="flex md:justify-center  md:items-center gap-2 w-full md:w-auto mb-2 md:mb-0">
             <button
