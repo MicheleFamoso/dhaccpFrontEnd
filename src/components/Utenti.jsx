@@ -127,13 +127,13 @@ const Utenti = () => {
       <div>
         <SideBar />
       </div>
-      <div className="flex-1  justify-items-center justify-center ">
-        <div className="mx-auto flex bg-salviaChiaro/80  pt-6 pb-3 mb-2 sticky left-0 top-0 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
-          <h1 className="text-6xl ml-12 mb-2 font-[Unna] text-salviaScuro text-shadow-xs">
+      <div className="flex-1 justify-items-center justify-center overflow-auto">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between px-20 py-2 bg-salviaChiaro/80 sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+          <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
             Dipendenti
           </h1>
         </div>
-        <div className=" w-250">
+        <div>
           {loading && (
             <p className="text-xl text-center w-full py-10">
               Caricamento in corso...
@@ -156,7 +156,7 @@ const Utenti = () => {
             </div>
           )}
           {!loading && !error && showForm && (
-            <div className="w-200 m-auto p-6 rounded-2xl bg-salviaChiaro border-1 border-salvia shadow-md shadow-salvia">
+            <div className="md:w-200 w-80 mt-4 m-auto p-6 rounded-2xl bg-salviaChiaro border-1 border-salvia shadow-md shadow-salvia">
               <h2 className="text-2xl font-bold text-center mb-6">
                 {idUtente ? "Modifica utente" : "Crea utente"}
               </h2>
@@ -215,7 +215,7 @@ const Utenti = () => {
                 <div className="flex justify-around mt-2">
                   <button
                     type="button"
-                    className="w-60 px-2 py-1 bg-grigio border-1 border-salviaScuro shadow-md text-white  hover:bg-rosso mb-6 rounded-2xl"
+                    className="md:w-60 w-40 mr-2 px-2 py-1 bg-grigio border-1 border-salviaScuro shadow-md text-white  hover:bg-rosso mb-6 rounded-2xl"
                     onClick={() => setShowForm(false)}
                   >
                     Annulla
@@ -248,11 +248,11 @@ const Utenti = () => {
                   Aggiungi
                 </button>
               </div>
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 grid-cols-1  gap-4">
                 {utenti.map((utente) => (
                   <div
                     key={utente.id}
-                    className="relative  flex flex-col  bg-salviaChiaro p-4 rounded-2xl shadow-salvia shadow-lg border-1 border-salvia "
+                    className="relative  flex flex-col  bg-salviaChiaro p-4 rounded-2xl shadow-salvia shadow-lg border-1 border-salvia  w-80 md:w-110  xl:w-110 2xl:w-160 mb-6"
                   >
                     <button
                       onClick={() => {
@@ -266,7 +266,7 @@ const Utenti = () => {
                     </button>
                     <div className="flex items-center gap-4">
                       <img
-                        className="w-30 h-30 object-cover rounded-full border-1 border-salvia "
+                        className="w-30 h-30 object-cover rounded-full border-1 border-salvia hidden  md:inline-flex"
                         src="/public/IMG_6352.PNG"
                         alt="user-placeholder"
                       />

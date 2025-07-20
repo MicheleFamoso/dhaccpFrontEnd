@@ -174,33 +174,32 @@ const Infestanti = () => {
       <div>
         <SideBar />
       </div>
-      <div className="flex-1  justify-items-center justify-center relative">
-        <div className="mx-auto flex bg-salviaChiaro/80  pt-6 pb-3 mb-2 sticky left-0 top-0 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
-          <h1 className="text-6xl ml-12 mb-2 font-[Unna] text-salviaScuro text-shadow-xs">
+      <div className="flex-1  justify-items-center justify-center overflow-auto">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between px-20 py-2 bg-salviaChiaro/80 sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+          <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
             Infestanti
-          </h1>
-        </div>
-        <div className=" flex gap-2 left-100 relative">
+          </h1>{" "}
           <button
             id="filter-button"
             onClick={() => setShowFilterDropdown(!showFilterDropdown)}
-            className=" px-4 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-shadow-md text-white  hover:bg-ambra  rounded-2xl "
+            className=" px-4 py-1 bg-salvia border-1 border-salviaScuro shadow-md shadow-salvia text-shadow-md text-white  hover:bg-ambra  rounded-2xl "
             type="button"
           >
             Filtri
           </button>
-
+        </div>
+        <div className="relative z-50 w-full flex justify-center md:justify-end mt-2 md:mr-6">
           {showFilterDropdown && (
             <div
               ref={dropdownRef}
-              className="absolute top-full mt-2 right-0 z-50 w-105 bg-salviaChiaro rounded-2xl shadow-salvia shadow-2xl p-4 border border-salvia"
+              className="absolute top-full mt-2 w-11/12 sm:w-auto bg-salviaChiaro rounded-2xl shadow-salvia shadow-2xl p-4 border border-salvia"
             >
               <h2 className="text-lg font-semibold mb-3 text-center">Filtri</h2>
               <div className="mb-4">
                 <label className="block text-sm text-gray-600 mb-1">
                   Data specifica
                 </label>
-                <div className="flex gap-2">
+                <div className="flex  gap-2">
                   <input
                     type="date"
                     value={dataFiltro}
@@ -220,7 +219,7 @@ const Infestanti = () => {
                   Intervallo date
                 </label>
 
-                <div className="flex gap-2">
+                <div className="flex flex-col md:flex-row gap-2 ">
                   <input
                     type="date"
                     value={dataInizio}
@@ -301,7 +300,7 @@ const Infestanti = () => {
         )}
 
         <div className=" ">
-          <table className="w-250 border-collapse bg-salviaChiaro shadow-md rounded-2xl shadow-salviaScuro">
+          <table className="hidden sm:table w-full max-w-full sm:max-w-[200px] md:max-w-[800px] lg:max-w-[1000px] border-collapse bg-salviaChiaro shadow-md rounded-2xl shadow-salviaScuro">
             <thead className="bg-gray-200 text-gray-600">
               <tr>
                 <th className="rounded-tl-2xl px-6 py-3 bg-salvia text-shadow-lg text-gray-200">
@@ -556,6 +555,209 @@ const Infestanti = () => {
               </tr>
             </tbody>
           </table>
+        </div>
+        {/* Mobile */}
+        <div className="block md:hidden px-4 space-y-4 mt-6">
+          {(risultatiRicerca || infestanti).map((i) => (
+            <div
+              key={i.id}
+              className="bg-salviaChiaro shadow-md rounded-xl p-4 space-y-2 shadow-salvia border-1 border-salvia"
+            >
+              {editingId === i.id ? (
+                <>
+                  <input
+                    type="date"
+                    value={InfestantiModificata.data}
+                    onChange={(e) =>
+                      setInfestantiModificata({
+                        ...InfestantiModificata,
+                        data: e.target.value,
+                      })
+                    }
+                    className="w-full px-2 py-1 rounded "
+                  />
+                  <select
+                    value={InfestantiModificata.roditori}
+                    onChange={(e) =>
+                      setInfestantiModificata({
+                        ...InfestantiModificata,
+                        roditori: e.target.value,
+                      })
+                    }
+                    className="w-full px-2 py-1 rounded "
+                  >
+                    <option value="">Roditori</option>
+                    <option value="CONFORME">CONFORME</option>
+                    <option value="NON_CONFORME">NON CONFORME</option>
+                  </select>
+                  <select
+                    value={InfestantiModificata.insettiStriscianti}
+                    onChange={(e) =>
+                      setInfestantiModificata({
+                        ...InfestantiModificata,
+                        insettiStriscianti: e.target.value,
+                      })
+                    }
+                    className="w-full px-2 py-1 rounded "
+                  >
+                    <option value="">Insetti Striscianti</option>
+                    <option value="CONFORME">CONFORME</option>
+                    <option value="NON_CONFORME">NON CONFORME</option>
+                  </select>
+                  <select
+                    value={InfestantiModificata.insettiVolanti}
+                    onChange={(e) =>
+                      setInfestantiModificata({
+                        ...InfestantiModificata,
+                        insettiVolanti: e.target.value,
+                      })
+                    }
+                    className="w-full px-2 py-1 rounded "
+                  >
+                    <option value="">Insetti Volanti</option>
+                    <option value="CONFORME">CONFORME</option>
+                    <option value="NON_CONFORME">NON CONFORME</option>
+                  </select>
+                  <button
+                    onClick={() => handleSaveInfestante(i.id)}
+                    className="w-full bg-salvia text-white px-4 py-1 rounded-3xl hover:bg-salviaScuro"
+                  >
+                    Salva
+                  </button>
+                </>
+              ) : (
+                <>
+                  <p>
+                    <strong>Data:</strong> {i.data}
+                  </p>
+                  <p>
+                    <strong>Roditori:</strong> {i.roditori}
+                  </p>
+                  <p>
+                    <strong>Insetti Striscianti:</strong> {i.insettiStriscianti}
+                  </p>
+                  <p>
+                    <strong>Insetti Volanti:</strong> {i.insettiVolanti}
+                  </p>
+                  <button
+                    onClick={() => {
+                      setEditingId(i.id)
+                      setInfestantiModificata({
+                        data: i.data,
+                        roditori: i.roditori,
+                        insettiStriscianti: i.insettiStriscianti,
+                        insettiVolanti: i.insettiVolanti,
+                      })
+                    }}
+                    className="mt-2  rounded-3xl bg-ambra text-white px-3 py-1  hover:bg-ambra/90"
+                  >
+                    Modifica
+                  </button>
+                </>
+              )}
+            </div>
+          ))}
+
+          {/* Mobile */}
+          <div className="bg-avorio shadow-md rounded-2xl p-4 space-y-3 border-1 border-gray-300 mb-3">
+            <h2 className="text-lg font-semibold text-salviaScuro">
+              Aggiungi infestante
+            </h2>
+            <input
+              type="date"
+              value={nuoviInfestanti.data}
+              onChange={(e) =>
+                setNuoviInfestanti({ ...nuoviInfestanti, data: e.target.value })
+              }
+              className="w-full px-2 py-1 rounded "
+            />
+            <select
+              value={nuoviInfestanti.roditori}
+              onChange={(e) =>
+                setNuoviInfestanti({
+                  ...nuoviInfestanti,
+                  roditori: e.target.value,
+                })
+              }
+              className="w-full px-2 py-1 rounded "
+            >
+              <option value="">Roditori</option>
+              <option value="CONFORME">CONFORME</option>
+              <option value="NON_CONFORME">NON CONFORME</option>
+            </select>
+            <select
+              value={nuoviInfestanti.insettiStriscianti}
+              onChange={(e) =>
+                setNuoviInfestanti({
+                  ...nuoviInfestanti,
+                  insettiStriscianti: e.target.value,
+                })
+              }
+              className="w-full px-2 py-1 rounded "
+            >
+              <option value="">Insetti Striscianti</option>
+              <option value="CONFORME">CONFORME</option>
+              <option value="NON_CONFORME">NON CONFORME</option>
+            </select>
+            <select
+              value={nuoviInfestanti.insettiVolanti}
+              onChange={(e) =>
+                setNuoviInfestanti({
+                  ...nuoviInfestanti,
+                  insettiVolanti: e.target.value,
+                })
+              }
+              className="w-full px-2 py-1 rounded "
+            >
+              <option value="">Insetti Volanti</option>
+              <option value="CONFORME">CONFORME</option>
+              <option value="NON_CONFORME">NON CONFORME</option>
+            </select>
+            <button
+              onClick={() => {
+                if (
+                  !nuoviInfestanti.data ||
+                  !nuoviInfestanti.roditori ||
+                  !nuoviInfestanti.insettiStriscianti ||
+                  !nuoviInfestanti.insettiVolanti
+                ) {
+                  setError("Tutti i campi devono essere compilati.")
+                  return
+                }
+
+                const token = localStorage.getItem("token")
+                fetch("http://localhost:8080/infestanti", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                  },
+                  body: JSON.stringify(nuoviInfestanti),
+                })
+                  .then((res) => {
+                    if (!res.ok) throw new Error("Errore durante la creazione")
+                    return res.json()
+                  })
+                  .then(() => {
+                    getInfestanti()
+                    setNuoviInfestanti({
+                      data: "",
+                      roditori: "",
+                      insettiStriscianti: "",
+                      insettiVolanti: "",
+                    })
+                    setRisultatiRicerca(null)
+                  })
+                  .catch((err) => {
+                    console.error(err)
+                    setError(err.message)
+                  })
+              }}
+              className="w-full bg-salvia text-white px-4 py-1 rounded-3xl hover:bg-salviaScuro"
+            >
+              Aggiungi
+            </button>
+          </div>
         </div>
       </div>
     </div>

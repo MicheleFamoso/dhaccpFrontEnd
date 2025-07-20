@@ -143,9 +143,9 @@ const Azienda = () => {
         <div>
           <SideBar />
         </div>
-        <div className="flex-1  justify-items-center justify-center ">
-          <div className="mx-auto flex bg-salviaChiaro/80  pt-6 pb-3 mb-2 sticky left-0 top-0 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
-            <h1 className="text-6xl ml-12 mb-2 font-[Unna] text-salviaScuro text-shadow-xs">
+        <div className="flex-1 justify-items-center justify-center overflow-auto">
+          <div className="w-full flex flex-col md:flex-row items-center justify-between px-20 py-2 bg-salviaChiaro/80 sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+            <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
               Azienda
             </h1>
           </div>
@@ -174,7 +174,7 @@ const Azienda = () => {
               </div>
             )}
             {!loading && !error && showForm && (
-              <div className="w-150 p-6 rounded-4xl bg-salviaChiaro border-1  border-salvia shadow-md shadow-salvia">
+              <div className="md:w-150 w-80 p-6 rounded-4xl bg-salviaChiaro border-1  border-salvia shadow-md shadow-salvia mt-4">
                 <h2 className="text-2xl font-bold text-center mb-2 text-gray-700 text-shadow-md">
                   Crea azienda
                 </h2>
@@ -255,116 +255,159 @@ const Azienda = () => {
               </div>
             )}
             {!loading && !error && !showForm && azienda && (
-              <div
-                key={azienda.id}
-                className="flex justify-center mt-20 h-[calc(100vh-100px)] w-full"
-              >
-                <div
-                  className="relative w-[500px] h-[250px] cursor-pointer"
-                  onClick={() => setFlipped(!flipped)}
-                >
+              <>
+                {/* Visualizzazione desktop: card girevole */}
+                <div className="hidden md:flex justify-center mt-20 h-[calc(100vh-100px)] w-full">
                   <div
-                    className={`relative w-full h-full duration-600 transform-style preserve-3d transition-transform ${
-                      flipped ? "rotate-y-180" : ""
-                    }`}
+                    className="relative w-[500px] h-[250px] cursor-pointer"
+                    onClick={() => setFlipped(!flipped)}
                   >
-                    {/* Fronte */}
-                    <div className="absolute w-full h-full scale-150 backface-hidden transform rotate-y-[28deg] transition-transform duration-700 ease-in-out bg-salvia p-4 rounded-2xl shadow-md shadow-salviaScuro border-1 border-salviaScuro flex flex-col items-center justify-center">
-                      <div className="absolute inset-0 bg-gradient-to-br from-salviaChiaro/10 via-transparent to-salviaScuro rounded-2xl pointer-events-none" />
-
-                      <p className="text-5xl font-bold text-salviaChiaro font-[Unna] text-shadow-md">
-                        {azienda.denominazioneAziendale}
-                      </p>
-                      <p className="text-md font-light font-[Unna] text-salviaChiaro text-shadow-md ">
-                        {azienda.tipologiaAttivita}
-                      </p>
-                      <p className=" text-salviaChiaro text-shadow-md mt-4 ">
-                        →
-                      </p>
-                    </div>
-                    {/* Retro */}
-                    <div className="absolute w-full h-full scale-150 backface-hidden transform rotate-y-180 bg-salvia p-4 rounded-2xl shadow-md shadow-salviaScuro border-1 border-salviaScuro  flex  justify-center    ">
-                      <div className="w-5/10  flex flex-col items-center">
-                        <button
-                          className=" p-1 ml-0 mt-0 self-start text-sm bg-salviaScuro shadow-md shadow-salvia rounded-2xl hover:bg-ambra  text-white"
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            setDenominazioneAziendale(
-                              azienda.denominazioneAziendale
-                            )
-                            setRagioneSociale(azienda.ragioneSociale)
-                            setTipologiaAttivita(azienda.tipologiaAttivita)
-                            setSedeOperativa(azienda.sedeOperativa)
-                            setPartitaIva(azienda.partitaIva)
-                            setTelefono(azienda.telefono)
-                            setEmail(azienda.email)
-                            setShowForm(true)
-                          }}
-                        >
-                          <PencilIcon className="w-3" />
-                        </button>{" "}
-                        <h1 className=" font-[Unna] text-center mt-10 text-4xl text-salviaChiaro font-bold text-shadow-md ">
-                          {" "}
+                    <div
+                      className={`relative w-full h-full duration-600 transform-style preserve-3d transition-transform ${
+                        flipped ? "rotate-y-180" : ""
+                      }`}
+                    >
+                      {/* Fronte */}
+                      <div className="absolute w-full h-full scale-150 backface-hidden transform rotate-y-[28deg] transition-transform duration-700 ease-in-out bg-salvia p-4 rounded-2xl shadow-md shadow-salviaScuro border-1 border-salviaScuro flex flex-col items-center justify-center">
+                        <div className="absolute inset-0 bg-gradient-to-br from-salviaChiaro/10 via-transparent to-salviaScuro rounded-2xl pointer-events-none" />
+                        <p className="text-5xl font-bold text-salviaChiaro font-[Unna] text-shadow-md">
                           {azienda.denominazioneAziendale}
-                        </h1>{" "}
-                      </div>
-                      <div class="w-px h-50 bg-salviaScuro"></div>
-                      <div className=" mt-5 ">
-                        <div className="flex  ml-5 mb-3 gap-2">
-                          <MapPinIcon className="h-4 w-4 text-ambra" />
-                          <p className="text-avorio text-shadow-md text-xs">
-                            <span className="text-salviaChiaro font-bold">
-                              Sede:
-                            </span>{" "}
-                            {azienda.sedeOperativa}
-                          </p>
-                        </div>
-                        <div className="flex items-center ml-5 mb-3 gap-2">
-                          <PhoneIcon className="h-4 w-4 text-ambra" />
-                          <p className="text-avorio text-shadow-md text-xs">
-                            <span className="text-salviaChiaro font-bold">
-                              {" "}
-                              Telefono:
-                            </span>{" "}
-                            {azienda.telefono}
-                          </p>
-                        </div>
-                        <div className="flex items-center ml-5 mb-3 gap-2">
-                          <EnvelopeOpenIcon className="h-4 w-4 text-ambra" />
-                          <p className="text-avorio text-shadow-1 text-xs">
-                            <span className="text-salviaChiaro font-bold">
-                              Email:{" "}
-                            </span>
-                            {azienda.email}
-                          </p>
-                        </div>
-                        <hr class="my-3 border-t border-salviaScuro" />
-                        <p className="text-avorio text-shadow-md ml-5 text-xs mb-3  ">
-                          <span className="text-salviaChiaro font-bold">
-                            Tipologia attività:{" "}
-                          </span>
-
+                        </p>
+                        <p className="text-md font-light font-[Unna] text-salviaChiaro text-shadow-md ">
                           {azienda.tipologiaAttivita}
                         </p>
-                        <p className="text-avorio text-shadow-md ml-5 text-xs mb-3  ">
-                          <span className="text-salviaChiaro font-bold">
-                            Partita iva:{" "}
-                          </span>
-
-                          {azienda.partitaIva}
-                        </p>
-                        <p className="text-avorio text-shadow-md ml-5 text-xs mb-3  ">
-                          <span className="text-salviaChiaro font-bold">
-                            Ragione sociale:{" "}
-                          </span>
-
-                          {azienda.ragioneSociale}
+                        <p className=" text-salviaChiaro text-shadow-md mt-4 ">
+                          →
                         </p>
                       </div>
-                    </div>{" "}
+                      {/* Retro */}
+                      <div className="absolute w-full h-full scale-150 backface-hidden transform rotate-y-180 bg-salvia p-4 rounded-2xl shadow-md shadow-salviaScuro border-1 border-salviaScuro flex justify-center">
+                        <div className="w-5/10 flex flex-col items-center">
+                          <button
+                            className="p-1 ml-0 mt-0 self-start text-sm bg-salviaScuro shadow-md shadow-salvia rounded-2xl hover:bg-ambra text-white"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              setDenominazioneAziendale(
+                                azienda.denominazioneAziendale
+                              )
+                              setRagioneSociale(azienda.ragioneSociale)
+                              setTipologiaAttivita(azienda.tipologiaAttivita)
+                              setSedeOperativa(azienda.sedeOperativa)
+                              setPartitaIva(azienda.partitaIva)
+                              setTelefono(azienda.telefono)
+                              setEmail(azienda.email)
+                              setShowForm(true)
+                            }}
+                          >
+                            <PencilIcon className="w-3" />
+                          </button>
+                          <h1 className="font-[Unna] text-center mt-10 text-4xl text-salviaChiaro font-bold text-shadow-md">
+                            {azienda.denominazioneAziendale}
+                          </h1>
+                        </div>
+                        <div className="w-px h-50 bg-salviaScuro"></div>
+                        <div className="mt-5">
+                          <div className="flex ml-5 mb-3 gap-2">
+                            <MapPinIcon className="h-4 w-4 text-ambra" />
+                            <p className="text-avorio text-shadow-md text-xs">
+                              <span className="text-salviaChiaro font-bold">
+                                Sede:
+                              </span>{" "}
+                              {azienda.sedeOperativa}
+                            </p>
+                          </div>
+                          <div className="flex items-center ml-5 mb-3 gap-2">
+                            <PhoneIcon className="h-4 w-4 text-ambra" />
+                            <p className="text-avorio text-shadow-md text-xs">
+                              <span className="text-salviaChiaro font-bold">
+                                Telefono:
+                              </span>{" "}
+                              {azienda.telefono}
+                            </p>
+                          </div>
+                          <div className="flex items-center ml-5 mb-3 gap-2">
+                            <EnvelopeOpenIcon className="h-4 w-4 text-ambra" />
+                            <p className="text-avorio text-shadow-1 text-xs">
+                              <span className="text-salviaChiaro font-bold">
+                                Email:{" "}
+                              </span>
+                              {azienda.email}
+                            </p>
+                          </div>
+                          <hr className="my-3 border-t border-salviaScuro" />
+                          <p className="text-avorio text-shadow-md ml-5 text-xs mb-3">
+                            <span className="text-salviaChiaro font-bold">
+                              Tipologia attività:{" "}
+                            </span>
+                            {azienda.tipologiaAttivita}
+                          </p>
+                          <p className="text-avorio text-shadow-md ml-5 text-xs mb-3">
+                            <span className="text-salviaChiaro font-bold">
+                              Partita iva:{" "}
+                            </span>
+                            {azienda.partitaIva}
+                          </p>
+                          <p className="text-avorio text-shadow-md ml-5 text-xs mb-3">
+                            <span className="text-salviaChiaro font-bold">
+                              Ragione sociale:{" "}
+                            </span>
+                            {azienda.ragioneSociale}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+
+                {/* mobile*/}
+                <div className="md:hidden flex justify-center w-full  mt-8">
+                  <div className="w-80 bg-salvia p-4 rounded-2xl shadow-md shadow-salviaScuro border-1 border-salviaScuro">
+                    <h1 className="text-3xl font-bold text-center text-salviaChiaro font-[Unna] text-shadow-md mb-2">
+                      {azienda.denominazioneAziendale}
+                    </h1>
+                    <p className="text-sm text-salviaChiaro text-shadow-md mb-2">
+                      <span className="font-bold">Tipologia:</span>{" "}
+                      {azienda.tipologiaAttivita}
+                    </p>
+                    <p className="text-sm text-salviaChiaro text-shadow-md mb-2">
+                      <span className="font-bold">Sede:</span>{" "}
+                      {azienda.sedeOperativa}
+                    </p>
+                    <p className="text-sm text-salviaChiaro text-shadow-md mb-2">
+                      <span className="font-bold">Telefono:</span>{" "}
+                      {azienda.telefono}
+                    </p>
+                    <p className="text-sm text-salviaChiaro text-shadow-md mb-2">
+                      <span className="font-bold">Email:</span> {azienda.email}
+                    </p>
+                    <p className="text-sm text-salviaChiaro text-shadow-md mb-2">
+                      <span className="font-bold">Partita IVA:</span>{" "}
+                      {azienda.partitaIva}
+                    </p>
+                    <p className="text-sm text-salviaChiaro text-shadow-md mb-3">
+                      <span className="font-bold">Ragione sociale:</span>{" "}
+                      {azienda.ragioneSociale}
+                    </p>
+                    <button
+                      className="text-sm bg-salviaScuro text-white px-3 py-1 rounded-2xl hover:bg-ambra shadow-md"
+                      onClick={() => {
+                        setDenominazioneAziendale(
+                          azienda.denominazioneAziendale
+                        )
+                        setRagioneSociale(azienda.ragioneSociale)
+                        setTipologiaAttivita(azienda.tipologiaAttivita)
+                        setSedeOperativa(azienda.sedeOperativa)
+                        setPartitaIva(azienda.partitaIva)
+                        setTelefono(azienda.telefono)
+                        setEmail(azienda.email)
+                        setShowForm(true)
+                      }}
+                    >
+                      Modifica
+                    </button>
+                  </div>
+                </div>
+              </>
             )}
           </div>
         </div>

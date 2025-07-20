@@ -128,18 +128,18 @@ const PianificazionePulizia = () => {
       <div>
         <SideBar />
       </div>
-      <div className="flex-1  justify-items-center justify-center overflow-auto">
-        <div className="mx-auto flex bg-salviaChiaro/80  pt-6 pb-3 mb-6 sticky left-0 top-0 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
-          <h1 className="text-6xl ml-12 mb-2 font-[Unna] text-salviaScuro text-shadow-xs">
+      <div className="flex-1  justify-items-center  overflow-auto">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between px-20 py-2 bg-salviaChiaro/80 sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+          <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
             Pulizie
           </h1>
-          <div className=" flex gap-2 items-center justify-center ml-30">
+          <div className=" flex justify-center gap-2 w-full md:w-auto mb-2 md:mb-0">
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Cerca per oggetto, frequenza o altro"
-              className="px-3 py-1 bg-avorio border border-salvia rounded-2xl w-150 shadow-sm focus:outline-hidden focus:shadow-salvia focus:shadow-md"
+              className="px-3 py-1 bg-avorio border border-salvia rounded-2xl lg:w-130 md:120 shadow-sm focus:outline-hidden focus:shadow-salvia focus:shadow-md"
             />
             <button
               onClick={handleSearch}
@@ -153,7 +153,7 @@ const PianificazionePulizia = () => {
         {error && (
           <div className="mb-4 text-center text-rosso font-medium">{error}</div>
         )}
-        <table className="w-250 border-collapse bg-salviaChiaro shadow-md rounded-2xl shadow-salviaScuro mb-10">
+        <table className="hidden sm:table w-full max-w-full sm:max-w-[200px] md:max-w-[800px] lg:max-w-[1000px] border-collapse bg-salviaChiaro shadow-md rounded-2xl shadow-salviaScuro mt-4">
           <thead>
             <tr>
               <th className=" rounded-tl-2xl px-6 py-3 bg-salvia text-shadow-lg text-gray-200">
@@ -372,6 +372,179 @@ const PianificazionePulizia = () => {
             </tr>
           </tfoot>
         </table>
+
+        {/* Mobile */}
+        <div className="block md:hidden space-y-4 px-4 mt-4">
+          {(risultatiRicerca || pulizie).map((pulizia) => (
+            <div
+              key={pulizia.id}
+              className="bg-salviaChiaro shadow-salvia border-1 border-salvia shadow-md rounded-xl p-4 space-y-2"
+            >
+              {editingId === pulizia.id ? (
+                <>
+                  <input
+                    type="text"
+                    value={puliziaModificata.oggetto}
+                    onChange={(e) =>
+                      setPuliziaModificata({
+                        ...puliziaModificata,
+                        oggetto: e.target.value,
+                      })
+                    }
+                    className="w-full px-2 py-1 rounded "
+                    placeholder="Oggetto"
+                  />
+                  <input
+                    type="text"
+                    value={puliziaModificata.detergente}
+                    onChange={(e) =>
+                      setPuliziaModificata({
+                        ...puliziaModificata,
+                        detergente: e.target.value,
+                      })
+                    }
+                    className="w-full px-2 py-1 rounded "
+                    placeholder="Detergente"
+                  />
+                  <input
+                    type="text"
+                    value={puliziaModificata.attrezzatureUtilizzate}
+                    onChange={(e) =>
+                      setPuliziaModificata({
+                        ...puliziaModificata,
+                        attrezzatureUtilizzate: e.target.value,
+                      })
+                    }
+                    className="w-full px-2 py-1 rounded "
+                    placeholder="Attrezzature"
+                  />
+                  <input
+                    type="text"
+                    value={puliziaModificata.frequenza}
+                    onChange={(e) =>
+                      setPuliziaModificata({
+                        ...puliziaModificata,
+                        frequenza: e.target.value,
+                      })
+                    }
+                    className="w-full px-2 py-1 rounded "
+                    placeholder="Frequenza"
+                  />
+                  <button
+                    onClick={() => {
+                      const token = localStorage.getItem("token")
+                      fetch(`http://localhost:8080/pulizie/${pulizia.id}`, {
+                        method: "PUT",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Authorization: `Bearer ${token}`,
+                        },
+                        body: JSON.stringify(puliziaModificata),
+                      })
+                        .then((res) => {
+                          if (!res.ok)
+                            throw new Error("Errore durante la modifica")
+                          return res.json()
+                        })
+                        .then(() => {
+                          getPulizie()
+                          setEditingId(null)
+                          setPuliziaModificata({})
+                        })
+                        .catch((err) => setError(err.message))
+                    }}
+                    className="bg-salvia text-white px-4 py-1 rounded-3xl"
+                  >
+                    Salva
+                  </button>
+                </>
+              ) : (
+                <>
+                  <p>
+                    <strong>Oggetto:</strong> {pulizia.oggetto}
+                  </p>
+                  <p>
+                    <strong>Detergente:</strong> {pulizia.detergente}
+                  </p>
+                  <p>
+                    <strong>Attrezzature:</strong>{" "}
+                    {pulizia.attrezzatureUtilizzate}
+                  </p>
+                  <p>
+                    <strong>Frequenza:</strong> {pulizia.frequenza}
+                  </p>
+                  <button
+                    onClick={() => {
+                      setEditingId(pulizia.id)
+                      setPuliziaModificata({
+                        oggetto: pulizia.oggetto,
+                        detergente: pulizia.detergente,
+                        attrezzatureUtilizzate: pulizia.attrezzatureUtilizzate,
+                        frequenza: pulizia.frequenza,
+                      })
+                    }}
+                    className="bg-ambra text-white px-4 py-1 rounded-3xl"
+                  >
+                    Modifica
+                  </button>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+        {/* mobile */}
+        <div className="block md:hidden px-9 mt-6">
+          <div className="bg-avorio shadow-md rounded-2xl p-4 space-y-3 border-gray-300 border-1 mb-3">
+            <h2 className="text-lg font-semibold text-salviaScuro">
+              Aggiungi pulizia
+            </h2>
+            <input
+              type="text"
+              value={nuovaPulizia.oggetto}
+              onChange={(e) =>
+                setNuovaPulizia({ ...nuovaPulizia, oggetto: e.target.value })
+              }
+              className="w-full px-2 py-1 rounded "
+              placeholder="Oggetto"
+            />
+            <input
+              type="text"
+              value={nuovaPulizia.detergente}
+              onChange={(e) =>
+                setNuovaPulizia({ ...nuovaPulizia, detergente: e.target.value })
+              }
+              className="w-full px-2 py-1 rounded "
+              placeholder="Detergente"
+            />
+            <input
+              type="text"
+              value={nuovaPulizia.attrezzatureUtilizzate}
+              onChange={(e) =>
+                setNuovaPulizia({
+                  ...nuovaPulizia,
+                  attrezzatureUtilizzate: e.target.value,
+                })
+              }
+              className="w-full px-2 py-1 rounded "
+              placeholder="Attrezzature"
+            />
+            <input
+              type="text"
+              value={nuovaPulizia.frequenza}
+              onChange={(e) =>
+                setNuovaPulizia({ ...nuovaPulizia, frequenza: e.target.value })
+              }
+              className="w-full px-2 py-1 rounded "
+              placeholder="Frequenza"
+            />
+            <button
+              onClick={handleAddPulizia}
+              className="w-full bg-salvia text-white px-4 py-1 rounded-3xl hover:bg-salviaScuro"
+            >
+              Aggiungi
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   )

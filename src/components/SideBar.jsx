@@ -19,7 +19,7 @@ import {
 } from "@heroicons/react/24/outline"
 
 const SideBar = () => {
-  const [isExpanded, setIsExpanded] = useState(true)
+  const [isExpanded, setIsExpanded] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
   const token = localStorage.getItem("token")
@@ -27,9 +27,9 @@ const SideBar = () => {
 
   return (
     <div
-      className={`   bg-salvia h-dvh  shadow-xl shadow-neutral-300    ${
-        isExpanded ? "lg:w-60 md:w-70 w-full" : "lg:w-18 "
-      } p-3 flex flex-col`}
+      className={`  hidden md:flex bg-salviaScuro h-dvh  shadow-xl shadow-neutral-300    ${
+        isExpanded ? "w-70" : "w-16 "
+      } p-3 flex flex-col `}
     >
       <button
         onClick={() => setIsExpanded(!isExpanded)}
@@ -37,10 +37,10 @@ const SideBar = () => {
       >
         {isExpanded ? (
           <>
-            <Bars3BottomLeftIcon className="lg:h-8 lg:w-8 w-10 h-10 m-1 text-salviaScuro  transform transition-transform duration-200 ease-in-out   hover:text-ambra hover:scale-120" />
+            <Bars3BottomLeftIcon className="lg:h-8 lg:w-8 w-10 h-10 m-1 text-salvia  transform transition-transform duration-200 ease-in-out   hover:text-ambra hover:scale-120" />
           </>
         ) : (
-          <Bars3BottomRightIcon className="lg:h-8 lg:w-8 w-10 h-10 m-1 text-salviaScuro transform transition-transform duration-200 ease-in-out hover:scale-120 hover:text-ambra" />
+          <Bars3BottomRightIcon className="lg:h-8 lg:w-8 w-10 h-10 m-1 text-salvia transform transition-transform duration-200 ease-in-out hover:scale-120 hover:text-ambra" />
         )}
       </button>
       <div
@@ -50,13 +50,13 @@ const SideBar = () => {
         }`}
       >
         <UserIcon
-          className={`h-8 w-8 p-1  text-slate-800 transform transition-transform duration-200 ease-in-out hover:scale-125 ${
+          className={`h-6 w-6   text-slate-800 transform transition-transform duration-200 ease-in-out hover:scale-125 ${
             location.pathname === "/Profilo" ? " scale-110" : ""
           }`}
         />
         {isExpanded && (
           <span
-            className={`lg:text-sm text-lg text-slate-800${
+            className={` text-lg text-slate-800${
               location.pathname === "/Profilo" ? " font-bold " : ""
             }`}
           >
@@ -64,7 +64,7 @@ const SideBar = () => {
           </span>
         )}
       </div>
-      <hr className="my-3 border-t border-salviaScuro" />
+      <hr className="my-3 border-t border-green-950" />
       <div
         onClick={() => navigate("/HomePage")}
         className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-salviaScuro ${
@@ -246,7 +246,7 @@ const SideBar = () => {
           localStorage.removeItem("token")
           localStorage.removeItem("ruolo")
         }}
-        className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-salviaScuro ${
+        className={`flex items-center  gap-3 p-2 rounded-3xl cursor-pointer hover:bg-salviaScuro ${
           location.pathname === "/" ? "bg-ambra" : ""
         }`}
       >

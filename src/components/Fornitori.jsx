@@ -172,19 +172,19 @@ const Fornitori = () => {
         <SideBar />
       </div>
 
-      <div className="flex-1 justify-items-center justify-center ">
-        <div className="mx-auto flex bg-salviaChiaro/80  pt-6 pb-3 mb-2 sticky left-0 top-0 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
-          <h1 className="text-6xl ml-12 mb-2 font-[Unna] text-salviaScuro text-shadow-xs">
+      <div className="flex-1 justify-items-center justify-center overflow-auto">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between px-20 py-2 bg-salviaChiaro/80 sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+          <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
             Fornitori
           </h1>
           {!loading && !error && !showForm && (
-            <div className=" flex gap-2 items-center justify-items-center justify-center ml-10">
+            <div className=" flex justify-center gap-2 w-full md:w-auto mb-2 md:mb-0">
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Cerca fornitori per nome o prodotto"
-                className="px-3 py-1 bg-avorio border border-salvia rounded-2xl w-150 shadow-sm  focus:outline-hidden focus:shadow-salvia focus:shadow-md"
+                className="px-3 py-1 bg-avorio border border-salvia rounded-2xl lg:w-130 md:120 shadow-sm focus:outline-hidden focus:shadow-salvia focus:shadow-md"
               />
               <button
                 onClick={handleSearch}
@@ -195,7 +195,7 @@ const Fornitori = () => {
             </div>
           )}
         </div>
-        <div className=" w-250">
+        <div>
           {loading && (
             <p className="text-xl text-center w-full py-10">
               Caricamento in corso...
@@ -222,7 +222,7 @@ const Fornitori = () => {
               </div>
             )}
           {!loading && !error && showForm && (
-            <div className="w-200 m-auto p-6 rounded-2xl bg-salviaChiaro border-1 border-salvia shadow-md shadow-salvia">
+            <div className="md:w-200 w-80 m-auto p-6 rounded-2xl bg-salviaChiaro border-1 border-salvia shadow-md shadow-salvia mt-4">
               <h2 className="text-2xl font-bold text-center mb-6">
                 {idUtente ? "Modifica fornitore" : "Crea fornitore"}
               </h2>
@@ -278,19 +278,19 @@ const Fornitori = () => {
                   className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
                   required
                 />
-                <div className="flex justify-around">
+                <div className="flex justify-around ">
                   <button
                     type="button"
-                    className="w-60 px-2 py-1 bg-grigio border-1 border-salviaScuro shadow-md text-white  hover:bg-rosso mb-6 rounded-2xl"
+                    className=" w-30 px-2 py-1 bg-grigio border-1 border-salviaScuro shadow-md text-white  hover:bg-rosso mb-6 rounded-2xl mr-2"
                     onClick={() => setShowForm(false)}
                   >
                     Annulla
                   </button>{" "}
                   <button
                     type="submit"
-                    className="w-60  px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl"
+                    className="w-60   px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl"
                   >
-                    {idUtente ? "Salva modifiche" : "Crea Fornitore"}
+                    {idUtente ? "Salva" : "Crea Fornitore"}
                   </button>
                 </div>
               </form>
@@ -298,7 +298,7 @@ const Fornitori = () => {
           )}
 
           {!loading && !error && !showForm && fornitori.length > 0 && (
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 mt-4 justify-center justify-items-center">
               {isAdmin && (
                 <div className="flex justify-start">
                   <button
@@ -317,11 +317,11 @@ const Fornitori = () => {
                   </button>
                 </div>
               )}
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 grid-cols-1 gap-3  ">
                 {(risultatiRicerca || fornitori).map((fornitore) => (
                   <div
                     key={fornitore.id}
-                    className="relative bg-salviaChiaro p-4 rounded-2xl shadow-salvia shadow-lg border-1 border-salvia flex flex-col"
+                    className="relative bg-salviaChiaro p-2  rounded-2xl shadow-salvia shadow-lg border-1 border-salvia flex flex-col  w-80 md:w-110 lg:w-120 xl:w-130 2xl:w-160 mb-6"
                   >
                     {isAdmin && (
                       <button
@@ -335,15 +335,10 @@ const Fornitori = () => {
                         x
                       </button>
                     )}
-                    <div className="flex items-center gap-4">
-                      <img
-                        className="w-30 h-30 bg-salvia/70 rounded-full border-1 border-salviaScuro  object-cover   drop-shadow-xl shadow-salvia"
-                        src="/public/20.png"
-                        alt="user-placeholder"
-                      />
-                      <div className="flex flex-col ml-5">
-                        <p className="text-2xl font-semibold mb-2 text-salviaScuro text-shadow-xs">
-                          • {fornitore.nomeFornitore} •
+                    <div className="md:flex md:items-center md:gap-4  ">
+                      <div className="flex flex-col md:ml-5 ml-2 text-center md:text-start ">
+                        <p className="text-2xl font-semibold mb-2 text-salviaScuro text-shadow-xs ">
+                          {fornitore.nomeFornitore}
                         </p>
                         <p className=" text-gray-700 mb-2 font-semibold ">
                           Sede:
@@ -367,6 +362,11 @@ const Fornitori = () => {
                           </span>
                         </p>
                       </div>
+                      <img
+                        className="w-26  h-26 bg-salvia/70 rounded-full border-1 border-salviaScuro  object-cover   drop-shadow-xl shadow-salvia self-auto ml-auto mr-7 hidden  md:inline-flex "
+                        src="/public/20.png"
+                        alt="user-placeholder"
+                      />
                     </div>
                     <hr className="my-3 border-t border-salviaScuro" />
                     <div className="text-center  py-2  ">

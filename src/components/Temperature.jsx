@@ -174,7 +174,6 @@ const Temperature = () => {
     }
   }
 
-  // Gestione modifica temperatura esistente (inline)
   const handleUpdateTemperatura = async (id, e) => {
     e.preventDefault()
     const token = localStorage.getItem("token")
@@ -217,21 +216,68 @@ const Temperature = () => {
   return (
     <div className="flex h-screen bg-beige">
       <SideBar />
-      <div className="flex-1 overflow-auto">
-        <div className="mx-auto  flex bg-salviaChiaro/80 pt-2 pb-2 lg:pt-6 lg:pb-3 mb-0 lg:mb-2 sticky left-0 top-0 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
-          <h1 className="lg:text-6xl  text-xl ml-2 md:ml-12 lg:mb-2 font-[Unna] text-salviaScuro text-shadow-xs">
+      <div className="flex-1 overflow-auto  justify-items-center">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between md:px-20 px-4 py-2 bg-salviaChiaro/80 sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+          <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
             Temperature
           </h1>
+
+          <div className="flex md:justify-center  md:items-center gap-2 w-full md:w-auto mb-2 md:mb-0">
+            <button
+              className="  md:ms-0 px-3 py-1 bg-salvia border border-salviaScuro shadow-md text-shadow-md text-white hover:bg-ambra rounded-3xl"
+              onClick={() => setMostraFiltri((prev) => !prev)}
+            >
+              Filtri
+            </button>{" "}
+            <button
+              disabled={giornoCorrente === 0}
+              onClick={() => setGiornoCorrente((prev) => prev - 1)}
+              className="text-xs md:text-xl bg-avorio border border-salvia shadow-md shadow-salviaChiaro text-gray-700 rounded-4xl px-3 disabled:opacity-50 hover:bg-salviaChiaro"
+            >
+              ◀ &nbsp;
+              {giornoSelezionato && !isNaN(new Date(giornoSelezionato))
+                ? format(subDays(new Date(giornoSelezionato), 1), "dd", {
+                    locale: it,
+                  })
+                : "–"}
+            </button>
+            <span className="text-center self-center bg-ambra shadow-md shadow-salvia text-shadow-md px-4 py-2 rounded-4xl text-gray-800 text-xs md:text-xl">
+              {!haFiltriAttivi()
+                ? giornoSelezionato
+                  ? ` ${formattaData(giornoSelezionato)}`
+                  : "Temperature registrate"
+                : filtroConformita
+                ? `Temperature ${filtroConformita
+                    .toLowerCase()
+                    .replace("_", " ")} rilevate`
+                : filtroData
+                ? ` ${formattaData(filtroData)}`
+                : filtroStart && filtroEnd
+                ? ` Dal ${formattaData(filtroStart)} al ${formattaData(
+                    filtroEnd
+                  )}`
+                : filtroFrigo
+                ? ` Frigo ${filtroFrigo}`
+                : filtroTemperatura
+                ? `Temperature pari a ${filtroTemperatura}°C`
+                : "Risultati del filtro"}
+            </span>
+            <button
+              disabled={giornoCorrente === giorni.length - 1}
+              onClick={() => setGiornoCorrente((prev) => prev + 1)}
+              className="text-xs md:text-xl bg-avorio border border-salvia shadow-md shadow-salviaChiaro text-gray-700 rounded-4xl px-3 disabled:opacity-50 hover:bg-salviaChiaro"
+            >
+              {giornoSelezionato && !isNaN(new Date(giornoSelezionato))
+                ? format(addDays(new Date(giornoSelezionato), 1), "dd", {
+                    locale: it,
+                  })
+                : "–"}{" "}
+              ▶
+            </button>{" "}
+          </div>
         </div>
 
-        <div className="relative flex justify-end md:mr-30 mr-4 mt-2 md:-mb-4">
-          <button
-            className="px-4 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl"
-            onClick={() => setMostraFiltri((prev) => !prev)}
-          >
-            Filtri
-          </button>
-
+        <div className="relative z-50 w-full flex justify-center md:justify-end mt-2 md:mr-6">
           {mostraFiltri && (
             <div className="absolute  left-2 md:left-140 top-full mt-1 z-50 w-80 md:w-[500px] bg-salviaChiaro rounded-2xl shadow-salvia shadow-2xl p-4 border border-salvia">
               <h2 className="font-semibold mb-2">Filtri</h2>
@@ -361,57 +407,6 @@ const Temperature = () => {
         </div>
 
         <div className=" flex-1 p-6 justify-items-center justify-center ">
-          <div className="flex justify-center backdrop-blur-sm justify-items-center mb-15 sticky md:fixed top-11 md:top-6 md:left-180">
-            <button
-              disabled={giornoCorrente === 0}
-              onClick={() => setGiornoCorrente((prev) => prev - 1)}
-              className=" text-xs md:text-xl bg-avorio border-1 border-salvia shadow-md shadow-salviaChiaro  text-gray-700  rounded-4xl md:px-8 disabled:opacity-50 mb:mr-6  hover:bg-salviaChiaro"
-            >
-              ◀ &nbsp;&nbsp;
-              {giornoSelezionato && !isNaN(new Date(giornoSelezionato))
-                ? format(subDays(new Date(giornoSelezionato), 1), "dd", {
-                    locale: it,
-                  })
-                : "–"}
-              &nbsp;&nbsp;&nbsp;
-            </button>
-
-            <h1 className="text-2xl  text-center bg-ambra  shadow-md shadow-salvia text-shadow-md py-3 px-4 rounded-4xl text-gray-80">
-              {!haFiltriAttivi()
-                ? giornoSelezionato
-                  ? ` ${formattaData(giornoSelezionato)}`
-                  : "Temperature registrate"
-                : filtroConformita
-                ? `Temperature ${filtroConformita
-                    .toLowerCase()
-                    .replace("_", " ")} rilevate`
-                : filtroData
-                ? ` ${formattaData(filtroData)}`
-                : filtroStart && filtroEnd
-                ? ` Dal ${formattaData(filtroStart)} al ${formattaData(
-                    filtroEnd
-                  )}`
-                : filtroFrigo
-                ? ` Frigo ${filtroFrigo}`
-                : filtroTemperatura
-                ? `Temperature pari a ${filtroTemperatura}°C`
-                : "Risultati del filtro"}
-            </h1>
-            <button
-              disabled={giornoCorrente === giorni.length - 1}
-              onClick={() => setGiornoCorrente((prev) => prev + 1)}
-              className=" text-xl border-1 border-salvia shadow-md shadow-salviaChiaro px-8 rounded-4xl bg-avorio text-gray-800  disabled:opacity-50 ml-6 hover:bg-salviaChiaro"
-            >
-              {" "}
-              &nbsp;&nbsp;
-              {giornoSelezionato && !isNaN(new Date(giornoSelezionato))
-                ? format(addDays(new Date(giornoSelezionato), 1), "dd", {
-                    locale: it,
-                  })
-                : "–"}
-              &nbsp; ▶&nbsp;&nbsp;
-            </button>
-          </div>
           <div></div>
           <table className="hidden sm:table w-full max-w-full sm:max-w-[200px] md:max-w-[800px] lg:max-w-[1000px] border-collapse bg-salviaChiaro shadow-md rounded-2xl shadow-salviaScuro">
             <thead>
@@ -628,10 +623,10 @@ const Temperature = () => {
             ).map((t, index) => (
               <div
                 key={t.id || index}
-                className={`p-4 rounded-xl shadow-md ${
+                className={`p-4 rounded-2xl shadow-md shadow-salvia border-1 ${
                   t.conformita === "NON_CONFORME"
-                    ? "bg-red-100"
-                    : "bg-salviaChiaro"
+                    ? "bg-rosso/60 border-rosso"
+                    : "bg-salviaChiaro border-salvia "
                 }`}
               >
                 {editingId === t.id ? (
@@ -690,7 +685,7 @@ const Temperature = () => {
                     </select>
                     <button
                       type="submit"
-                      className="bg-salvia text-white rounded px-4 py-1 hover:bg-salviaScuro"
+                      className="bg-salvia text-white rounded-3xl px-4 py-1 hover:bg-salviaScuro"
                     >
                       Salva
                     </button>
@@ -710,7 +705,7 @@ const Temperature = () => {
                       <strong>Conformità:</strong> {t.conformita}
                     </p>
                     <button
-                      className="mt-2 text-sm bg-ambra text-white px-3 py-1 rounded hover:bg-ambra/90"
+                      className="mt-2 text-sm rounded-3xl bg-ambra text-white px-3 py-1 border-1 border-amber-400 hover:bg-ambra/90"
                       onClick={() => {
                         setEditingId(t.id)
                         setTemperaturaModificata({
@@ -727,8 +722,8 @@ const Temperature = () => {
                 )}
               </div>
             ))}
-            {/* Card inserimento nuova temperatura per mobile */}
-            <div className="p-4 rounded-xl shadow-md bg-avorio">
+            {/*  mobile */}
+            <div className="p-4 rounded-2xl shadow-md bg-avorio border-1 border-gray-300">
               <h3 className="font-semibold mb-2 text-salviaScuro">
                 Aggiungi temperatura
               </h3>
@@ -778,13 +773,13 @@ const Temperature = () => {
                     }))
                   }
                 >
-                  <option value="">Seleziona conformità</option>
+                  <option value="">Seleziona</option>
                   <option value="CONFORME">CONFORME</option>
                   <option value="NON_CONFORME">NON CONFORME</option>
                 </select>
                 <button
                   type="submit"
-                  className="w-full bg-salvia text-white rounded px-4 py-1 hover:bg-salviaScuro"
+                  className="w-full bg-salvia text-white rounded-3xl px-4 py-1 hover:bg-salviaScuro"
                   disabled={
                     !nuovaTemperatura.data ||
                     !nuovaTemperatura.frigo ||

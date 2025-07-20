@@ -9,6 +9,7 @@ import {
 } from "date-fns"
 import { it } from "date-fns/locale"
 import SideBar from "./SideBar"
+import SidebMobile from "./SidebMobile"
 
 const HomePage = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date())
@@ -69,58 +70,61 @@ const HomePage = () => {
   return (
     <div className="flex h-screen bg-beige">
       <SideBar />
+
       <main className="flex-1   overflow-auto">
-        <div className="mx-auto  flex bg-salviaChiaro/80 pt-2 pb-2 lg:pt-6 lg:pb-3 mb-0 lg:mb-2 sticky left-0 top-0 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
-          <h1 className="lg:text-6xl  text-xl ml-2 md:ml-12 lg:mb-2 font-[Unna] text-salviaScuro text-shadow-xs">
-            Dashboard
-          </h1>
-        </div>
-
-        <div className="flex backdrop-blur-sm  justify-center gap-9 items-center mb-20 sticky top-11 pt-3  lg:fixed lg:top-2 lg:left-180 left-0">
-          <button
-            onClick={() => setCurrentMonth(subWeeks(currentMonth, 1))}
-            className="md:text-xl text-xs bg-avorio border-1 border-salvia shadow-md shadow-salviaChiaro  text-gray-700  rounded-4xl md:px-8 px-6 disabled:opacity-50   hover:bg-salviaChiaro"
-          >
-            <p className="text-center">{formatMonthDisplay()}</p>
-            {format(
-              startOfWeek(subWeeks(currentMonth, 1), { weekStartsOn: 1 }),
-              "dd",
-              { locale: it }
-            )}{" "}
-            -{" "}
-            {format(
-              endOfWeek(subWeeks(currentMonth, 1), { weekStartsOn: 1 }),
-              "dd",
-              { locale: it }
-            )}
-          </button>
-          <div className="bg-ambra shadow-md shadow-salvia md:px-4 px-3 md:py-2 py-1 rounded-4xl md:rounded-full">
-            <p className="text-center">{formatMonthDisplay()}</p>
-            <h1 className="md:text-2xl text-xs font-bold">
-              {format(startDate, "dd", { locale: it })} -{" "}
-              {format(endDate, "dd", { locale: it })}
-            </h1>
+        {" "}
+        <div className="w-full flex flex-col md:flex-row items-center justify-between md:px-20 px:4 py-2 bg-salviaChiaro/80 sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+          <div>
+            <SidebMobile />
           </div>
+          <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
+            Dashboard
+          </h1>{" "}
+          <div className="flex md:justify-center  md:items-center gap-2 w-full md:w-auto mb-2 md:mb-0">
+            <button
+              onClick={() => setCurrentMonth(subWeeks(currentMonth, 1))}
+              className="md:text-xl text-xs bg-avorio border-1 border-salvia shadow-md shadow-salviaChiaro  text-gray-700  rounded-4xl w-40 h-10 md:w-35 md:h-15 disabled:opacity-50 hover:bg-salviaChiaro"
+            >
+              <p className="text-center ">{formatMonthDisplay()}</p>
+              {format(
+                startOfWeek(subWeeks(currentMonth, 1), { weekStartsOn: 1 }),
+                "dd",
+                { locale: it }
+              )}{" "}
+              -{" "}
+              {format(
+                endOfWeek(subWeeks(currentMonth, 1), { weekStartsOn: 1 }),
+                "dd",
+                { locale: it }
+              )}
+            </button>
+            <div className="bg-ambra shadow-md shadow-salvia w-40 h-11 md:w-35 md:h-15 rounded-4xl md:rounded-full">
+              <p className="text-center">{formatMonthDisplay()}</p>
+              <h1 className="md:text-2xl text-xs font-bold text-center">
+                {format(startDate, "dd", { locale: it })} -{" "}
+                {format(endDate, "dd", { locale: it })}
+              </h1>
+            </div>
 
-          <button
-            onClick={() => setCurrentMonth(addWeeks(currentMonth, 1))}
-            className="md:text-xl text-xs bg-avorio border-1 border-salvia shadow-md shadow-salviaChiaro  text-gray-700  rounded-4xl md:px-8 px-6 disabled:opacity-50   hover:bg-salviaChiaro"
-          >
-            <p className="text-center">{formatMonthDisplay()}</p>
-            {format(
-              startOfWeek(addWeeks(currentMonth, 1), { weekStartsOn: 1 }),
-              "dd",
-              { locale: it }
-            )}{" "}
-            -{" "}
-            {format(
-              endOfWeek(addWeeks(currentMonth, 1), { weekStartsOn: 1 }),
-              "dd",
-              { locale: it }
-            )}
-          </button>
+            <button
+              onClick={() => setCurrentMonth(addWeeks(currentMonth, 1))}
+              className="md:text-xl text-xs bg-avorio border-1 border-salvia shadow-md shadow-salviaChiaro  text-gray-700  rounded-4xl w-40 h-10 md:w-35 md:h-15 disabled:opacity-50   hover:bg-salviaChiaro"
+            >
+              <p className="text-center">{formatMonthDisplay()}</p>
+              {format(
+                startOfWeek(addWeeks(currentMonth, 1), { weekStartsOn: 1 }),
+                "dd",
+                { locale: it }
+              )}{" "}
+              -{" "}
+              {format(
+                endOfWeek(addWeeks(currentMonth, 1), { weekStartsOn: 1 }),
+                "dd",
+                { locale: it }
+              )}
+            </button>
+          </div>
         </div>
-
         {sortedDates.length === 0 ? (
           <p className="text-gray-600 text-center">
             Nessun controllo disponibile per questa settimana.
