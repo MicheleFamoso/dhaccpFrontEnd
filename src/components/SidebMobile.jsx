@@ -39,7 +39,7 @@ const SidebMobile = () => {
             className="fixed inset-0 bg-gray-700/30 h-dvh z-80"
             onClick={() => setIsOpen(false)}
           ></div>
-          <div className="fixed top-0 left-0 h-dvh w-80 z-90 bg-salviaScuro  text-white p-4">
+          <div className="fixed top-0 left-0 h-dvh w-80 z-90 bg-salviaScuro bg-gradient-to-br from-salvia/20 via-transparent to-salviaScuro  p-4">
             <button
               onClick={() => setIsOpen(false)}
               className="mb-4  w-full text-salviaChiaro "
@@ -67,7 +67,7 @@ const SidebMobile = () => {
                   Profilo
                 </span>
               </div>
-              <hr className="my-3 border-t border-green-950" />
+
               <div
                 onClick={() => navigate("/HomePage")}
                 className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-salviaScuro ${
@@ -88,7 +88,7 @@ const SidebMobile = () => {
                   Dashboard
                 </span>
               </div>
-              <hr className="my-3 border-t border-salviaScuro" />
+
               <div
                 onClick={() => navigate("/temperatura")}
                 className={`flex items-center gap-3 p-2 rounded-3xl cursor-pointer hover:bg-salviaScuro ${
@@ -149,7 +149,6 @@ const SidebMobile = () => {
                   Controllo Infestanti
                 </span>
               </div>
-              <hr className="my-3 border-t border-salviaScuro" />
 
               <div
                 onClick={() => navigate("/fornitori")}
@@ -191,7 +190,7 @@ const SidebMobile = () => {
                   Forniture
                 </span>
               </div>
-              <hr className="my-3 border-t border-salviaScuro" />
+
               {ruolo === "ADMIN" && (
                 <div
                   onClick={() => navigate("/utenti")}
@@ -234,7 +233,7 @@ const SidebMobile = () => {
                   Azienda
                 </span>
               </div>
-              <hr className="my-3 border-t border-salviaScuro" />
+
               <div
                 onClick={() => {
                   navigate("/")

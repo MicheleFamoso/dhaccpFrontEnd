@@ -50,21 +50,24 @@ const Login = () => {
   }
 
   return (
-    <div className="bg-[url('/12.png')] w-screen h-screen bg-no-repeat bg-[position:right_bottom] bg-[length:700px_700px] bg-beige">
+    <div className="bg-[url('/12.png')] w-screen h-screen bg-no-repeat bg-[position:right_bottom] bg-[length:700px_700px] bg-beige overflow-auto 2xl:px-60">
       <div className="relative z-50">
         <NavbarHome />
       </div>
 
-      <div className="ml-20 flex flex-col  ">
-        <h1 className="font-[Unna] text-[180px] -mt-20 ">
-          d<span className="text-salvia text-shadow-2xs">/</span>haccp
-        </h1>
-        <p className="text-4xl font-[Unna] ml-12 -mt-18">
-          Digital <span className="text-salvia text-shadow-2xs">HACCP </span>
-          Management
-        </p>
+      <div className="ml-20">
+        <div className="flex flex-col items-center  w-fit self-start ">
+          <h1 className="font-[Unna] text-7xl md:text-[180px]  mt-2 ">
+            d<span className="text-salvia text-shadow-2xs">/</span>haccp
+          </h1>
+          <p className="md:text-4xl text-2xl font-[Unna]  ">
+            Digital <span className="text-salvia text-shadow-2xs">HACCP </span>
+            Management
+          </p>
+        </div>
       </div>
-      <div className="bg-salviaChiaro  p-6 rounded-3xl shadow-md shadow-salvia w-90 border-1 border-salvia flex ml-45   mt-10  ">
+
+      <div className="bg-salviaChiaro/60  p-6 rounded-3xl shadow-md shadow-salvia w-90 border-1 border-salvia flex md:ml-45   md:mt-10 mx-auto mt-10 backdrop-blur-sm ">
         <form onSubmit={handleSubmit}>
           <h2 className="text-2xl   mb-4 text-center">Benvenuto</h2>
           {error && (
@@ -93,11 +96,11 @@ const Login = () => {
               Accedi
             </button>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center items-center">
             <p className="mr-2 text-gray-700">Non hai un account ? </p>
             <button
               onClick={() => navigate("/registrazione")}
-              className="underline underline-offset-1 font-bold cursor-pointer hover:text-ambra"
+              className=" bg-ambra px-4 py-1 rounded-3xl font-bold cursor-pointer hover:bg-amber-500 "
             >
               Registrati
             </button>{" "}

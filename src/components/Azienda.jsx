@@ -5,6 +5,7 @@ import {
   EnvelopeOpenIcon,
   PencilIcon,
 } from "@heroicons/react/24/solid"
+import { jwtDecode } from "jwt-decode"
 
 import { useState, useEffect } from "react"
 import SidebMobile from "./SidebMobile"
@@ -14,6 +15,8 @@ const Azienda = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [showForm, setShowForm] = useState(false)
+  const token = localStorage.getItem("token")
+  const ruolo = token ? jwtDecode(token).role : null
 
   const [denominazioneAziendale, setDenominazioneAziendale] = useState("")
   const [ragioneSociale, setRagioneSociale] = useState("")
@@ -258,7 +261,7 @@ const Azienda = () => {
             )}
             {!loading && !error && !showForm && azienda && (
               <>
-                {/* Visualizzazione desktop: card girevole */}
+                {/* desktop: card girevole */}
                 <div className="hidden md:flex justify-center mt-20 h-[calc(100vh-100px)] w-full">
                   <div
                     className="relative w-[500px] h-[250px] cursor-pointer"
@@ -285,24 +288,27 @@ const Azienda = () => {
                       {/* Retro */}
                       <div className="absolute w-full h-full scale-150 backface-hidden transform rotate-y-180 bg-salvia p-4 rounded-2xl shadow-md shadow-salviaScuro border-1 border-salviaScuro flex justify-center">
                         <div className="w-5/10 flex flex-col items-center">
-                          <button
-                            className="p-1 ml-0 mt-0 self-start text-sm bg-salviaScuro shadow-md shadow-salvia rounded-2xl hover:bg-ambra text-white"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              setDenominazioneAziendale(
-                                azienda.denominazioneAziendale
-                              )
-                              setRagioneSociale(azienda.ragioneSociale)
-                              setTipologiaAttivita(azienda.tipologiaAttivita)
-                              setSedeOperativa(azienda.sedeOperativa)
-                              setPartitaIva(azienda.partitaIva)
-                              setTelefono(azienda.telefono)
-                              setEmail(azienda.email)
-                              setShowForm(true)
-                            }}
-                          >
-                            <PencilIcon className="w-3" />
-                          </button>
+                          {ruolo === "ADMIN" && (
+                            <button
+                              className="p-1 ml-0 mt-0 self-start text-sm bg-salviaScuro shadow-md shadow-salvia rounded-2xl hover:bg-ambra text-white"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                setDenominazioneAziendale(
+                                  azienda.denominazioneAziendale
+                                )
+                                setRagioneSociale(azienda.ragioneSociale)
+                                setTipologiaAttivita(azienda.tipologiaAttivita)
+                                setSedeOperativa(azienda.sedeOperativa)
+                                setPartitaIva(azienda.partitaIva)
+                                setTelefono(azienda.telefono)
+                                setEmail(azienda.email)
+                                setShowForm(true)
+                              }}
+                            >
+                              <PencilIcon className="w-3" />
+                            </button>
+                          )}
+
                           <h1 className="font-[Unna] text-center mt-10 text-4xl text-salviaChiaro font-bold text-shadow-md">
                             {azienda.denominazioneAziendale}
                           </h1>
@@ -390,23 +396,25 @@ const Azienda = () => {
                       <span className="font-bold">Ragione sociale:</span>{" "}
                       {azienda.ragioneSociale}
                     </p>
-                    <button
-                      className="text-sm bg-salviaScuro text-white px-3 py-1 rounded-2xl hover:bg-ambra shadow-md"
-                      onClick={() => {
-                        setDenominazioneAziendale(
-                          azienda.denominazioneAziendale
-                        )
-                        setRagioneSociale(azienda.ragioneSociale)
-                        setTipologiaAttivita(azienda.tipologiaAttivita)
-                        setSedeOperativa(azienda.sedeOperativa)
-                        setPartitaIva(azienda.partitaIva)
-                        setTelefono(azienda.telefono)
-                        setEmail(azienda.email)
-                        setShowForm(true)
-                      }}
-                    >
-                      Modifica
-                    </button>
+                    {ruolo === "ADMIN" && (
+                      <button
+                        className="text-sm bg-salviaScuro text-white px-3 py-1 rounded-2xl hover:bg-ambra shadow-md"
+                        onClick={() => {
+                          setDenominazioneAziendale(
+                            azienda.denominazioneAziendale
+                          )
+                          setRagioneSociale(azienda.ragioneSociale)
+                          setTipologiaAttivita(azienda.tipologiaAttivita)
+                          setSedeOperativa(azienda.sedeOperativa)
+                          setPartitaIva(azienda.partitaIva)
+                          setTelefono(azienda.telefono)
+                          setEmail(azienda.email)
+                          setShowForm(true)
+                        }}
+                      >
+                        Modifica
+                      </button>
+                    )}
                   </div>
                 </div>
               </>

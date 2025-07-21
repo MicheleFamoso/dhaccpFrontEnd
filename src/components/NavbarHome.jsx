@@ -15,16 +15,14 @@ const NavbarHome = () => {
   const [activePanel, setActivePanel] = useState(null)
   return (
     <>
-      <div className=" flex justify-end ">
-        <div className=" mr-20 mt-2 ">
+      <div className=" flex md:justify-end justify-center  ">
+        <div className=" md:mr-20 md:mt-2 mt-4  bg-salviaChiaro border-1 border-salvia rounded-3xl ">
           <button
             onClick={() =>
               setActivePanel(activePanel === "features" ? null : "features")
             }
-            className={`px-8 py-3 rounded-4xl  text-gray-900 ${
-              activePanel === "features"
-                ? "bg-stone-300/70"
-                : "hover:bg-stone-300/50"
+            className={`px-7 py-3 rounded-4xl  text-gray-900 ${
+              activePanel === "features" ? "bg-salvia" : "hover:bg-salvia/50"
             }`}
           >
             Funzionalità
@@ -32,9 +30,7 @@ const NavbarHome = () => {
           <button
             onClick={() => setActivePanel(activePanel === "noi" ? null : "noi")}
             className={`px-8 py-3 rounded-4xl  text-gray-900 ${
-              activePanel === "noi"
-                ? "bg-stone-300/70 "
-                : "hover:bg-stone-300/50  "
+              activePanel === "noi" ? "bg-salvia" : "hover:bg-salvia/50"
             }`}
           >
             Chi siamo
@@ -43,10 +39,8 @@ const NavbarHome = () => {
             onClick={() =>
               setActivePanel(activePanel === "contact" ? null : "contact")
             }
-            className={`px-8 py-3 rounded-4xl  text-gray-900 ${
-              activePanel === "contact"
-                ? "bg-stone-300/70"
-                : "hover:bg-stone-300/50"
+            className={`px-7 py-3 rounded-4xl  text-gray-900 ${
+              activePanel === "contact" ? "bg-salvia" : "hover:bg-salvia/50"
             }`}
           >
             Contatti
@@ -54,8 +48,8 @@ const NavbarHome = () => {
         </div>
       </div>
       {activePanel === "features" && (
-        <div className="absolute right-20 top-16 z-10 shadow-xl">
-          <div className="bg-neutral-100  rounded-md shadow-md border-1 border-stone-200 w-100 p-6">
+        <div className="absolute md:right-20 md:top-16 mt-2 right-2 z-50 ">
+          <div className="bg-avorio  rounded-3xl shadow-md shadow-salvia border-1 border-salvia w-100 p-6">
             <p className="m2-3 flex items-center gap-2">
               <BuildingStorefrontIcon className="h-5 w-5 text-amber-600" />
               Registrare e gestire più ristoranti
@@ -80,8 +74,8 @@ const NavbarHome = () => {
         </div>
       )}
       {activePanel === "noi" && (
-        <div className="absolute right-28 top-16 z-10 shadow-xl ">
-          <div className="bg-neutral-100  rounded-md shadow-md border-1 border-stone-200 w-80 p-6">
+        <div className="absolute md:right-28 md:top-16 mt-2 right-12 z-10  ">
+          <div className="bg-avorio  rounded-3xl shadow-md shadow-salvia border-1 border-salvia w-80 p-6">
             <p className=" text-wrap">
               <span className="font-[Unna] font-bold text-xl ">d/HACCP</span> è
               una piattaforma digitale pensata per semplificare la gestione
@@ -93,8 +87,8 @@ const NavbarHome = () => {
         </div>
       )}
       {activePanel === "contact" && (
-        <div className="absolute right-22 top-16 z-10 shadow-xl">
-          <div className="bg-neutral-100  rounded-md shadow-md border-1 border-stone-200 w-70 px-6 py-3">
+        <div className="absolute md:right-22 md:top-16 mt-2 right-2 z-10 ">
+          <div className="bg-avorio  rounded-3xl shadow-md shadow-salvia border-1 border-salvia w-70 px-6 py-3">
             <p className="mt-1 flex items-center gap-2">
               <UserCircleIcon className="h-5 w-5 text-blue-600" />
               Michele Famoso

@@ -78,7 +78,7 @@ const HomePage = () => {
           <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
             Dashboard
           </h1>{" "}
-          <div className="flex md:justify-center  md:items-center gap-2 w-full md:w-auto mb-2 md:mb-0">
+          <div className="flex md:justify-center  md:items-center gap-2 w-full md:w-auto mb-2 md:mb-0 p-2">
             <button
               onClick={() => setCurrentMonth(subWeeks(currentMonth, 1))}
               className="md:text-xl text-xs bg-avorio border-1 border-salvia shadow-md shadow-salviaChiaro  text-gray-700  rounded-4xl w-40 h-10 md:w-35 md:h-15 disabled:opacity-50 hover:bg-salviaChiaro"
