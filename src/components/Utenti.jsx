@@ -254,7 +254,7 @@ const Utenti = () => {
                 {utenti.map((utente) => (
                   <div
                     key={utente.id}
-                    className="relative  flex flex-col  bg-salviaChiaro p-4 rounded-2xl shadow-salvia shadow-lg border-1 border-salvia  w-80 md:w-110  xl:w-110 2xl:w-160 mb-6"
+                    className="relative  flex flex-col  bg-salviaChiaro p-4 rounded-2xl shadow-salvia shadow-lg border-1 border-salvia  w-80 md:w-110  xl:w-110 2xl:w-140 mb-6"
                   >
                     <button
                       onClick={() => {
