@@ -62,7 +62,7 @@ const Registrazione = () => {
               <span className="text-salvia text-shadow-2xs">HACCP </span>
               Management
             </p>
-            <div className="bg-salviaChiaro/60  p-6 rounded-3xl shadow-md shadow-salvia w-90 border-1 border-salvia flex   mt-10 backdrop-blur-sm ">
+            <div className="bg-salviaChiaro/60  py-6 px-8 rounded-3xl shadow-md shadow-salvia w-fit border-1 border-salvia flex   mt-10 backdrop-blur-sm ">
               <form onSubmit={Handleregister}>
                 <h2 className="text-2xl   mb-4 text-center">Registrazione</h2>
                 {error && (
@@ -75,43 +75,89 @@ const Registrazione = () => {
                     {success}
                   </p>
                 )}
-                <input
-                  placeholder="Nome"
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                  className="w-full mb-3   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden "
-                />
-                <input
-                  placeholder="Cognome"
-                  value={cognome}
-                  onChange={(e) => setCognome(e.target.value)}
-                  className="w-full mb-3   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden  "
-                />
-                <input
-                  placeholder="UserName"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                  className="w-full mb-3   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden  "
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full mb-3   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden  "
-                />
+                <div className="relative mt-6">
+                  <input
+                    id="nome"
+                    placeholder=""
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden "
+                  />
+                  <label
+                    for="nome"
+                    class="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Nome
+                  </label>
+                </div>
+                <div className="relative mt-6">
+                  <input
+                    placeholder=""
+                    id="cognome"
+                    value={cognome}
+                    onChange={(e) => setCognome(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden "
+                  />
+                  <label
+                    for="cognome
+                  "
+                    class="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Cognome
+                  </label>
+                </div>
+                <div className="relative mt-6">
+                  <input
+                    id="username"
+                    placeholder=""
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden  "
+                  />
+                  <label
+                    for="username"
+                    class="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    username
+                  </label>
+                </div>
+                <div className="relative mt-6">
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder=""
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden  "
+                  />
+                  <label
+                    for="email"
+                    class="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Email
+                  </label>
+                </div>
+                <div className="relative mt-6">
+                  <input
+                    id="password"
+                    type="password"
+                    placeholder=""
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden  "
+                  />
+                  <label
+                    for="password"
+                    class="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Password
+                  </label>
+                </div>
 
-                <input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full mb-3   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden "
-                />
-                <div className="flex justify-around mt-3 mb-3">
+                <div className="flex justify-around mt-3 mb-1">
                   <button
                     onClick={() => navigate("/")}
-                    className="w-25 bg-salvia/50 shadow-2xl shadow-salvia  text-gray-800 py-2 rounded-3xl hover:bg-rosso hover:text-amber-50"
+                    className="w-25 bg-salvia/50 shadow-2xl shadow-salvia  text-gray-800 py-2 rounded-3xl hover:bg-rosso hover:text-amber-50 mr-10"
                     type="button"
                   >
                     Annulla

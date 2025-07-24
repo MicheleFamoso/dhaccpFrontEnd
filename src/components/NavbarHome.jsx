@@ -16,12 +16,12 @@ const NavbarHome = () => {
   return (
     <>
       <div className=" flex md:justify-end justify-center  ">
-        <div className=" md:mr-20 md:mt-2 mt-4  bg-salviaChiaro border-1 border-salvia rounded-3xl ">
+        <div className=" md:mr-20 md:mt-2 mt-4 flex gap-4 px-3 bg-salviaChiaro w-fit border-1 border-salvia rounded-3xl ">
           <button
             onClick={() =>
               setActivePanel(activePanel === "features" ? null : "features")
             }
-            className={`px-7 py-3 rounded-4xl  text-gray-900 ${
+            className={` py-3 rounded-4xl  text-gray-900 ${
               activePanel === "features" ? "bg-salvia" : "hover:bg-salvia/50"
             }`}
           >
@@ -29,7 +29,7 @@ const NavbarHome = () => {
           </button>
           <button
             onClick={() => setActivePanel(activePanel === "noi" ? null : "noi")}
-            className={`px-8 py-3 rounded-4xl  text-gray-900 ${
+            className={` py-3 rounded-4xl  text-gray-900 ${
               activePanel === "noi" ? "bg-salvia" : "hover:bg-salvia/50"
             }`}
           >
@@ -39,7 +39,7 @@ const NavbarHome = () => {
             onClick={() =>
               setActivePanel(activePanel === "contact" ? null : "contact")
             }
-            className={`px-7 py-3 rounded-4xl  text-gray-900 ${
+            className={` py-3 rounded-4xl  text-gray-900 ${
               activePanel === "contact" ? "bg-salvia" : "hover:bg-salvia/50"
             }`}
           >

@@ -1,6 +1,11 @@
 import SideBar from "./SideBar"
 import { useState, useEffect, useRef } from "react"
-import { PencilSquareIcon, CheckIcon } from "@heroicons/react/24/outline"
+import {
+  PencilIcon,
+  AdjustmentsHorizontalIcon,
+  EyeSlashIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline"
 import SidebMobile from "./SidebMobile"
 const Forniture = () => {
   const descrizioneFiltro = () => {
@@ -22,6 +27,9 @@ const Forniture = () => {
   const [dataFiltro, setDataFiltro] = useState("")
   const [dataInizio, setDataInizio] = useState("")
   const [dataFine, setDataFine] = useState("")
+  const [modifica, setModifica] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [fornituraDaEliminare, setFornituraDaEliminare] = useState(null)
 
   const [showFilterDropdown, setShowFilterDropdown] = useState(false)
   const dropdownRef = useRef(null)
@@ -281,6 +289,30 @@ const Forniture = () => {
         setError(err.message)
       })
   }
+  const handleDeleteFornitura = async (id) => {
+    const token = localStorage.getItem("token")
+
+    try {
+      const res = await fetch(`http://localhost:8080/forniture/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      if (!res.ok) {
+        throw new Error("Errore durante l'eliminazione")
+      }
+
+      const updatedRes = await fetch("http://localhost:8080/forniture", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      const data = await updatedRes.json()
+
+      setForniture(data)
+    } catch (err) {
+      alert("Errore durante l'eliminazione della pulizia: " + err.message)
+    }
+  }
 
   return (
     <div className="flex h-screen bg-beige">
@@ -412,6 +444,22 @@ const Forniture = () => {
                 </div>
               </div>
             )}
+          </div>
+          <div>
+            <button
+              onClick={() => setModifica((prev) => !prev)}
+              className={`px-4 py-1   border border-salviaScuro shadow-md text-shadow-md   rounded-3xl text-white font-semibold  hidden  md:inline-flex transition-colors ${
+                modifica
+                  ? "bg-rosso hover:bg-rosso/80"
+                  : "bg-salvia hover:bg-salviaScuro"
+              }`}
+            >
+              {modifica ? (
+                <EyeSlashIcon className="w-6 h-6" />
+              ) : (
+                <AdjustmentsHorizontalIcon className="w-6 h-6" />
+              )}
+            </button>
           </div>
         </div>
 
@@ -551,25 +599,38 @@ const Forniture = () => {
                       salva
                     </button>
                   ) : (
-                    <button
-                      onClick={() => {
-                        setEditingId(fornitura.id)
-                        setfornituraModificata({
-                          id: fornitura.id,
-                          data: fornitura.data,
-                          fornitoreId:
-                            fornitura.fornitore?.id ||
-                            fornitura.fornitoreId ||
-                            "",
-                          prodotto: fornitura.prodotto,
-                          conformita: fornitura.conformita,
-                          lotto: fornitura.lotto,
-                        })
-                      }}
-                      className="ml-2 text-gray-100 text-shadow-lg  flex items-center justify-center w-7 h-7 rounded-2xl bg-ambra/90 hover:bg-ambra py-4 px-12 transform transition-transform duration-200 ease-in-out hover:scale-110  "
-                    >
-                      modifica
-                    </button>
+                    modifica && (
+                      <div className="flex  gap-2 ">
+                        <button
+                          onClick={() => {
+                            setEditingId(fornitura.id)
+                            setfornituraModificata({
+                              id: fornitura.id,
+                              data: fornitura.data,
+                              fornitoreId:
+                                fornitura.fornitore?.id ||
+                                fornitura.fornitoreId ||
+                                "",
+                              prodotto: fornitura.prodotto,
+                              conformita: fornitura.conformita,
+                              lotto: fornitura.lotto,
+                            })
+                          }}
+                          className=" text-shadow-lg flex items-center justify-center rounded-3xl bg-ambra/90 hover:bg-ambra px-4 py-1 transition-transform hover:scale-105 shadow-xl"
+                        >
+                          <PencilIcon className="w-6 h-6" />
+                        </button>
+                        <button
+                          className="text-gray-100 text-shadow-lg flex items-center justify-center  rounded-2xl bg-rosso/90 hover:bg-rosso px-4 py-1 transition-transform hover:scale-105 shadow-xl"
+                          onClick={() => {
+                            setFornituraDaEliminare(fornitura)
+                            setShowDeleteModal(true)
+                          }}
+                        >
+                          <TrashIcon className="w-6 h-6" />
+                        </button>
+                      </div>
+                    )
                   )}
                 </td>
               </tr>
@@ -773,25 +834,37 @@ const Forniture = () => {
                   <p>
                     <strong>Lotto:</strong> {fornitura.lotto}
                   </p>
-                  <button
-                    onClick={() => {
-                      setEditingId(fornitura.id)
-                      setfornituraModificata({
-                        id: fornitura.id,
-                        data: fornitura.data,
-                        fornitoreId:
-                          fornitura.fornitore?.id ||
-                          fornitura.fornitoreId ||
-                          "",
-                        prodotto: fornitura.prodotto,
-                        conformita: fornitura.conformita,
-                        lotto: fornitura.lotto,
-                      })
-                    }}
-                    className="mt-2 text-sm rounded-3xl bg-ambra text-white px-3 py-1 border-1 border-amber-400 hover:bg-ambra/90"
-                  >
-                    Modifica
-                  </button>
+
+                  <div className="flex justify-between">
+                    <button
+                      onClick={() => {
+                        setEditingId(fornitura.id)
+                        setfornituraModificata({
+                          id: fornitura.id,
+                          data: fornitura.data,
+                          fornitoreId:
+                            fornitura.fornitore?.id ||
+                            fornitura.fornitoreId ||
+                            "",
+                          prodotto: fornitura.prodotto,
+                          conformita: fornitura.conformita,
+                          lotto: fornitura.lotto,
+                        })
+                      }}
+                      className=" text-sm rounded-3xl bg-ambra px-3 py-1 border-1 border-ambra hover:bg-ambra/90"
+                    >
+                      Modifica
+                    </button>
+                    <button
+                      className=" text-sm rounded-3xl bg-rosso text-white px-3 py-1 border-1 border-rosso hover:bg-rosso/90"
+                      onClick={() => {
+                        setFornituraDaEliminare(fornitura)
+                        setShowDeleteModal(true)
+                      }}
+                    >
+                      Elimina
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
@@ -875,6 +948,39 @@ const Forniture = () => {
           </div>
         </div>
       </div>
+      {showDeleteModal && (
+        <div className="fixed inset-0 bg-neutral-400/50 bg-opacity-30 flex items-center justify-center  ">
+          <div className="bg-salviaChiaro rounded-2xl border-1 border-salviaScuro p-6 w-100 shadow-lg shadow-salvia text-center ">
+            <h2 className="text-xl  mb-4">Conferma eliminazione</h2>
+            <p>
+              Sei sicuro di voler eliminar
+              <span className="font-bold">
+                {fornituraDaEliminare?.prodotto}
+              </span>
+              ?
+            </p>
+            <div className="mt-6 flex justify-around gap-4">
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                className="px-4 py-1 border-1 border-salvia rounded-2xl bg-gray-300 hover:bg-gray-400"
+              >
+                Annulla
+              </button>
+              <button
+                onClick={() => {
+                  if (fornituraDaEliminare) {
+                    handleDeleteFornitura(fornituraDaEliminare.id)
+                  }
+                  setShowDeleteModal(false)
+                }}
+                className="px-4 py-1 rounded-2xl bg-rosso text-white hover:bg-red-500 border-1 border-red-200"
+              >
+                Conferma
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

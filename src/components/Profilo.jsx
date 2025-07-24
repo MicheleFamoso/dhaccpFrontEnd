@@ -1,6 +1,12 @@
 import SideBar from "./SideBar"
 import { useState, useEffect } from "react"
 import SidebMobile from "./SidebMobile"
+import {
+  MapPinIcon,
+  PhoneIcon,
+  EnvelopeOpenIcon,
+  PencilIcon,
+} from "@heroicons/react/24/solid"
 
 const Profilo = () => {
   const [utenti, setUtenti] = useState([])
@@ -96,7 +102,7 @@ const Profilo = () => {
         <SideBar />
       </div>
       <div className="flex-1 justify-items-center justify-center overflow-auto">
-        <div className="w-full flex flex-col md:flex-row items-center justify-between px-20 py-2 bg-salviaChiaro/80 sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between px-20 py-2 bg-salviaChiaro sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
           <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
             Profilo
           </h1>
@@ -125,57 +131,103 @@ const Profilo = () => {
                   modificaUtente()
                 }}
               >
-                <input
-                  type="text"
-                  placeholder="Nome"
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Cognome"
-                  value={cognome}
-                  onChange={(e) => setCognome(e.target.value)}
-                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
-                  required
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
-                  required
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setpassword(e.target.value)}
-                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
-                  required
-                />
+                <div className="relative mt-6">
+                  <input
+                    id="nome"
+                    type="text"
+                    placeholder=""
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    required
+                  />
+                  <label
+                    htmlFor="nome"
+                    className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Nome
+                  </label>
+                </div>
+                <div className="relative mt-6">
+                  <input
+                    id="cognome"
+                    type="text"
+                    placeholder="Cognome"
+                    value={cognome}
+                    onChange={(e) => setCognome(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    required
+                  />
+                  <label
+                    htmlFor="cognome"
+                    className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Cognome
+                  </label>
+                </div>
+                <div className="relative mt-6">
+                  <input
+                    id="username"
+                    type="text"
+                    placeholder=""
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    required
+                  />
+                  <label
+                    htmlFor="username"
+                    className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Username
+                  </label>
+                </div>
+                <div className="relative mt-6">
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    required
+                  />
+                  <label
+                    htmlFor="email"
+                    className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Email
+                  </label>
+                </div>
+                <div className="relative mt-6">
+                  <input
+                    id="password"
+                    type="password"
+                    placeholder=""
+                    value={password}
+                    onChange={(e) => setpassword(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    required
+                  />
+                  <label
+                    htmlFor="password"
+                    className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Password
+                  </label>
+                </div>
+
                 <div className="flex justify-around mt-2">
                   <button
                     type="button"
-                    className="md:w-60 w-40 mr-2 px-2 py-1 bg-grigio border-1 border-salviaScuro shadow-md text-white  hover:bg-rosso mb-6 rounded-2xl"
+                    className="md:w-60 w-40 mr-2 px-2 py-1 bg-salviaScuro border-1 border-salviaScuro shadow-md text-white  hover:bg-rosso mb-6 rounded-2xl cursor-pointer"
                     onClick={() => setShowForm(false)}
                   >
                     Annulla
                   </button>
                   <button
                     type="submit"
-                    className="w-60  px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl"
+                    className="w-60  px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl hover:text-black cursor-pointer"
                   >
                     Salva modifiche
                   </button>
@@ -189,14 +241,16 @@ const Profilo = () => {
                 {utenti.map((utente) => (
                   <div
                     key={utente.id}
-                    className="relative  flex flex-col  bg-salviaChiaro p-4 rounded-2xl shadow-salvia shadow-lg border-1 border-salvia  w-80 md:w-110  xl:w-110 2xl:w-140 mb-6"
+                    className="relative  flex flex-col  bg-salviaChiaro p-4 rounded-2xl shadow-salvia shadow-lg border-1 border-salvia  w-80 md:w-110  xl:w-110 2xl:w-140 mb-6 pb-10"
                   >
+                    {" "}
                     <div className="flex items-center gap-4 justify-center md:justify-normal">
                       <img
                         className="w-30 h-30 object-cover rounded-full border-1 border-salvia hidden  md:inline-flex"
                         src="/public/IMG_6352.PNG"
                         alt="user-placeholder"
                       />
+
                       <div className="flex flex-col md:ml-5 ml-0 text-center md:text-start">
                         <p className="text-xl font-bold text-salviaScuro text-shadow-xs mt-1.5">
                           {utente.nome} {utente.cognome}
@@ -218,21 +272,21 @@ const Profilo = () => {
                           {utente.azienda.denominazioneAziendale}
                         </p>
                       </div>
+                      <button
+                        className=" p-2 self-baseline ml-auto  text-sm bg-salviaScuro shadow-md shadow-salvia rounded-2xl hover:bg-ambra text-white hover:text-black cursor-pointer "
+                        onClick={() => {
+                          setNome(utente.nome)
+                          setCognome(utente.cognome)
+                          setUsername(utente.username)
+                          setEmail(utente.email)
+                          setpassword("")
+                          setIdUtente(utente.id)
+                          setShowForm(true)
+                        }}
+                      >
+                        <PencilIcon className="w-3" />
+                      </button>
                     </div>
-                    <button
-                      className="mt-4 md:self-end self-center bg-salvia hover:bg-salviaScuro text-salviaChiaro py-1 px-4 rounded-2xl border-salviaScuro border-1 text-shadow-md"
-                      onClick={() => {
-                        setNome(utente.nome)
-                        setCognome(utente.cognome)
-                        setUsername(utente.username)
-                        setEmail(utente.email)
-                        setpassword("")
-                        setIdUtente(utente.id)
-                        setShowForm(true)
-                      }}
-                    >
-                      Modifica
-                    </button>
                   </div>
                 ))}
               </div>

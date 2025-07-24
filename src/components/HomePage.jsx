@@ -73,15 +73,15 @@ const HomePage = () => {
 
       <main className="flex-1   overflow-auto">
         {" "}
-        <div className="w-full flex flex-col md:flex-row items-center justify-between md:px-20 px:4 py-2 bg-salviaChiaro/80 sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+        <div className="w-full flex flex-col md:flex-row items-center  md:px-20 px:4 py-2 bg-salviaChiaro sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
           <SidebMobile />
           <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
             Dashboard
           </h1>{" "}
-          <div className="flex md:justify-center  md:items-center gap-2 w-full md:w-auto mb-2 md:mb-0 p-2">
+          <div className=" flex md:justify-center mx-auto md:items-center gap-4 w-full md:w-auto px-2 md:mb-0 ">
             <button
               onClick={() => setCurrentMonth(subWeeks(currentMonth, 1))}
-              className="md:text-xl text-xs bg-avorio border-1 border-salvia shadow-md shadow-salviaChiaro  text-gray-700  rounded-4xl w-40 h-10 md:w-35 md:h-15 disabled:opacity-50 hover:bg-salviaChiaro"
+              className="md:text-xl text-xs bg-neutral-200 border-1 border-salvia shadow-md shadow-salviaChiaro  text-gray-700 hover:text-white rounded-4xl w-40 h-10 md:w-35 md:h-15 disabled:opacity-50 hover:bg-salviaScuro"
             >
               <p className="text-center ">{formatMonthDisplay()}</p>
               {format(
@@ -106,7 +106,7 @@ const HomePage = () => {
 
             <button
               onClick={() => setCurrentMonth(addWeeks(currentMonth, 1))}
-              className="md:text-xl text-xs bg-avorio border-1 border-salvia shadow-md shadow-salviaChiaro  text-gray-700  rounded-4xl w-40 h-10 md:w-35 md:h-15 disabled:opacity-50   hover:bg-salviaChiaro"
+              className="md:text-xl text-xs bg-neutral-200 border-1 border-salvia shadow-md shadow-salviaChiaro  text-gray-700  rounded-4xl w-40 h-10 md:w-35 md:h-15 disabled:opacity-50 hover:text-white  hover:bg-salviaScuro"
             >
               <p className="text-center">{formatMonthDisplay()}</p>
               {format(
@@ -133,7 +133,7 @@ const HomePage = () => {
             {sortedDates.map((date) => (
               <div key={date} className="contents">
                 <div className="font-semibold  text-gray-700 flex items-center justify-end mr-5">
-                  <div className="flex flex-col items-center bg-ambra rounded-full p-3  ">
+                  <div className="flex flex-col items-center bg-ambra shadow-md shadow-salvia rounded-full p-3  ">
                     {" "}
                     <p className="md:text-3xl text-xs">
                       {format(parseISO(date), "d", { locale: it })}
@@ -146,29 +146,25 @@ const HomePage = () => {
                 </div>
 
                 <div className="flex  gap-3 ">
-                  {groupedByDate[date].map((controllo, index) => (
+                  {groupedByDate[date].map((controllo) => (
                     <>
                       <div
-                        key={index}
-                        className={`md:w-56 md:h-40 w-32 h-23 pt-2 px-4 md:px-0 md:pt-4  text-center rounded-2xl border-1 flex flex-col justify-between ${
-                          controllo.conformita === "NON_CONFORME"
-                            ? "bg-rosso/10 border-rosso/30"
-                            : "bg-salvia/10 border-salvia/30"
-                        }`}
+                        key={controllo.id}
+                        className={`md:w-56 md:h-30 w-36 h-22 pt-2 px-4 md:px-0 md:pt-4  text-center rounded-3xl  flex flex-col justify-between bg-neutral-200  shadow-md shadow-salvia/60 `}
                       >
-                        <p className="  md:mb-2 text-xs md:text-base">
-                          <span className="font-bold text-gray-700 ">
+                        <p className="  md:mb-1 text-xs md:text-base ">
+                          <span className="font-bold ">
                             {controllo.tipoControllo}:{" "}
                           </span>
-                          <span className="md:text-lg text-gray-900">
+                          <span className="md:text-lg ">
                             {controllo.descrizione}
                           </span>
                         </p>
                         <p
-                          className={`mb-1 md:text-base text-xs md:mx-6 text-shadow-2xs md:mb-3 md:rounded-3xl py-2 ${
+                          className={`mb-1 md:text-xl  text-xs font-bold  md:mx-6 text-shadow-md md:mb-3 py-2 ${
                             controllo.conformita === "NON_CONFORME"
-                              ? "md:bg-rosso text-red-900"
-                              : "md:bg-salvia md:text-salviaChiaro text-salviaScuro"
+                              ? " text-rosso"
+                              : " text-salviaScuro  "
                           } `}
                         >
                           {controllo.conformita}

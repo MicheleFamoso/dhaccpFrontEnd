@@ -1,11 +1,18 @@
 import SideBar from "./SideBar"
 import { useState, useEffect } from "react"
 import SidebMobile from "./SidebMobile"
+import {
+  PencilIcon,
+  AdjustmentsHorizontalIcon,
+  EyeSlashIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline"
 const Utenti = () => {
   const [utenti, setUtenti] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [showForm, setShowForm] = useState(false)
+  const [modifica, setModifica] = useState(false)
 
   const [nome, setNome] = useState("")
   const [cognome, setCognome] = useState("")
@@ -134,6 +141,20 @@ const Utenti = () => {
             Dipendenti
           </h1>
           <SidebMobile></SidebMobile>
+          <button
+            onClick={() => setModifica((prev) => !prev)}
+            className={`px-4 py-1   border border-salviaScuro shadow-md text-shadow-md   rounded-3xl text-white font-semibold  hidden  md:inline-flex transition-colors ${
+              modifica
+                ? "bg-rosso hover:bg-rosso/80"
+                : "bg-salvia hover:bg-salviaScuro"
+            }`}
+          >
+            {modifica ? (
+              <EyeSlashIcon className="w-6 h-6" />
+            ) : (
+              <AdjustmentsHorizontalIcon className="w-6 h-6" />
+            )}{" "}
+          </button>
         </div>
         <div>
           {loading && (
@@ -174,57 +195,103 @@ const Utenti = () => {
                   }
                 }}
               >
-                <input
-                  type="text"
-                  placeholder="Nome"
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Cognome"
-                  value={cognome}
-                  onChange={(e) => setCognome(e.target.value)}
-                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
-                  required
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
-                  required
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setpassword(e.target.value)}
-                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
-                  required
-                />
+                <div className="relative mt-6">
+                  <input
+                    id="nome"
+                    type="text"
+                    placeholder=""
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    required
+                  />
+                  <label
+                    htmlFor="nome"
+                    className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Nome
+                  </label>
+                </div>
+                <div className="relative mt-6">
+                  <input
+                    id="cognome"
+                    type="text"
+                    placeholder=""
+                    value={cognome}
+                    onChange={(e) => setCognome(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    required
+                  />
+                  <label
+                    htmlFor="Cognome"
+                    className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Cognome
+                  </label>
+                </div>
+                <div className="relative mt-6">
+                  <input
+                    id="username"
+                    type="text"
+                    placeholder=""
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    required
+                  />
+                  <label
+                    htmlFor="username"
+                    className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Username
+                  </label>
+                </div>
+                <div className="relative mt-6">
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder=""
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    required
+                  />
+                  <label
+                    htmlFor="email"
+                    className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Email
+                  </label>
+                </div>
+                <div className="relative mt-6">
+                  <input
+                    id="password"
+                    type="password"
+                    placeholder=""
+                    value={password}
+                    onChange={(e) => setpassword(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    required
+                  />
+                  <label
+                    htmlFor="password"
+                    className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Password
+                  </label>
+                </div>
+
                 <div className="flex justify-around mt-2">
                   <button
                     type="button"
-                    className="md:w-60 w-40 mr-2 px-2 py-1 bg-grigio border-1 border-salviaScuro shadow-md text-white  hover:bg-rosso mb-6 rounded-2xl"
+                    className="md:w-60 w-40 mr-2 px-2 py-1 bg-salvia/60 border-1 border-salviaScuro shadow-md text-white  hover:bg-rosso mb-6 rounded-2xl"
                     onClick={() => setShowForm(false)}
                   >
                     Annulla
                   </button>
                   <button
                     type="submit"
-                    className="w-60  px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl"
+                    className="w-60  px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl hover:text-black"
                   >
                     {idUtente ? "Salva modifiche" : "Crea utente"}
                   </button>
@@ -234,38 +301,60 @@ const Utenti = () => {
           )}
           {!loading && !error && !showForm && utenti.length > 0 && (
             <div className="flex flex-col gap-4">
-              <div className="flex justify-start">
-                <button
-                  className=" self-start bg-salvia hover:bg-ambra text-avorio py-1 px-4 rounded-2xl mt-4 border-salviaScuro border-1 text-shadow-md mb-2"
-                  onClick={() => {
-                    setNome("")
-                    setCognome("")
-                    setUsername("")
-                    setEmail("")
-                    setpassword("")
-                    setIdUtente(null)
-                    setShowForm(true)
-                  }}
-                >
-                  Aggiungi
-                </button>
-              </div>
-              <div className="grid md:grid-cols-2 grid-cols-1  gap-4">
+              {modifica && (
+                <div className="flex justify-end">
+                  <button
+                    className="  bg-salvia hover:bg-ambra text-avorio py-1 px-4 rounded-2xl mt-4 border-salviaScuro border-1 text-shadow-md mb-2 hover:text-black"
+                    onClick={() => {
+                      setNome("")
+                      setCognome("")
+                      setUsername("")
+                      setEmail("")
+                      setpassword("")
+                      setIdUtente(null)
+                      setShowForm(true)
+                    }}
+                  >
+                    Aggiungi
+                  </button>{" "}
+                </div>
+              )}
+
+              <div className="grid md:grid-cols-2 grid-cols-1  gap-4 mt-8">
                 {utenti.map((utente) => (
                   <div
                     key={utente.id}
-                    className="relative  flex flex-col  bg-salviaChiaro p-4 rounded-2xl shadow-salvia shadow-lg border-1 border-salvia  w-80 md:w-110  xl:w-110 2xl:w-140 mb-6"
+                    className="relative  flex flex-col  bg-salviaChiaro p-4 rounded-2xl shadow-salvia shadow-lg border-1 border-salvia  w-80 md:w-110  xl:w-110 2xl:w-140 mb-6 md:pb-10 pb-4"
                   >
-                    <button
-                      onClick={() => {
-                        setUtenteToDelete(utente)
-                        setShowDeleteModal(true)
-                      }}
-                      className="absolute -top-4 right-1  w-8 h-8 bg-gray-200 border-1 border-salvia text-neutral-800  rounded-full hover:bg-rosso hover:text-white shadow-md text-center "
-                      title="Elimina utente"
-                    >
-                      x
-                    </button>
+                    {modifica && (
+                      <div className="flex justify-end gap-4 ">
+                        <button
+                          className="text-gray-100 text-shadow-lg w-fit flex items-center justify-center rounded-3xl bg-salvia/40 hover:text-black hover:bg-ambra px-4 py-1 transition-transform hover:scale-105"
+                          onClick={() => {
+                            setNome(utente.nome)
+                            setCognome(utente.cognome)
+                            setUsername(utente.username)
+                            setEmail(utente.email)
+                            setpassword("")
+                            setIdUtente(utente.id)
+                            setShowForm(true)
+                          }}
+                        >
+                          <PencilIcon className="w-6 h-6" />
+                        </button>
+                        <button
+                          onClick={() => {
+                            setUtenteToDelete(utente)
+                            setShowDeleteModal(true)
+                          }}
+                          className="text-gray-100 text-shadow-lg flex items-center justify-center  rounded-2xl bg-salvia/40 hover:bg-rosso px-4 py-1 transition-transform hover:scale-105"
+                          title="Elimina fornitore md:hidden"
+                        >
+                          <TrashIcon className="w-6 h-6" />
+                        </button>
+                      </div>
+                    )}
+
                     <div className="flex items-center gap-4">
                       <img
                         className="w-30 h-30 object-cover rounded-full border-1 border-salvia hidden  md:inline-flex"
@@ -294,20 +383,32 @@ const Utenti = () => {
                         </p>
                       </div>
                     </div>
-                    <button
-                      className="mt-4 self-end bg-salvia hover:bg-salviaScuro text-salviaChiaro py-1 px-4 rounded-2xl border-salviaScuro border-1 text-shadow-md"
-                      onClick={() => {
-                        setNome(utente.nome)
-                        setCognome(utente.cognome)
-                        setUsername(utente.username)
-                        setEmail(utente.email)
-                        setpassword("")
-                        setIdUtente(utente.id)
-                        setShowForm(true)
-                      }}
-                    >
-                      Modifica
-                    </button>
+                    <div className="flex justify-between mt-4 md:hidden ">
+                      <button
+                        className="text-gray-100 hover:text-black text-shadow-lg w-fit flex items-center justify-center rounded-3xl bg-salvia/40 hover:bg-ambra px-4 py-1 transition-transform hover:scale-105"
+                        onClick={() => {
+                          setNome(utente.nome)
+                          setCognome(utente.cognome)
+                          setUsername(utente.username)
+                          setEmail(utente.email)
+                          setpassword("")
+                          setIdUtente(utente.id)
+                          setShowForm(true)
+                        }}
+                      >
+                        <PencilIcon className="w-6 h-6" />
+                      </button>
+                      <button
+                        onClick={() => {
+                          setUtenteToDelete(utente)
+                          setShowDeleteModal(true)
+                        }}
+                        className="text-gray-100 text-shadow-lg flex items-center justify-center  rounded-2xl bg-salvia/40 hover:bg-rosso px-4 py-1 transition-transform hover:scale-105"
+                        title="Elimina fornitore md:hidden"
+                      >
+                        <TrashIcon className="w-6 h-6" />
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>

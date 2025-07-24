@@ -2,12 +2,19 @@ import SideBar from "./SideBar"
 import { useState, useEffect } from "react"
 import { jwtDecode } from "jwt-decode"
 import SidebMobile from "./SidebMobile"
+import {
+  PencilIcon,
+  AdjustmentsHorizontalIcon,
+  EyeSlashIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline"
 
 const Fornitori = () => {
   const [fornitori, setFornitori] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [showForm, setShowForm] = useState(false)
+  const [modifica, setModifica] = useState(false)
 
   const [nomeFornitore, setNomeFornitore] = useState("")
   const [sede, setSede] = useState("")
@@ -194,8 +201,25 @@ const Fornitori = () => {
               >
                 Cerca
               </button>
+              {isAdmin && (
+                <button
+                  onClick={() => setModifica((prev) => !prev)}
+                  className={`px-4 py-1   border border-salviaScuro shadow-md text-shadow-md   rounded-3xl text-white font-semibold  hidden  md:inline-flex transition-colors ${
+                    modifica
+                      ? "bg-rosso hover:bg-rosso/80"
+                      : "bg-salvia hover:bg-salviaScuro"
+                  }`}
+                >
+                  {modifica ? (
+                    <EyeSlashIcon className="w-6 h-6" />
+                  ) : (
+                    <AdjustmentsHorizontalIcon className="w-6 h-6" />
+                  )}{" "}
+                </button>
+              )}
             </div>
           )}
+          <div></div>
         </div>
         <div>
           {loading && (
@@ -212,7 +236,8 @@ const Fornitori = () => {
             !error &&
             fornitori.length === 0 &&
             !showForm &&
-            isAdmin && (
+            isAdmin &&
+            modifica && (
               <div className="flex flex-col items-center text-center w-full py-10 gap-4">
                 <p className="text-xl">Nessun Fornitore disponibile.</p>
                 <button
@@ -240,57 +265,103 @@ const Fornitori = () => {
                   }
                 }}
               >
-                <input
-                  type="text"
-                  placeholder="Nome fornitore"
-                  value={nomeFornitore}
-                  onChange={(e) => setNomeFornitore(e.target.value)}
-                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Sede"
-                  value={sede}
-                  onChange={(e) => setSede(e.target.value)}
-                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Telefono"
-                  value={telefono}
-                  onChange={(e) => setTelefono(e.target.value)}
-                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
-                  required
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Prodotti forniti"
-                  value={prodottiForniti}
-                  onChange={(e) => setProdottiForniti(e.target.value)}
-                  className="w-full p-2 text-gray-500 border-b focus:border-b-2 focus:border-ambra focus:outline-hidden"
-                  required
-                />
+                <div className="relative mt-6">
+                  <input
+                    id="nome"
+                    type="text"
+                    placeholder=""
+                    value={nomeFornitore}
+                    onChange={(e) => setNomeFornitore(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    required
+                  />
+                  <label
+                    htmlFor="nome"
+                    className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Nome Fornitore
+                  </label>
+                </div>
+                <div className="relative mt-6">
+                  <input
+                    id="sede"
+                    type="text"
+                    placeholder=""
+                    value={sede}
+                    onChange={(e) => setSede(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    required
+                  />
+                  <label
+                    htmlFor="sede"
+                    className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Sede
+                  </label>
+                </div>
+                <div className="relative mt-6">
+                  <input
+                    id="telefono"
+                    type="text"
+                    placeholder=""
+                    value={telefono}
+                    onChange={(e) => setTelefono(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    required
+                  />
+                  <label
+                    htmlFor="telefono"
+                    className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Telefono
+                  </label>
+                </div>
+                <div className="relative mt-6">
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder=""
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    required
+                  />
+                  <label
+                    htmlFor="email"
+                    className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Email
+                  </label>
+                </div>
+                <div className="relative mt-6">
+                  <input
+                    id="prodotti"
+                    type="text"
+                    placeholder=""
+                    value={prodottiForniti}
+                    onChange={(e) => setProdottiForniti(e.target.value)}
+                    className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                    required
+                  />
+                  <label
+                    htmlFor="prodotti"
+                    className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Prodotti forniti
+                  </label>
+                </div>
+
                 <div className="flex justify-around ">
                   <button
                     type="button"
-                    className=" w-30 px-2 py-1 bg-grigio border-1 border-salviaScuro shadow-md text-white  hover:bg-rosso mb-6 rounded-2xl mr-2"
+                    className=" w-30 px-2 py-1 bg-salvia/50 border-1 border-salviaScuro shadow-md text-white  hover:bg-rosso mb-6 rounded-2xl mr-2"
                     onClick={() => setShowForm(false)}
                   >
                     Annulla
                   </button>{" "}
                   <button
                     type="submit"
-                    className="w-60   px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl"
+                    className="w-60   px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl hover:text-black"
                   >
                     {idUtente ? "Salva" : "Crea Fornitore"}
                   </button>
@@ -301,10 +372,10 @@ const Fornitori = () => {
 
           {!loading && !error && !showForm && fornitori.length > 0 && (
             <div className="flex flex-col gap-4 mt-4 justify-center justify-items-center">
-              {isAdmin && (
-                <div className="flex justify-start">
+              {isAdmin && modifica && (
+                <div className="flex justify-end">
                   <button
-                    className="px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl"
+                    className="px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl hover:text-black"
                     onClick={() => {
                       setNomeFornitore("")
                       setSede("")
@@ -319,24 +390,63 @@ const Fornitori = () => {
                   </button>
                 </div>
               )}
+              {isAdmin && (
+                <div className=" flex justify-center">
+                  <button
+                    className="px-2 py-1 bg-salvia border-1 border-salviaScuro shadow-md text-white  hover:bg-ambra mb-6 rounded-2xl md:hidden hover:text-black"
+                    onClick={() => {
+                      setNomeFornitore("")
+                      setSede("")
+                      setTelefono("")
+                      setEmail("")
+                      setProdottiForniti("")
+                      setIdUtente(null)
+                      setShowForm(true)
+                    }}
+                  >
+                    Aggiungi
+                  </button>
+                </div>
+              )}
+
               <div className="grid md:grid-cols-2 grid-cols-1 gap-3  ">
                 {(risultatiRicerca || fornitori).map((fornitore) => (
                   <div
                     key={fornitore.id}
                     className="relative bg-salviaChiaro p-2  rounded-2xl shadow-salvia shadow-lg border-1 border-salvia flex flex-col  w-80 md:w-110 lg:w-120 xl:w-130 2xl:w-160 mb-6"
                   >
-                    {isAdmin && (
-                      <button
-                        onClick={() => {
-                          setFornitoreToDelete(fornitore)
-                          setShowDeleteModal(true)
-                        }}
-                        className="absolute -top-4 right-1  w-8 h-8 bg-avorio border-1 border-salvia text-neutral-800  rounded-full hover:bg-rosso hover:text-white shadow-md shadow-salvia text-center "
-                        title="Elimina fornitore"
-                      >
-                        x
-                      </button>
+                    {isAdmin && modifica && (
+                      <div className="flex justify-end gap-4 mb-4">
+                        {" "}
+                        <button
+                          className="text-gray-100 text-shadow-lg w-fit flex items-center justify-center rounded-3xl bg-salvia/40 hover:text-black hover:bg-ambra px-4 py-1 transition-transform hover:scale-105"
+                          onClick={() => {
+                            setNomeFornitore(fornitore.nomeFornitore)
+                            setSede(fornitore.sede)
+                            setEmail(fornitore.email)
+                            setTelefono(fornitore.telefono)
+                            setProdottiForniti(
+                              fornitore.prodottiForniti.join(", ")
+                            )
+                            setIdUtente(fornitore.id)
+                            setShowForm(true)
+                          }}
+                        >
+                          <PencilIcon className="w-6 h-6" />
+                        </button>{" "}
+                        <button
+                          onClick={() => {
+                            setFornitoreToDelete(fornitore)
+                            setShowDeleteModal(true)
+                          }}
+                          className="text-gray-100 text-shadow-lg flex items-center justify-center  rounded-2xl bg-salvia/40 hover:bg-rosso px-4 py-1 transition-transform hover:scale-105"
+                          title="Elimina fornitore md:hidden"
+                        >
+                          <TrashIcon className="w-6 h-6" />
+                        </button>
+                      </div>
                     )}
+
                     <div className="md:flex md:items-center md:gap-4  ">
                       <div className="flex flex-col md:ml-5 ml-2 text-center md:text-start ">
                         <p className="text-2xl font-semibold mb-2 text-salviaScuro text-shadow-xs ">
@@ -377,25 +487,38 @@ const Fornitori = () => {
                       <p className=" text-gray-600 px-10 ">
                         {fornitore.prodottiForniti.join(" • ")}
                       </p>
+                      {isAdmin && (
+                        <div className="flex justify-around gap-4 my-4 md:hidden">
+                          {" "}
+                          <button
+                            className="text-gray-100 text-shadow-lg w-fit flex items-center justify-center rounded-3xl bg-salvia/40 hover:bg-ambra px-4 py-1 transition-transform hover:scale-105"
+                            onClick={() => {
+                              setNomeFornitore(fornitore.nomeFornitore)
+                              setSede(fornitore.sede)
+                              setEmail(fornitore.email)
+                              setTelefono(fornitore.telefono)
+                              setProdottiForniti(
+                                fornitore.prodottiForniti.join(", ")
+                              )
+                              setIdUtente(fornitore.id)
+                              setShowForm(true)
+                            }}
+                          >
+                            Modifica
+                          </button>{" "}
+                          <button
+                            onClick={() => {
+                              setFornitoreToDelete(fornitore)
+                              setShowDeleteModal(true)
+                            }}
+                            className="text-gray-100 text-shadow-lg flex items-center justify-center  rounded-2xl bg-salvia/40 hover:bg-rosso px-4 py-1 transition-transform hover:scale-105"
+                            title="Elimina fornitore md:hidden"
+                          >
+                            elimina
+                          </button>
+                        </div>
+                      )}
                     </div>
-                    {isAdmin && (
-                      <button
-                        className="mt-4 self-end bg-salvia hover:bg-salviaScuro text-salviaChiaro py-1 px-4 rounded-2xl border-salviaScuro border-1 text-shadow-md"
-                        onClick={() => {
-                          setNomeFornitore(fornitore.nomeFornitore)
-                          setSede(fornitore.sede)
-                          setEmail(fornitore.email)
-                          setTelefono(fornitore.telefono)
-                          setProdottiForniti(
-                            fornitore.prodottiForniti.join(", ")
-                          )
-                          setIdUtente(fornitore.id)
-                          setShowForm(true)
-                        }}
-                      >
-                        Modifica
-                      </button>
-                    )}
                   </div>
                 ))}
               </div>

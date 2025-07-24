@@ -12,8 +12,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("Email:", userName)
-    console.log("Password:", password)
+
     fetch("http://localhost:8080/auth/login", {
       method: "POST",
       headers: {
@@ -50,7 +49,7 @@ const Login = () => {
   }
 
   return (
-    <div className="bg-[url('/12.png')] w-screen h-screen bg-no-repeat bg-[position:right_bottom] bg-[length:700px_700px] bg-beige overflow-auto 2xl:px-60">
+    <div className="bg-[url('/')] bg-contain bg-no-repeat md:bg-right bg-bottom w-screen h-screen bg-beige overflow-auto 2xl:px-60">
       <div className="relative z-50">
         <NavbarHome />
       </div>
@@ -67,27 +66,48 @@ const Login = () => {
         </div>
       </div>
 
-      <div className="bg-salviaChiaro/60  p-6 rounded-3xl shadow-md shadow-salvia w-90 border-1 border-salvia flex md:ml-45   md:mt-10 mx-auto mt-10 backdrop-blur-sm ">
+      <div className="bg-salviaChiaro/60  p-6 rounded-3xl shadow-md shadow-salvia w-fit border-1 border-salvia flex md:ml-45   md:mt-10 mx-auto mt-10 backdrop-blur-sm ">
         <form onSubmit={handleSubmit}>
           <h2 className="text-2xl   mb-4 text-center">Benvenuto</h2>
           {error && (
-            <p className="text-red-500 text-sm mb-2 text-center animate-fade-in">
+            <p className="text-rosso text-sm mb-2 text-center animate-fade-in">
               {error}
             </p>
           )}
-          <input
-            placeholder="UserName"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-            className="w-full mb-3   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden "
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full mb-4 p-2 border-b  focus:border-ambra focus:border-b-2 focus:outline-hidden"
-          />
+          <div className="relative mt-6">
+            <input
+              placeholder=""
+              id="username"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden "
+              autoComplete="username"
+            />
+            <label
+              htmlFor="username"
+              className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+            >
+              Username
+            </label>
+          </div>
+          <div className="relative mt-6">
+            <input
+              id="password"
+              type="password"
+              placeholder=""
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden "
+              autoComplete="current-password"
+            />
+            <label
+              htmlFor="password"
+              className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+            >
+              Password
+            </label>
+          </div>
+
           <div className=" mt-3 mb-3">
             <button
               type="submit"

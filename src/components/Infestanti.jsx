@@ -1,7 +1,13 @@
 import SideBar from "./SideBar"
-import { PencilSquareIcon, CheckIcon } from "@heroicons/react/24/outline"
+
 import { useState, useEffect, useRef } from "react"
 import SidebMobile from "./SidebMobile"
+import {
+  PencilIcon,
+  AdjustmentsHorizontalIcon,
+  EyeSlashIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline"
 const Infestanti = () => {
   const [infestanti, SetInfestanti] = useState([])
   const [, setLoading] = useState(false)
@@ -11,6 +17,9 @@ const Infestanti = () => {
   const [dataFine, setDataFine] = useState("")
   const [risultatiRicerca, setRisultatiRicerca] = useState(null)
   const [filtroConformita, setFiltroConformita] = useState("")
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [InfestanteDaEliminare, setInfestanteDaEliminare] = useState(null)
+  const [modifica, setModifica] = useState(false)
 
   const [showFilterDropdown, setShowFilterDropdown] = useState(false)
   const dropdownRef = useRef(null)
@@ -170,25 +179,65 @@ const Infestanti = () => {
       })
   }
 
+  //  eliminare
+  const handleDeleteInfestante = async (id) => {
+    const token = localStorage.getItem("token")
+
+    try {
+      const res = await fetch(`http://localhost:8080/infestanti/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      if (!res.ok) throw new Error("Errore durante l'eliminazione")
+
+      const updatedRes = await fetch("http://localhost:8080/infestanti/all", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      const data = await updatedRes.json()
+
+      SetInfestanti(data)
+    } catch (err) {
+      setError("Errore durante l'eliminazione dell'infestante: " + err.message)
+    }
+  }
+
   return (
     <div className="flex h-screen bg-beige">
       <div>
         <SideBar />
       </div>
       <div className="flex-1  justify-items-center justify-center overflow-auto">
-        <div className="w-full flex flex-col md:flex-row items-center justify-between px-20 py-2 bg-salviaChiaro/80 sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between  px-20 py-2 bg-salviaChiaro/80 sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
           <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
             Infestanti
           </h1>{" "}
           <SidebMobile></SidebMobile>
-          <button
-            id="filter-button"
-            onClick={() => setShowFilterDropdown(!showFilterDropdown)}
-            className=" px-4 py-1 bg-salvia border-1 border-salviaScuro shadow-md shadow-salvia text-shadow-md text-white  hover:bg-ambra  rounded-2xl "
-            type="button"
-          >
-            Filtri
-          </button>
+          <div className="flex gap-6 ">
+            <button
+              id="filter-button"
+              onClick={() => setShowFilterDropdown(!showFilterDropdown)}
+              className=" px-4 py-1 bg-salvia border-1 border-salviaScuro shadow-md shadow-salvia text-shadow-md text-white  hover:bg-ambra  rounded-2xl "
+              type="button"
+            >
+              Filtri
+            </button>
+            <button
+              onClick={() => setModifica((prev) => !prev)}
+              className={`px-4 py-1   border border-salviaScuro shadow-md text-shadow-md   rounded-3xl text-white font-semibold  hidden  md:inline-flex transition-colors ${
+                modifica
+                  ? "bg-rosso hover:bg-rosso/80"
+                  : "bg-salvia hover:bg-salviaScuro"
+              }`}
+            >
+              {modifica ? (
+                <EyeSlashIcon className="w-6 h-6" />
+              ) : (
+                <AdjustmentsHorizontalIcon className="w-6 h-6" />
+              )}
+            </button>
+          </div>
         </div>
         <div className="relative z-50 w-full flex justify-center md:justify-end mt-2 md:mr-6">
           {showFilterDropdown && (
@@ -427,20 +476,33 @@ const Infestanti = () => {
                         salva
                       </button>
                     ) : (
-                      <button
-                        onClick={() => {
-                          setEditingId(i.id)
-                          setInfestantiModificata({
-                            data: i.data,
-                            roditori: i.roditori,
-                            insettiStriscianti: i.insettiStriscianti,
-                            insettiVolanti: i.insettiVolanti,
-                          })
-                        }}
-                        className=" ml-2 text-gray-100 text-shadow-lg  flex items-center justify-center w-7 h-7 rounded-2xl bg-ambra/90 hover:bg-ambra py-4 px-12 transform transition-transform duration-200 ease-in-out hover:scale-110   "
-                      >
-                        modifica
-                      </button>
+                      modifica && (
+                        <div className="flex  items-center gap-4">
+                          <button
+                            onClick={() => {
+                              setEditingId(i.id)
+                              setInfestantiModificata({
+                                data: i.data,
+                                roditori: i.roditori,
+                                insettiStriscianti: i.insettiStriscianti,
+                                insettiVolanti: i.insettiVolanti,
+                              })
+                            }}
+                            className="  text-shadow-lg flex items-center justify-center rounded-3xl bg-ambra/90 hover:bg-ambra px-4 py-1 transition-transform hover:scale-105 shadow-lg "
+                          >
+                            <PencilIcon className="w-6 h-6" />
+                          </button>
+                          <button
+                            className="text-gray-100 text-shadow-lg flex items-center justify-center  rounded-2xl bg-rosso/90 hover:bg-rosso px-4 py-1 transition-transform hover:scale-105 shadow-lg"
+                            onClick={() => {
+                              setInfestanteDaEliminare(i)
+                              setShowDeleteModal(true)
+                            }}
+                          >
+                            <TrashIcon className="w-6 h-6" />
+                          </button>
+                        </div>
+                      )
                     )}
                   </td>
                 </tr>
@@ -641,20 +703,31 @@ const Infestanti = () => {
                   <p>
                     <strong>Insetti Volanti:</strong> {i.insettiVolanti}
                   </p>
-                  <button
-                    onClick={() => {
-                      setEditingId(i.id)
-                      setInfestantiModificata({
-                        data: i.data,
-                        roditori: i.roditori,
-                        insettiStriscianti: i.insettiStriscianti,
-                        insettiVolanti: i.insettiVolanti,
-                      })
-                    }}
-                    className="mt-2  rounded-3xl bg-ambra text-white px-3 py-1  hover:bg-ambra/90"
-                  >
-                    Modifica
-                  </button>
+                  <div className=" flex justify-between">
+                    <button
+                      onClick={() => {
+                        setEditingId(i.id)
+                        setInfestantiModificata({
+                          data: i.data,
+                          roditori: i.roditori,
+                          insettiStriscianti: i.insettiStriscianti,
+                          insettiVolanti: i.insettiVolanti,
+                        })
+                      }}
+                      className="mt-2 text-sm  rounded-3xl bg-ambra text-black px-3 py-1  hover:bg-ambra/90"
+                    >
+                      Modifica
+                    </button>
+                    <button
+                      className="mt-2 text-sm  rounded-3xl bg-rosso text-white px-3 py-1 border-1 border-rosso hover:bg-rosso/90"
+                      onClick={() => {
+                        setInfestanteDaEliminare(i)
+                        setShowDeleteModal(true)
+                      }}
+                    >
+                      Elimina
+                    </button>
+                  </div>
                 </>
               )}
             </div>
@@ -762,6 +835,36 @@ const Infestanti = () => {
           </div>
         </div>
       </div>
+      {showDeleteModal && (
+        <div className="fixed inset-0 bg-neutral-400/50 bg-opacity-30 flex items-center justify-center  ">
+          <div className="bg-salviaChiaro rounded-2xl border-1 border-salviaScuro p-6 w-100 shadow-lg shadow-salvia text-center ">
+            <h2 className="text-xl  mb-4">Conferma eliminazione</h2>
+            <p>
+              Sei sicuro di voler eliminar
+              <span className="font-bold">{InfestanteDaEliminare?.data}</span>?
+            </p>
+            <div className="mt-6 flex justify-around gap-4">
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                className="px-4 py-1 border-1 border-salvia rounded-2xl bg-gray-300 hover:bg-gray-400"
+              >
+                Annulla
+              </button>
+              <button
+                onClick={() => {
+                  if (InfestanteDaEliminare) {
+                    handleDeleteInfestante(InfestanteDaEliminare.id)
+                  }
+                  setShowDeleteModal(false)
+                }}
+                className="px-4 py-1 rounded-2xl bg-rosso text-white hover:bg-red-500 border-1 border-red-200"
+              >
+                Conferma
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

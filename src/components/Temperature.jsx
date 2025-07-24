@@ -1,10 +1,10 @@
 import SideBar from "./SideBar"
 import { useEffect, useState } from "react"
 import {
-  PencilSquareIcon,
-  CheckIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
+  PencilIcon,
+  AdjustmentsHorizontalIcon,
+  EyeSlashIcon,
+  TrashIcon,
 } from "@heroicons/react/24/outline"
 import { format, subDays, addDays } from "date-fns"
 import { it } from "date-fns/locale"
@@ -14,18 +14,19 @@ const Temperature = () => {
   const [temperature, setTemperature] = useState([])
   const [giorni, setGiorni] = useState([])
   const [giornoCorrente, setGiornoCorrente] = useState(0)
+  const [modifica, setModifica] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [temperaturaDaEliminare, setTemperaturaDaEliminare] = useState(null)
 
-  // Stato per nuova temperatura (inserimento inline)
   const [nuovaTemperatura, setNuovaTemperatura] = useState({
     frigo: "",
     temperatura: "",
     conformita: "",
     data: "",
   })
-  // Stato per modifica inline
-  // Stato per visibilità filtri
+
   const [mostraFiltri, setMostraFiltri] = useState(false)
-  // Stati per i filtri
+  //filtri
   const [filtroData, setFiltroData] = useState("")
   const [filtroStart, setFiltroStart] = useState("")
   const [filtroEnd, setFiltroEnd] = useState("")
@@ -39,7 +40,7 @@ const Temperature = () => {
     conformita: "",
     data: "",
   })
-  // Stato per risultati filtrati
+
   const [risultatiFiltrati, setRisultatiFiltrati] = useState([])
 
   useEffect(() => {
@@ -66,7 +67,6 @@ const Temperature = () => {
       })
   }, [])
 
-  // Funzione per applicare i filtri e chiamare l'endpoint corretto
   const applicaFiltri = async () => {
     const token = localStorage.getItem("token")
     let url = "http://localhost:8080/temperature"
@@ -96,7 +96,6 @@ const Temperature = () => {
     }
   }
 
-  // Funzione per resettare i filtri e ricaricare tutte le temperature
   const resetFiltri = () => {
     setFiltroData("")
     setFiltroStart("")
@@ -105,7 +104,7 @@ const Temperature = () => {
     setFiltroTemperatura("")
     setFiltroFrigo("")
     setRisultatiFiltrati([])
-    // ricarica tutte le temperature
+
     fetch("http://localhost:8080/temperature", {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
@@ -131,11 +130,10 @@ const Temperature = () => {
       month: "long",
     }).format(new Date(data))
 
-  // Gestione aggiunta nuova temperatura
   const handleAddTemperatura = async (e) => {
     e.preventDefault()
     const token = localStorage.getItem("token")
-    // Costruisci payload
+
     const payload = {
       ...nuovaTemperatura,
     }
@@ -149,8 +147,7 @@ const Temperature = () => {
         body: JSON.stringify(payload),
       })
       if (!res.ok) throw new Error("Errore nell'inserimento")
-      // Aggiorna stato locale (reload temperature)
-      // Reload temperature
+
       const updatedRes = await fetch("http://localhost:8080/temperature", {
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -163,7 +160,7 @@ const Temperature = () => {
       const giorniOrdinati = Object.keys(raggruppate).sort()
       setGiorni(giorniOrdinati)
       setTemperature(raggruppate)
-      // Reset form
+
       setNuovaTemperatura({
         frigo: "",
         temperatura: "",
@@ -188,7 +185,7 @@ const Temperature = () => {
         body: JSON.stringify(temperaturaModificata),
       })
       if (!res.ok) throw new Error("Errore nella modifica")
-      // Reload temperature
+
       const updatedRes = await fetch("http://localhost:8080/temperature", {
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -214,68 +211,114 @@ const Temperature = () => {
     filtroFrigo ||
     filtroTemperatura
 
+  //  eliminare
+  const handleDeleteTemperatura = async (id) => {
+    const token = localStorage.getItem("token")
+
+    try {
+      const res = await fetch(`http://localhost:8080/temperature/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      if (!res.ok) throw new Error("Errore durante l'eliminazione")
+
+      const updatedRes = await fetch("http://localhost:8080/temperature", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      const data = await updatedRes.json()
+      const raggruppate = data.reduce((acc, curr) => {
+        if (!acc[curr.data]) acc[curr.data] = []
+        acc[curr.data].push(curr)
+        return acc
+      }, {})
+      const giorniOrdinati = Object.keys(raggruppate).sort()
+      setGiorni(giorniOrdinati)
+      setTemperature(raggruppate)
+    } catch (err) {
+      alert("Errore durante l'eliminazione della temperatura: " + err.message)
+    }
+  }
   return (
     <div className="flex h-screen bg-beige">
       <SideBar />
       <div className="flex-1 overflow-auto  justify-items-center">
-        <div className="w-full flex flex-col md:flex-row items-center justify-between md:px-20 px-4 py-2 bg-salviaChiaro/80 sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between md:px-20 px-4 py-2 bg-salviaChiaro sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
           <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
             Temperature
           </h1>
           <SidebMobile></SidebMobile>
-
-          <div className="flex md:justify-center  md:items-center gap-2 w-full md:w-auto mb-2 md:mb-0">
+          <div className="flex justify-center  items-center gap-2 w-full md:w-auto mb-2 md:mb-0">
+            <div className="flex gap-5 ">
+              <button
+                disabled={giornoCorrente === 0}
+                onClick={() => setGiornoCorrente((prev) => prev - 1)}
+                className="text-xs md:text-xl bg-neutral-200 border border-salvia shadow-md shadow-salviaChiaro text-gray-700 rounded-4xl px-3 disabled:opacity-50 hover:bg-salviaScuro hover:text-white"
+              >
+                ◀ &nbsp;
+                {giornoSelezionato && !isNaN(new Date(giornoSelezionato))
+                  ? format(subDays(new Date(giornoSelezionato), 1), "dd", {
+                      locale: it,
+                    })
+                  : "–"}
+              </button>
+              <span className="text-center self-center bg-ambra shadow-md shadow-salvia text-shadow-md px-4 py-2 rounded-4xl text-gray-800 text-xs md:text-xl">
+                {!haFiltriAttivi()
+                  ? giornoSelezionato
+                    ? ` ${formattaData(giornoSelezionato)}`
+                    : "Temperature registrate"
+                  : filtroConformita
+                  ? `Temperature ${filtroConformita
+                      .toLowerCase()
+                      .replace("_", " ")} rilevate`
+                  : filtroData
+                  ? ` ${formattaData(filtroData)}`
+                  : filtroStart && filtroEnd
+                  ? ` Dal ${formattaData(filtroStart)} al ${formattaData(
+                      filtroEnd
+                    )}`
+                  : filtroFrigo
+                  ? ` Frigo ${filtroFrigo}`
+                  : filtroTemperatura
+                  ? `Temperature pari a ${filtroTemperatura}°C`
+                  : "Risultati del filtro"}
+              </span>
+              <button
+                disabled={giornoCorrente === giorni.length - 1}
+                onClick={() => setGiornoCorrente((prev) => prev + 1)}
+                className="text-xs md:text-xl bg-neutral-200 border border-salvia shadow-md shadow-salviaChiaro text-gray-700 rounded-4xl px-3 disabled:opacity-50 hover:bg-salviaScuro hover:text-white"
+              >
+                {giornoSelezionato && !isNaN(new Date(giornoSelezionato))
+                  ? format(addDays(new Date(giornoSelezionato), 1), "dd", {
+                      locale: it,
+                    })
+                  : "–"}{" "}
+                ▶
+              </button>{" "}
+            </div>
+          </div>{" "}
+          <div className="flex  px-6 gap-4">
             <button
-              className="  md:ms-0 px-3 py-1 bg-salvia border border-salviaScuro shadow-md text-shadow-md text-white hover:bg-ambra rounded-3xl"
+              className="  md:ms-0 md:px-3 px-2 py-1 bg-salvia border border-salviaScuro shadow-md text-shadow-md text-white hover:bg-ambra rounded-3xl text-xs md:text-base hover:text-black"
               onClick={() => setMostraFiltri((prev) => !prev)}
             >
               Filtri
             </button>{" "}
             <button
-              disabled={giornoCorrente === 0}
-              onClick={() => setGiornoCorrente((prev) => prev - 1)}
-              className="text-xs md:text-xl bg-avorio border border-salvia shadow-md shadow-salviaChiaro text-gray-700 rounded-4xl px-3 disabled:opacity-50 hover:bg-salviaChiaro"
+              onClick={() => setModifica((prev) => !prev)}
+              className={`px-4 py-1   border border-salviaScuro shadow-md text-shadow-md   rounded-3xl text-white font-semibold  hidden  md:inline-flex transition-colors ${
+                modifica
+                  ? "bg-rosso hover:bg-rosso/80"
+                  : "bg-salvia hover:bg-salviaScuro"
+              }`}
             >
-              ◀ &nbsp;
-              {giornoSelezionato && !isNaN(new Date(giornoSelezionato))
-                ? format(subDays(new Date(giornoSelezionato), 1), "dd", {
-                    locale: it,
-                  })
-                : "–"}
+              {modifica ? (
+                <EyeSlashIcon className="w-6 h-6" />
+              ) : (
+                <AdjustmentsHorizontalIcon className="w-6 h-6" />
+              )}
             </button>
-            <span className="text-center self-center bg-ambra shadow-md shadow-salvia text-shadow-md px-4 py-2 rounded-4xl text-gray-800 text-xs md:text-xl">
-              {!haFiltriAttivi()
-                ? giornoSelezionato
-                  ? ` ${formattaData(giornoSelezionato)}`
-                  : "Temperature registrate"
-                : filtroConformita
-                ? `Temperature ${filtroConformita
-                    .toLowerCase()
-                    .replace("_", " ")} rilevate`
-                : filtroData
-                ? ` ${formattaData(filtroData)}`
-                : filtroStart && filtroEnd
-                ? ` Dal ${formattaData(filtroStart)} al ${formattaData(
-                    filtroEnd
-                  )}`
-                : filtroFrigo
-                ? ` Frigo ${filtroFrigo}`
-                : filtroTemperatura
-                ? `Temperature pari a ${filtroTemperatura}°C`
-                : "Risultati del filtro"}
-            </span>
-            <button
-              disabled={giornoCorrente === giorni.length - 1}
-              onClick={() => setGiornoCorrente((prev) => prev + 1)}
-              className="text-xs md:text-xl bg-avorio border border-salvia shadow-md shadow-salviaChiaro text-gray-700 rounded-4xl px-3 disabled:opacity-50 hover:bg-salviaChiaro"
-            >
-              {giornoSelezionato && !isNaN(new Date(giornoSelezionato))
-                ? format(addDays(new Date(giornoSelezionato), 1), "dd", {
-                    locale: it,
-                  })
-                : "–"}{" "}
-              ▶
-            </button>{" "}
           </div>
         </div>
 
@@ -409,7 +452,6 @@ const Temperature = () => {
         </div>
 
         <div className=" flex-1 p-6 justify-items-center justify-center ">
-          <div></div>
           <table className="hidden sm:table w-full max-w-full sm:max-w-[200px] md:max-w-[800px] lg:max-w-[1000px] border-collapse bg-salviaChiaro shadow-md rounded-2xl shadow-salviaScuro">
             <thead>
               <tr>
@@ -515,20 +557,33 @@ const Temperature = () => {
                         {t.conformita}
                       </td>
                       <td className="border-b border-salvia py-3 text-center px-3 bg-avorio">
-                        <button
-                          className=" m-auto text-gray-100 text-shadow-lg  flex items-center justify-center w-7 h-7 rounded-2xl bg-ambra/90 hover:bg-ambra py-4 px-12 transform transition-transform duration-200 ease-in-out hover:scale-110 "
-                          onClick={() => {
-                            setEditingId(t.id)
-                            setTemperaturaModificata({
-                              frigo: t.frigo,
-                              temperatura: t.temperatura,
-                              conformita: t.conformita,
-                              data: t.data,
-                            })
-                          }}
-                        >
-                          modifica
-                        </button>
+                        {modifica && (
+                          <div className="flex  items-center gap-4">
+                            <button
+                              className="text-black text-shadow-lg flex items-center justify-center rounded-3xl bg-ambra/90  hover:bg-ambra px-4 py-1 transition-transform hover:scale-105 shadow-lg "
+                              onClick={() => {
+                                setEditingId(t.id)
+                                setTemperaturaModificata({
+                                  frigo: t.frigo,
+                                  temperatura: t.temperatura,
+                                  conformita: t.conformita,
+                                  data: t.data,
+                                })
+                              }}
+                            >
+                              <PencilIcon className="w-6 h-6" />
+                            </button>
+                            <button
+                              className="text-gray-100 text-shadow-lg flex items-center justify-center  rounded-3xl bg-rosso/90 hover:bg-rosso px-4 py-1 transition-transform shadow-lg  hover:scale-105"
+                              onClick={() => {
+                                setTemperaturaDaEliminare(t)
+                                setShowDeleteModal(true)
+                              }}
+                            >
+                              <TrashIcon className="w-6 h-6" />
+                            </button>
+                          </div>
+                        )}
                       </td>
                     </>
                   )}
@@ -706,20 +761,32 @@ const Temperature = () => {
                     <p>
                       <strong>Conformità:</strong> {t.conformita}
                     </p>
-                    <button
-                      className="mt-2 text-sm rounded-3xl bg-ambra text-white px-3 py-1 border-1 border-amber-400 hover:bg-ambra/90"
-                      onClick={() => {
-                        setEditingId(t.id)
-                        setTemperaturaModificata({
-                          frigo: t.frigo,
-                          temperatura: t.temperatura,
-                          conformita: t.conformita,
-                          data: t.data,
-                        })
-                      }}
-                    >
-                      Modifica
-                    </button>
+                    <div className="flex justify-between">
+                      <button
+                        className="mt-2 text-sm rounded-3xl bg-ambra text-black px-3 py-1 border-1 border-ambra hover:bg-ambra/90"
+                        onClick={() => {
+                          setEditingId(t.id)
+                          setTemperaturaModificata({
+                            frigo: t.frigo,
+                            temperatura: t.temperatura,
+                            conformita: t.conformita,
+                            data: t.data,
+                          })
+                        }}
+                      >
+                        Modifica
+                      </button>
+
+                      <button
+                        className="mt-2 text-sm rounded-3xl bg-rosso text-white px-3 py-1 border-1 border-rosso hover:bg-rosso/90"
+                        onClick={() => {
+                          setTemperaturaDaEliminare(t)
+                          setShowDeleteModal(true)
+                        }}
+                      >
+                        Elimina
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
@@ -796,6 +863,39 @@ const Temperature = () => {
           </div>
         </div>
       </div>
+      {showDeleteModal && (
+        <div className="fixed inset-0 bg-neutral-400/50 bg-opacity-30 flex items-center justify-center  ">
+          <div className="bg-salviaChiaro rounded-2xl border-1 border-salviaScuro p-6 w-100 shadow-lg shadow-salvia text-center ">
+            <h2 className="text-xl  mb-4">Conferma eliminazione</h2>
+            <p>
+              Sei sicuro di voler eliminar
+              <span className="font-bold">
+                {temperaturaDaEliminare?.frigo || "questa temperatura"}
+              </span>
+              ?
+            </p>
+            <div className="mt-6 flex justify-around gap-4">
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                className="px-4 py-1 border-1 border-salvia rounded-2xl bg-gray-300 hover:bg-gray-400"
+              >
+                Annulla
+              </button>
+              <button
+                onClick={() => {
+                  if (temperaturaDaEliminare) {
+                    handleDeleteTemperatura(temperaturaDaEliminare.id)
+                  }
+                  setShowDeleteModal(false)
+                }}
+                className="px-4 py-1 rounded-2xl bg-rosso text-white hover:bg-red-500 border-1 border-red-200"
+              >
+                Conferma
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -27,7 +27,7 @@ const SideBar = () => {
 
   return (
     <div
-      className={`  hidden md:flex bg-salviaScuro h-dvh  shadow-xl shadow-neutral-300 bg-gradient-to-br from-salvia/20 via-transparent to-salviaScuro   ${
+      className={`  hidden md:flex bg-salviaScuro h-dvh  bg-gradient-to-r from-salvia/20 via-transparent to-salviaScuro   ${
         isExpanded ? "w-70" : "w-16 "
       } p-3 flex flex-col `}
     >

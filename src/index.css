@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "tailwindcss/preflight.css" layer(base);
+
 .perspective {
   perspective: 1000px;
 }
@@ -19,12 +21,13 @@
 }
 
 @theme {
-  --color-salvia: #6c9a8b;
-  --color-salviaChiaro: #dce8e2;
-  --color-salviaScuro: #4e7267;
-  --color-beige: #eeeae3;
-  --color-avorio: #fafaf7;
+  --color-salvia: #49a078;
+  --color-salviaChiaro: #9cc5a1;
+  --color-salviaScuro: #216869;
+  --color-beige: #d3dfb2;
+  --color-avorio: #fdf0d5;
   --color-grigio: #b5b8b1;
-  --color-ambra: #d9a25f;
-  --color-rosso: #c96a5b;
+  --color-ambra: #dbff76;
+  --color-rosso: #ff312e;
+  --color-pu: #d2d6ef;
 }

@@ -9,6 +9,7 @@ import { jwtDecode } from "jwt-decode"
 
 import { useState, useEffect } from "react"
 import SidebMobile from "./SidebMobile"
+
 const Azienda = () => {
   const [azienda, setAzienda] = useState(null)
   const [flipped, setFlipped] = useState(false)
@@ -148,7 +149,7 @@ const Azienda = () => {
           <SideBar />
         </div>
         <div className="flex-1 justify-items-center justify-center overflow-auto">
-          <div className="w-full flex flex-col md:flex-row items-center justify-between px-20 py-2 bg-salviaChiaro/80 sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
+          <div className="w-full flex flex-col md:flex-row items-center justify-between px-20 py-2 bg-salviaChiaro sticky top-0 left-0 z-50 backdrop-blur-sm shadow-xs shadow-salvia inset-shadow-sm inset-shadow-salvia/50">
             <h1 className="lg:text-6xl text-2xl font-[Unna] text-salviaScuro text-shadow-xs mb-2 md:mb-0">
               Azienda
             </h1>
@@ -181,7 +182,7 @@ const Azienda = () => {
             {!loading && !error && showForm && (
               <div className="md:w-150 w-80 p-6 rounded-4xl bg-salviaChiaro border-1  border-salvia shadow-md shadow-salvia mt-4">
                 <h2 className="text-2xl font-bold text-center mb-2 text-gray-700 text-shadow-md">
-                  Crea azienda
+                  Azienda
                 </h2>
                 <form
                   className="flex flex-col gap-4"
@@ -194,62 +195,128 @@ const Azienda = () => {
                     }
                   }}
                 >
-                  <input
-                    type="text"
-                    placeholder="Denominazione Aziendale"
-                    value={denominazioneAziendale}
-                    onChange={(e) => setDenominazioneAziendale(e.target.value)}
-                    className="w-full mb-2   p-2   border-b focus:border-ambra  focus:border-b-2 focus:outline-hidden"
-                    required
-                  />
-                  <input
-                    type="text"
-                    placeholder="Ragione Sociale"
-                    value={ragioneSociale}
-                    onChange={(e) => setRagioneSociale(e.target.value)}
-                    className="w-full mb-2   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
-                    required
-                  />
-                  <input
-                    type="text"
-                    placeholder="Tipologia Attività"
-                    value={tipologiaAttivita}
-                    onChange={(e) => setTipologiaAttivita(e.target.value)}
-                    className="w-full mb-2   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
-                    required
-                  />
-                  <input
-                    type="text"
-                    placeholder="Sede Operativa"
-                    value={sedeOperativa}
-                    onChange={(e) => setSedeOperativa(e.target.value)}
-                    className="w-full mb-2   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
-                    required
-                  />
-                  <input
-                    type="text"
-                    placeholder="Partita IVA"
-                    value={partitaIva}
-                    onChange={(e) => setPartitaIva(e.target.value)}
-                    className="w-full mb-2   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
-                    required
-                  />
-                  <input
-                    type="text"
-                    placeholder="Telefono"
-                    value={telefono}
-                    onChange={(e) => setTelefono(e.target.value)}
-                    className="w-full mb-2   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
-                    required
-                  />
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full mb-2   p-2   border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
-                    required
-                  />
+                  <div className="relative mt-6">
+                    <input
+                      id="azienda"
+                      type="text"
+                      placeholder=""
+                      value={denominazioneAziendale}
+                      onChange={(e) =>
+                        setDenominazioneAziendale(e.target.value)
+                      }
+                      className="ww-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                      required
+                    />{" "}
+                    <label
+                      htmlFor="azienda"
+                      className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                    >
+                      Denominazione Aziendale
+                    </label>
+                  </div>
+                  <div className="relative mt-6">
+                    <input
+                      id="societa"
+                      type="text"
+                      placeholder=""
+                      value={ragioneSociale}
+                      onChange={(e) => setRagioneSociale(e.target.value)}
+                      className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                      required
+                    />
+                    <label
+                      htmlFor="societa"
+                      className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                    >
+                      Ragione Sociale
+                    </label>
+                  </div>
+                  <div className="relative mt-6">
+                    <input
+                      id="attivita"
+                      type="text"
+                      placeholder=""
+                      value={tipologiaAttivita}
+                      onChange={(e) => setTipologiaAttivita(e.target.value)}
+                      className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                      required
+                    />
+                    <label
+                      htmlFor="attivita"
+                      className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                    >
+                      Tipologia Attività
+                    </label>
+                  </div>
+                  <div className="relative mt-6">
+                    <input
+                      id="sede"
+                      type="text"
+                      placeholder=""
+                      value={sedeOperativa}
+                      onChange={(e) => setSedeOperativa(e.target.value)}
+                      className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                      required
+                    />
+                    <label
+                      htmlFor="sede"
+                      className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                    >
+                      Sede Operativa
+                    </label>
+                  </div>
+                  <div className="relative mt-6">
+                    <input
+                      id="iva"
+                      type="text"
+                      placeholder=""
+                      value={partitaIva}
+                      onChange={(e) => setPartitaIva(e.target.value)}
+                      className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                      required
+                    />
+                    <label
+                      htmlFor="iva"
+                      className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                    >
+                      Partita IVA
+                    </label>
+                  </div>
+                  <div className="relative mt-6">
+                    <input
+                      id="telefono"
+                      type="text"
+                      placeholder="Telefono"
+                      value={telefono}
+                      onChange={(e) => setTelefono(e.target.value)}
+                      className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                      required
+                    />
+                    <label
+                      htmlFor="telefono"
+                      className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                    >
+                      Telefono
+                    </label>
+                  </div>
+                  <div className="relative mt-6">
+                    <input
+                      id="email"
+                      type="email"
+                      placeholder=""
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full mb-3  transition-colors focus:outline-none peer bg-inherit  border-b focus:border-ambra focus:border-b-2 focus:outline-hidden"
+                      required
+                    />
+                    <label
+                      htmlFor="email"
+                      className="absolute -top-4 text-sm text-gray-600 left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-ambra peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                    >
+                      Email
+                    </label>
+                  </div>
+
                   <button
                     type="submit"
                     className="w-50 self-center  bg-salvia shadow-md  text-neutral-900 py-2 rounded-2xl hover:bg-ambra border-1 border-salviaScuro  shadow-salviaScuro"
@@ -369,51 +436,53 @@ const Azienda = () => {
 
                 {/* mobile*/}
                 <div className="md:hidden flex justify-center w-full  mt-8">
-                  <div className="w-80 bg-salvia p-4 rounded-2xl shadow-md shadow-salviaScuro border-1 border-salviaScuro">
+                  <div className="w-full p-6 bg-salvia  rounded-2xl shadow-md shadow-salviaScuro border-1 border-salviaScuro">
                     <h1 className="text-3xl font-bold text-center text-salviaChiaro font-[Unna] text-shadow-md mb-2">
                       {azienda.denominazioneAziendale}
                     </h1>
-                    <p className="text-sm text-salviaChiaro text-shadow-md mb-2">
+                    <p className=" text-salviaChiaro text-shadow-md mb-2">
                       <span className="font-bold">Tipologia:</span>{" "}
                       {azienda.tipologiaAttivita}
                     </p>
-                    <p className="text-sm text-salviaChiaro text-shadow-md mb-2">
+                    <p className=" text-salviaChiaro text-shadow-md mb-2">
                       <span className="font-bold">Sede:</span>{" "}
                       {azienda.sedeOperativa}
                     </p>
-                    <p className="text-sm text-salviaChiaro text-shadow-md mb-2">
+                    <p className=" text-salviaChiaro text-shadow-md mb-2">
                       <span className="font-bold">Telefono:</span>{" "}
                       {azienda.telefono}
                     </p>
-                    <p className="text-sm text-salviaChiaro text-shadow-md mb-2">
+                    <p className=" text-salviaChiaro text-shadow-md mb-2">
                       <span className="font-bold">Email:</span> {azienda.email}
                     </p>
-                    <p className="text-sm text-salviaChiaro text-shadow-md mb-2">
+                    <p className=" text-salviaChiaro text-shadow-md mb-2">
                       <span className="font-bold">Partita IVA:</span>{" "}
                       {azienda.partitaIva}
                     </p>
-                    <p className="text-sm text-salviaChiaro text-shadow-md mb-3">
+                    <p className=" text-salviaChiaro text-shadow-md mb-3">
                       <span className="font-bold">Ragione sociale:</span>{" "}
                       {azienda.ragioneSociale}
                     </p>
                     {ruolo === "ADMIN" && (
-                      <button
-                        className="text-sm bg-salviaScuro text-white px-3 py-1 rounded-2xl hover:bg-ambra shadow-md"
-                        onClick={() => {
-                          setDenominazioneAziendale(
-                            azienda.denominazioneAziendale
-                          )
-                          setRagioneSociale(azienda.ragioneSociale)
-                          setTipologiaAttivita(azienda.tipologiaAttivita)
-                          setSedeOperativa(azienda.sedeOperativa)
-                          setPartitaIva(azienda.partitaIva)
-                          setTelefono(azienda.telefono)
-                          setEmail(azienda.email)
-                          setShowForm(true)
-                        }}
-                      >
-                        Modifica
-                      </button>
+                      <div className="flex items-center justify-center">
+                        <button
+                          className=" bg-salviaChiaro/30 text-white  px-3 py-1 rounded-2xl hover:bg-ambra shadow-xs"
+                          onClick={() => {
+                            setDenominazioneAziendale(
+                              azienda.denominazioneAziendale
+                            )
+                            setRagioneSociale(azienda.ragioneSociale)
+                            setTipologiaAttivita(azienda.tipologiaAttivita)
+                            setSedeOperativa(azienda.sedeOperativa)
+                            setPartitaIva(azienda.partitaIva)
+                            setTelefono(azienda.telefono)
+                            setEmail(azienda.email)
+                            setShowForm(true)
+                          }}
+                        >
+                          Modifica
+                        </button>
+                      </div>
                     )}
                   </div>
                 </div>
