@@ -528,7 +528,7 @@ const Fornitori = () => {
       </div>
       {showDeleteModal && (
         <div className="fixed inset-0 bg-neutral-400/50 bg-opacity-30 flex items-center justify-center  ">
-          <div className="bg-white rounded-sm p-6 w-100 shadow-lg ">
+          <div className="bg-salviaChiaro rounded-2xl p-6 w-100 shadow-lg ">
             <h2 className="text-xl  mb-4">Conferma eliminazione</h2>
             <p>
               Sei sicuro di voler eliminare&nbsp;
@@ -540,7 +540,7 @@ const Fornitori = () => {
             <div className="mt-6 flex justify-end gap-4">
               <button
                 onClick={() => setShowDeleteModal(false)}
-                className="px-4 py-2 rounded-sm bg-gray-300 hover:bg-gray-400"
+                className="px-4 py-2  bg-salvia hover:bg-salviaScuro rounded-3xl"
               >
                 Annulla
               </button>
@@ -567,7 +567,7 @@ const Fornitori = () => {
                       setShowDeleteModal(false)
                     })
                 }}
-                className="px-2 py-1 rounded-sm bg-red-400 text-white hover:bg-red-500 hover:shadow-md hover:shadow-red-500/50"
+                className="px-2 py-1 rounded-3xl bg-rosso/80 text-white hover:bg-rosso hover:shadow-md hover:shadow-red-500/50"
               >
                 Conferma
               </button>
