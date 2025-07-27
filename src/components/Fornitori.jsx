@@ -474,11 +474,6 @@ const Fornitori = () => {
                           </span>
                         </p>
                       </div>
-                      <img
-                        className="w-26  h-26 bg-salvia/70 rounded-full border-1 border-salviaScuro  object-cover   drop-shadow-xl shadow-salvia self-auto ml-auto mr-7 hidden  md:inline-flex "
-                        src="/public/20.png"
-                        alt="user-placeholder"
-                      />
                     </div>
                     <hr className="my-3 border-t border-salviaScuro" />
                     <div className="text-center  py-2  ">
