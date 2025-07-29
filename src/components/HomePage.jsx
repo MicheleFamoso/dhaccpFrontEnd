@@ -145,12 +145,12 @@ const HomePage = () => {
                   </div>
                 </div>
 
-                <div className="flex  gap-3 ">
+                <div className="flex flex-wrap gap-4 ">
                   {groupedByDate[date].map((controllo) => (
                     <>
                       <div
                         key={controllo.id}
-                        className={`md:w-56 md:h-30 w-36 h-22 pt-2 px-4 md:px-0 md:pt-4  text-center rounded-3xl  flex flex-col justify-between bg-neutral-200  shadow-md shadow-salvia/60 `}
+                        className={`md:w-56 md:h-32 w-36 h-22 pt-2 px-4 md:px-0 md:pt-4 pb-1  text-center rounded-xl  flex flex-col justify-between bg-avorio/80  shadow-md shadow-salvia/60 `}
                       >
                         <p className="  md:mb-1 text-xs md:text-base ">
                           <span className="font-bold ">
@@ -161,10 +161,10 @@ const HomePage = () => {
                           </span>
                         </p>
                         <p
-                          className={`mb-1 md:text-xl  text-xs font-bold  md:mx-6 text-shadow-md md:mb-3 py-2 ${
+                          className={`mb-1 md:text-xl  text-xs font-bold rounded-sm   md:mx-6 text-shadow-md md:mb-3 py-2 ${
                             controllo.conformita === "NON_CONFORME"
-                              ? " text-rosso"
-                              : " text-salviaScuro  "
+                              ? " text-rosso bg-rosso/30 px-1"
+                              : " text-salviaScuro bg-salviaChiaro "
                           } `}
                         >
                           {controllo.conformita}
