@@ -37,9 +37,12 @@ const SideBar = () => {
         className="mb-10 ml-1   self-baseline"
       >
         {isExpanded ? (
-          <>
-            <Bars3BottomLeftIcon className="lg:h-8 lg:w-8 w-10 h-10 m-1 text-salvia  transform transition-transform duration-200 ease-in-out   hover:text-ambra hover:scale-120" />
-          </>
+          <div className="flex items-center  ">
+            <Bars3BottomLeftIcon className="lg:h-8 lg:w-8 w-10 h-10 m-1 text-salvia  transform transition-transform duration-200 ease-in-out   hover:text-ambra hover:scale-120" />{" "}
+            <h1 className="text-2xl ml-3 font-[Unna]  text-salvia text-shadow-xs">
+              d/Haccp
+            </h1>
+          </div>
         ) : (
           <Bars3BottomRightIcon className="lg:h-8 lg:w-8 w-10 h-10 m-1 text-salvia transform transition-transform duration-200 ease-in-out hover:scale-120 hover:text-ambra" />
         )}

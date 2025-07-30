@@ -469,7 +469,7 @@ const Forniture = () => {
         <div className="mb-4 text-center text-gray-700 font-semibold mt-4">
           {descrizioneFiltro()}
         </div>
-        <table className="hidden sm:table w-full max-w-full sm:max-w-[200px] md:max-w-[800px] lg:max-w-[1000px] border-collapse bg-salviaChiaro shadow-md rounded-2xl shadow-salviaScuro">
+        <table className="hidden sm:table w-full max-w-full sm:max-w-[200px] md:max-w-[800px] lg:max-w-[1000px] border-collapse bg-salviaChiaro shadow-md rounded-2xl shadow-salviaScuro mb-6">
           <thead>
             <tr>
               <th className="rounded-tl-2xl px-6 py-3 bg-salvia text-shadow-lg text-gray-200">
